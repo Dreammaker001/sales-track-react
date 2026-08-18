@@ -89,3 +89,24 @@ export async function toggleUserStatus(id) {
   const { data } = await client.patch(`/admin/users/${id}/status`)
   return data
 }
+
+/** Buat user baru (username + password auto-generate + peran + status). */
+export async function createUser(payload) {
+  if (USE_MOCK) {
+    await delay(400)
+    const user = {
+      id: `u${Date.now()}`,
+      username: payload.username,
+      name: payload.username,
+      email: `${payload.username}@perusahaan.com`,
+      role: payload.role,
+      status: payload.status,
+      lastLogin: '—',
+    }
+    MOCK_USERS.unshift(user)
+    return { ...user }
+  }
+
+  const { data } = await client.post('/admin/users', payload)
+  return data
+}

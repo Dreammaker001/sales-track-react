@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router'
 import AppLayout from '../components/layout/AppLayout.jsx'
 import AdminUsersPage from '../pages/AdminUsersPage.jsx'
+import CreateUserPage from '../pages/CreateUserPage.jsx'
 import PlaceholderPage from '../pages/PlaceholderPage.jsx'
 
 /**
@@ -18,6 +19,14 @@ export const router = createBrowserRouter([
         handle: {
           title: 'Admin · Users',
           subtitle: 'Kelola akun pengguna sistem',
+        },
+      },
+      {
+        path: 'admin/users/buat',
+        element: <CreateUserPage />,
+        handle: {
+          title: 'Admin · Buat User',
+          subtitle: 'Tambahkan akun pengguna baru',
         },
       },
       {

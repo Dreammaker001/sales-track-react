@@ -18,4 +18,11 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Komponen shadcn/ui mengekspor hook/helper (pola resmi shadcn)
+    files: ['src/components/ui/**'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

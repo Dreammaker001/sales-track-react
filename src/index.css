@@ -1,3 +1,8 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
+@custom-variant dark (&:is(.dark *));
+
+/* Token SalesTrack diimport PALING AKHIR agar menang atas default shadcn */
 @import './styles/variables.css';

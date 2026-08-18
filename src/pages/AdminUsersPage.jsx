@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 import Button from '../components/ui/Button.jsx'
 import Card from '../components/ui/Card.jsx'
 import FilterBar from '../features/admin/components/FilterBar.jsx'
@@ -7,6 +7,7 @@ import useUsers from '../features/admin/hooks/useUsers.js'
 
 export default function AdminUsersPage() {
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
   const initialQuery = searchParams.get('q') ?? ''
 
   const {
@@ -28,7 +29,7 @@ export default function AdminUsersPage() {
           <h2 className="text-lg font-bold">Daftar Pengguna</h2>
           <p className="mt-0.5 text-xs text-ink-3">{users.length} pengguna terdaftar</p>
         </div>
-        <Button>+ Buat User</Button>
+        <Button onClick={() => navigate('/admin/users/buat')}>+ Buat User</Button>
       </div>
 
       <FilterBar
