@@ -59,21 +59,9 @@ const MOCK_USERS = [
 const delay = (ms = 400) => new Promise((resolve) => setTimeout(resolve, ms))
 
 /** Ambil daftar user dengan filter (query, peran, status). */
-export async function fetchUsers({ query = '', role = 'Semua', status = 'Semua' } = {}) {
-  if (USE_MOCK) {
-    await delay()
-    const q = query.trim().toLowerCase()
-    return MOCK_USERS.filter((u) => {
-      const matchQuery =
-        !q || [u.username, u.name, u.email].some((v) => v.toLowerCase().includes(q))
-      const matchRole = role === 'Semua' || u.role === role
-      const matchStatus = status === 'Semua' || u.status === status
-      return matchQuery && matchRole && matchStatus
-    })
-  }
-
-  const { data } = await client.get('/admin/users', { params: { query, role, status } })
-  return data
+export async function fetchUsers({ q = '', role = '', status = '', page = 1 } = {}) {
+  const res = await client.get('/admin/users', { params: { q, role, status, page } })
+  return res.data
 }
 
 /** Toggle aktif/nonaktif user (user nonaktif tidak bisa login). */

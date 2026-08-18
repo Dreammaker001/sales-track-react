@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router'
+import dayjs from 'dayjs'
 import Avatar from '../../../components/ui/Avatar.jsx'
 import Badge from '../../../components/ui/Badge.jsx'
 import Toggle from '../../../components/ui/Toggle.jsx'
@@ -9,7 +10,7 @@ const STATUS_BADGE = { Aktif: 'success', Nonaktif: 'gray' }
 /** Satu baris pengguna di tabel. */
 export default function UserRow({ user, onToggle }) {
   const navigate = useNavigate()
-  const isAdmin = user.role === 'Admin'
+  const isAdmin = user.role === 'admin'
 
   return (
     <tr className="transition-colors hover:bg-[#fafafd]">
@@ -23,7 +24,7 @@ export default function UserRow({ user, onToggle }) {
           <div>
             <div className="text-sm leading-tight font-semibold">{user.name}</div>
             <div className="text-[11px] leading-tight text-ink-3">
-              {user.username} · {user.email}
+              {user.username}
             </div>
           </div>
         </div>
@@ -47,7 +48,7 @@ export default function UserRow({ user, onToggle }) {
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-        {user.lastLogin}
+        {user.last_login ? dayjs(user.last_login).format('DD/MM/YYYY HH:mm') : '-'}
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap">

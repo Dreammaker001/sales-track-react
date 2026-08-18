@@ -1,9 +1,10 @@
+import { DataPagination } from '@/components/common/data-pagination.jsx'
 import UserRow from './UserRow.jsx'
 
 const COLUMNS = ['User', 'Peran', 'Status', 'Terakhir Login', 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function UsersTable({ users, loading, onToggle }) {
+export default function UsersTable({ users, loading, onToggle, setSearchParams }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -13,7 +14,7 @@ export default function UsersTable({ users, loading, onToggle }) {
     )
   }
 
-  if (users.length === 0) {
+  if (users.data?.length === 0) {
     return <div className="p-10 text-center text-sm text-ink-3">Tidak ada pengguna yang cocok dengan filter.</div>
   }
 
@@ -21,7 +22,7 @@ export default function UsersTable({ users, loading, onToggle }) {
     <div className="overflow-x-auto">
       <div className="flex items-center justify-between px-6 pt-5 pb-3">
         <h3 className="text-base font-bold">Semua Pengguna</h3>
-        <span className="text-xs text-ink-3">{users.length} hasil</span>
+        <span className="text-xs text-ink-3">{users.data?.length} hasil</span>
       </div>
 
       <table className="w-full min-w-[900px] border-collapse">
@@ -38,11 +39,24 @@ export default function UsersTable({ users, loading, onToggle }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.data?.map((user) => (
             <UserRow key={user.id} user={user} onToggle={onToggle} />
           ))}
         </tbody>
       </table>
+      <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
+        <DataPagination
+          current={users.pagination.page}
+          perPage={users.pagination.per_page}
+          total={users.pagination.total}
+          onPageChange={(page) => {
+            setSearchParams(prev => {
+              prev.set('page', page);
+              return prev;
+            });
+          }}
+        />
+      </div>
     </div>
   )
 }

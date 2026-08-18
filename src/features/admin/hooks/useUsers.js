@@ -10,18 +10,21 @@ const flipStatus = (status) => (status === 'Aktif' ? 'Nonaktif' : 'Aktif')
  * - useQuery: fetch + cache list user, filter masuk queryKey (beda filter = cache beda)
  * - useMutation: toggle status dengan optimistic update + rollback + invalidate
  */
-export default function useUsers(initialQuery = '') {
+export default function useUsers(initialQuery = '', page = 1) {
   const queryClient = useQueryClient()
 
   const [query, setQuery] = useState(initialQuery)
-  const [role, setRole] = useState('Semua')
-  const [status, setStatus] = useState('Semua')
+  const [role, setRole] = useState('')
+  const [status, setStatus] = useState('')
 
   const debouncedQuery = useDebounce(query, 250)
-  const filters = { query: debouncedQuery, role, status }
+  const filters = { q: debouncedQuery, role, status, page }
 
   const {
-    data: users = [],
+    data: users = {
+      data: [],
+      pagination: { page: 1, per_page: 10, total: 0 },
+    },
     isLoading,
     isError,
     error,
@@ -36,11 +39,12 @@ export default function useUsers(initialQuery = '') {
     // Optimistic: UI berubah dulu, snapshot lama disimpan utk rollback
     onMutate: async (id) => {
       const previous = queryClient.getQueryData(['users', filters])
-      queryClient.setQueryData(['users', filters], (old = []) =>
-        old.map((u) =>
+      queryClient.setQueryData(['users', filters], (old = { data: [] }) => ({
+        ...old,
+        data: old.data.map((u) =>
           u.id === id ? { ...u, status: flipStatus(u.status) } : u,
         ),
-      )
+      }))
       return { previous }
     },
 
