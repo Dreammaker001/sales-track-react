@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 /** Skema validasi form Buat User — aturan mengikuti checklist desain Penpot. */
 export const createUserSchema = z.object({
+  name: z.string().min(1, 'Nama wajib diisi').min(4, 'Minimal 4 karakter'),
   username: z
     .string()
     .min(1, 'Username wajib diisi')
@@ -15,13 +16,14 @@ export const createUserSchema = z.object({
     .regex(/[a-z]/, 'Harus ada huruf kecil')
     .regex(/[0-9]/, 'Harus ada angka')
     .regex(/[^A-Za-z0-9]/, 'Harus ada karakter khusus'),
-  role: z.enum(['Admin', 'Sales'], { message: 'Pilih peran' }),
-  status: z.enum(['Aktif', 'Nonaktif']),
+  role: z.enum(['admin', 'sales'], { message: 'Pilih peran' }),
+  status: z.enum(['active', 'inactive']),
 })
 
 export const createUserDefaultValues = {
+  name: '',
   username: '',
   password: '',
-  role: 'Sales',
-  status: 'Aktif',
+  role: 'sales',
+  status: 'active',
 }

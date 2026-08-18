@@ -56,7 +56,7 @@ export default function UserRow({ user, onToggle }) {
           <button
             type="button"
             className="text-xs font-semibold text-primary hover:underline"
-            onClick={() => navigate(`/admin/users/${user.username}/ganti-password`)}
+            onClick={() => navigate(`/admin/users/${user.username}/change-password`)}
           >
             Ganti Password
           </button>

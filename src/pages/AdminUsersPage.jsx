@@ -43,7 +43,7 @@ export default function AdminUsersPage() {
           <h2 className="text-lg font-bold">Daftar Pengguna</h2>
           <p className="mt-0.5 text-xs text-ink-3">{users.pagination.total} pengguna terdaftar</p>
         </div>
-        <Button onClick={() => navigate('/admin/users/buat')}>+ Buat User</Button>
+        <Button onClick={() => navigate('/admin/users/create')}>+ Buat User</Button>
       </div>
 
       <FilterBar

@@ -24,8 +24,8 @@ import {
 import { generatePassword } from '@/utils/validators.js'
 
 const ROLES = [
-  { value: 'Admin', desc: 'Akses penuh sistem' },
-  { value: 'Sales', desc: 'Kelola order & invoice' },
+  { name: "Admin", value: 'admin', desc: 'Akses penuh sistem' },
+  { name: "Sales", value: 'sales', desc: 'Kelola order & invoice' },
 ]
 
 /** Halaman Buat User — sesuai board "Admin · Buat User" di desain Penpot. */
@@ -59,6 +59,21 @@ export default function CreateUserPage() {
           <div className="my-5 h-px bg-line" />
 
           <div className="space-y-6">
+            {/* Name */}
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nama Lengkap</FormLabel>
+                  <FormControl>
+                    <Input placeholder="contoh: Budi Santoso" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
             {/* Username */}
             <FormField
               control={form.control}
@@ -149,7 +164,7 @@ export default function CreateUserPage() {
                           </span>
                           <span>
                             <span className="block text-[13px] font-semibold">
-                              {r.value}
+                              {r.name}
                             </span>
                             <span className="block text-[11px] text-ink-3">
                               {r.desc}
@@ -173,8 +188,8 @@ export default function CreateUserPage() {
                   <FormLabel>Status Akun</FormLabel>
                   <div className="flex items-center gap-3">
                     <Toggle
-                      checked={field.value === 'Aktif'}
-                      onChange={(v) => field.onChange(v ? 'Aktif' : 'Nonaktif')}
+                      checked={field.value === 'active'}
+                      onChange={(v) => field.onChange(v ? 'active' : 'inactive')}
                       label="Status akun"
                     />
                     <span className="text-[13px] text-ink-2">

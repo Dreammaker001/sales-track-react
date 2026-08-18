@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: 'admin/users/buat',
+        path: 'admin/users/create',
         element: <CreateUserPage />,
         handle: {
           title: 'Admin · Buat User',
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: 'admin/users/:username/ganti-password',
+        path: 'admin/users/:username/change-password',
         element: <PlaceholderPage title="Ganti Password" />,
         handle: {
           title: 'Admin · Ganti Password',
