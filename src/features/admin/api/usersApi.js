@@ -65,16 +65,8 @@ export async function fetchUsers({ q = '', role = '', status = '', page = 1 } = 
 }
 
 /** Toggle aktif/nonaktif user (user nonaktif tidak bisa login). */
-export async function toggleUserStatus(id) {
-  if (USE_MOCK) {
-    await delay(200)
-    const user = MOCK_USERS.find((u) => u.id === id)
-    if (!user) throw new Error('User tidak ditemukan')
-    user.status = user.status === 'Aktif' ? 'Nonaktif' : 'Aktif'
-    return { ...user }
-  }
-
-  const { data } = await client.patch(`/admin/users/${id}/status`)
+export async function toggleUserStatus(id, value) {
+  const { data } = await client.patch(`/admin/users/${id}/status`, { status: value })
   return data
 }
 

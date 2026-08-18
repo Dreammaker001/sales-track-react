@@ -1,16 +1,19 @@
 import { useNavigate, useSearchParams } from 'react-router'
-import { useEffect } from 'react'
+import * as React from 'react'
 import Button from '../components/ui/Button.jsx'
 import Card from '../components/ui/Card.jsx'
 import FilterBar from '../features/admin/components/FilterBar.jsx'
 import UsersTable from '../features/admin/components/UsersTable.jsx'
 import useUsers from '../features/admin/hooks/useUsers.js'
+import StatusDialog from '@/features/admin/components/StatusDialog.jsx'
 
 export default function AdminUsersPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const initialQuery = searchParams.get('q') ?? ''
   const page = searchParams.get('page') ?? 1
+  const [openStatusDialog, setOpenStatusDialog] = React.useState(false)
+  const [selectedUserUpdateStatus, setSelectedUserUpdateStatus] = React.useState(null)
 
   const {
     users,
@@ -53,8 +56,24 @@ export default function AdminUsersPage() {
       />
 
       <Card>
-        <UsersTable users={users} loading={loading} onToggle={toggleStatus} setSearchParams={setSearchParams} />
+        <UsersTable users={users} loading={loading} onToggle={(val) => {
+          setOpenStatusDialog(true)
+          setSelectedUserUpdateStatus(val)
+        }} setSearchParams={setSearchParams} />
       </Card>
+
+      {
+        openStatusDialog && (
+          <StatusDialog
+            onSubmit={() => {
+              toggleStatus(selectedUserUpdateStatus.id, selectedUserUpdateStatus.value)
+              setOpenStatusDialog(false)
+            }}
+            data={selectedUserUpdateStatus}
+            onCancel={() => setOpenStatusDialog(false)}
+          />
+        )
+      }
     </>
   )
 }

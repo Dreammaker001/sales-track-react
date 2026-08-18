@@ -3,8 +3,6 @@ import { useState } from 'react'
 import { useDebounce } from '../../../hooks/useDebounce.js'
 import { fetchUsers, toggleUserStatus } from '../api/usersApi.js'
 
-const flipStatus = (status) => (status === 'Aktif' ? 'Nonaktif' : 'Aktif')
-
 /**
  * State halaman Admin Users (pola TanStack Query):
  * - useQuery: fetch + cache list user, filter masuk queryKey (beda filter = cache beda)
@@ -34,15 +32,15 @@ export default function useUsers(initialQuery = '', page = 1) {
   })
 
   const mutation = useMutation({
-    mutationFn: toggleUserStatus,
+    mutationFn: ({ id, value }) => toggleUserStatus(id, value),
 
     // Optimistic: UI berubah dulu, snapshot lama disimpan utk rollback
-    onMutate: async (id) => {
+    onMutate: async ({ id, value }) => {
       const previous = queryClient.getQueryData(['users', filters])
       queryClient.setQueryData(['users', filters], (old = { data: [] }) => ({
         ...old,
         data: old.data.map((u) =>
-          u.id === id ? { ...u, status: flipStatus(u.status) } : u,
+          u.id === id ? { ...u, status: value } : u,
         ),
       }))
       return { previous }
@@ -71,6 +69,6 @@ export default function useUsers(initialQuery = '', page = 1) {
     setRole,
     status,
     setStatus,
-    toggleStatus: mutation.mutate,
+    toggleStatus: (id, value) => mutation.mutate({ id, value }),
   }
 }

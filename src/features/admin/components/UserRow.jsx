@@ -5,7 +5,7 @@ import Badge from '../../../components/ui/Badge.jsx'
 import Toggle from '../../../components/ui/Toggle.jsx'
 import { initials } from '../../../utils/format.js'
 
-const STATUS_BADGE = { Aktif: 'success', Nonaktif: 'gray' }
+const STATUS_BADGE = { active: 'success', inactive: 'gray' }
 
 /** Satu baris pengguna di tabel. */
 export default function UserRow({ user, onToggle }) {
@@ -44,7 +44,7 @@ export default function UserRow({ user, onToggle }) {
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap">
-        <Badge variant={STATUS_BADGE[user.status] ?? 'gray'}>{user.status}</Badge>
+        <Badge variant={STATUS_BADGE[user.status] ?? 'gray'}>{user.status === 'active' ? 'Aktif' : 'Nonaktif'}</Badge>
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
@@ -61,8 +61,12 @@ export default function UserRow({ user, onToggle }) {
             Ganti Password
           </button>
           <Toggle
-            checked={user.status === 'Aktif'}
-            onChange={() => onToggle(user.id)}
+            checked={user.status === 'active'}
+            onChange={() => onToggle({
+              id: user.id,
+              name: user.name,
+              value: user.status === 'active' ? 'inactive' : 'active',
+            })}
             label={`Aktifkan/nonaktifkan ${user.name}`}
           />
         </div>
