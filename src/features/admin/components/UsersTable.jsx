@@ -4,7 +4,7 @@ import UserRow from './UserRow.jsx'
 const COLUMNS = ['User', 'Peran', 'Status', 'Terakhir Login', 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function UsersTable({ users, loading, onToggle, setSearchParams }) {
+export default function UsersTable({ users, loading, onToggle, onChangePassword, setSearchParams }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -40,7 +40,7 @@ export default function UsersTable({ users, loading, onToggle, setSearchParams }
         </thead>
         <tbody>
           {users.data?.map((user) => (
-            <UserRow key={user.id} user={user} onToggle={onToggle} />
+            <UserRow key={user.id} user={user} onToggle={onToggle} onChangePassword={onChangePassword} />
           ))}
         </tbody>
       </table>

@@ -6,6 +6,7 @@ import FilterBar from '../features/admin/components/FilterBar.jsx'
 import UsersTable from '../features/admin/components/UsersTable.jsx'
 import useUsers from '../features/admin/hooks/useUsers.js'
 import StatusDialog from '@/features/admin/components/StatusDialog.jsx'
+import ChangePasswordDialog from '@/features/admin/components/ChangePasswordDialog.jsx'
 
 export default function AdminUsersPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -13,7 +14,8 @@ export default function AdminUsersPage() {
   const initialQuery = searchParams.get('q') ?? ''
   const page = searchParams.get('page') ?? 1
   const [openStatusDialog, setOpenStatusDialog] = React.useState(false)
-  const [selectedUserUpdateStatus, setSelectedUserUpdateStatus] = React.useState(null)
+  const [openChangePasswordDialog, setOpenChangePasswordDialog] = React.useState(false)
+  const [selectedUserForDialog, setSelectedUserForDialog] = React.useState(null)
 
   const {
     users,
@@ -56,21 +58,38 @@ export default function AdminUsersPage() {
       />
 
       <Card>
-        <UsersTable users={users} loading={loading} onToggle={(val) => {
-          setOpenStatusDialog(true)
-          setSelectedUserUpdateStatus(val)
-        }} setSearchParams={setSearchParams} />
+        <UsersTable
+          users={users}
+          loading={loading}
+          onToggle={(val) => {
+            setOpenStatusDialog(true)
+            setSelectedUserForDialog(val)
+          }}
+          onChangePassword={(val) => {
+            setSelectedUserForDialog(val)
+            setOpenChangePasswordDialog(true)
+          }}
+          setSearchParams={setSearchParams} />
       </Card>
 
       {
         openStatusDialog && (
           <StatusDialog
             onSubmit={() => {
-              toggleStatus(selectedUserUpdateStatus.id, selectedUserUpdateStatus.value)
+              toggleStatus(selectedUserForDialog.id, selectedUserForDialog.value)
               setOpenStatusDialog(false)
             }}
-            data={selectedUserUpdateStatus}
+            data={selectedUserForDialog}
             onCancel={() => setOpenStatusDialog(false)}
+          />
+        )
+      }
+
+      {
+        openChangePasswordDialog && (
+          <ChangePasswordDialog
+            userData={selectedUserForDialog}
+            onClose={() => setOpenChangePasswordDialog(false)}
           />
         )
       }

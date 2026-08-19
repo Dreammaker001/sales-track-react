@@ -33,3 +33,10 @@ export async function updateUser(id, payload) {
   })
   return data
 }
+
+export async function changeUserPassword(id, payload) {
+  const { data } = await client.put(`/admin/users/${id}/password`, {
+    password: payload.password,
+  })
+  return data
+}
