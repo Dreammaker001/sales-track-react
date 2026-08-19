@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useDebounce } from '../../../hooks/useDebounce.js'
 import { fetchUsers, toggleUserStatus } from '../api/usersApi.js'
+import { toast } from "sonner"
 
 /**
  * State halaman Admin Users (pola TanStack Query):
@@ -51,11 +52,13 @@ export default function useUsers(initialQuery = '', page = 1) {
       if (context?.previous) {
         queryClient.setQueryData(['users', filters], context.previous)
       }
+      toast.error('Gagal mengubah status user. Silakan coba lagi.')
     },
 
     // Sukses/gagal → pastikan cache selaras dengan server
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] })
+      toast.success('Status user berhasil diubah.')
     },
   })
 
