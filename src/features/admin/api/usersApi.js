@@ -35,8 +35,9 @@ export async function updateUser(id, payload) {
 }
 
 export async function changeUserPassword(id, payload) {
-  const { data } = await client.put(`/admin/users/${id}/password`, {
+  const { data } = await client.patch(`/admin/users/${id}/password`, {
     password: payload.password,
+    password_change_required: payload.forceChangePassword,
   })
   return data
 }

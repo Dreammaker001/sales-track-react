@@ -24,6 +24,7 @@ export default function ChangePasswordDialog({
         defaultValues: {
             password: '',
             confirmPassword: '',
+            forceChangePassword: false,
         },
     })
 
@@ -32,6 +33,7 @@ export default function ChangePasswordDialog({
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['users'] })
             toast.success('Password user berhasil diubah')
+            onClose()
         },
         onError: (error) => {
             toast.error(`Gagal mengubah password user: ${error.message}`)

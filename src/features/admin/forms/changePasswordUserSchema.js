@@ -10,6 +10,7 @@ export const changePasswordUserSchema = z.object({
         .regex(/[0-9]/, 'Harus ada angka')
         .regex(/[^A-Za-z0-9]/, 'Harus ada karakter khusus'),
     confirmPassword: z.string().min(1, 'Konfirmasi password wajib diisi'),
+    forceChangePassword: z.boolean().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
     message: 'Password dan konfirmasi password harus sama',
     path: ['confirmPassword'],
