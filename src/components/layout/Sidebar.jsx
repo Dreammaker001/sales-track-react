@@ -2,11 +2,11 @@ import { NavLink } from 'react-router'
 import Avatar from '../ui/Avatar.jsx'
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Dashboard' },
+  // { to: '/dashboard', label: 'Dashboard' },
   { to: '/sales-orders', label: 'Sales Orders' },
   { to: '/invoices', label: 'Invoices' },
   { to: '/admin/users', label: 'Admin' },
-  { to: '/settings', label: 'Pengaturan' },
+  // { to: '/settings', label: 'Pengaturan' },
 ]
 
 const SUPPORT_LINKS = ['Pusat Bantuan', 'Laporkan Masalah']

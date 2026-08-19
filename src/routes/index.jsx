@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router'
+import SalesOrdersPage from '../pages/SalesOrdersPage.jsx'
 import AppLayout from '../components/layout/AppLayout.jsx'
 import AdminUsersPage from '../pages/AdminUsersPage.jsx'
 import CreateUserPage from '../pages/CreateUserPage.jsx'
@@ -38,29 +39,21 @@ export const router = createBrowserRouter([
           subtitle: 'Ubah data akun pengguna',
         },
       },
-      {
-        path: 'admin/users/:username/change-password',
-        element: <PlaceholderPage title="Ganti Password" />,
-        handle: {
-          title: 'Admin · Ganti Password',
-          subtitle: 'Atur ulang password akun pengguna',
-        },
-      },
-      {
-        path: 'dashboard',
-        element: <PlaceholderPage title="Dashboard" />,
-        handle: { title: 'Dashboard', subtitle: 'Ringkasan aktivitas penjualan' },
-      },
+      // {
+      //   path: 'dashboard',
+      //   element: <PlaceholderPage title="Dashboard" />,
+      //   handle: { title: 'Dashboard', subtitle: 'Ringkasan aktivitas penjualan' },
+      // },
       {
         path: 'sales-orders',
-        element: <PlaceholderPage title="Sales Orders" />,
+        element: <SalesOrdersPage />,
         handle: { title: 'Sales Orders', subtitle: 'Kelola pesanan penjualan' },
       },
-      {
-        path: 'invoices',
-        element: <PlaceholderPage title="Invoices" />,
-        handle: { title: 'Invoices', subtitle: 'Status pengiriman & invoice' },
-      },
+      // {
+      //   path: 'invoices',
+      //   element: <PlaceholderPage title="Invoices" />,
+      //   handle: { title: 'Invoices', subtitle: 'Status pengiriman & invoice' },
+      // },
       { path: '*', element: <PlaceholderPage title="Halaman tidak ditemukan" /> },
     ],
   },
