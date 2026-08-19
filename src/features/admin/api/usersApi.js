@@ -1,7 +1,5 @@
 import { client } from '../../../api/client'
 
-const delay = (ms = 400) => new Promise((resolve) => setTimeout(resolve, ms))
-
 /** Ambil daftar user dengan filter (query, peran, status). */
 export async function fetchUsers({ q = '', role = '', status = '', page = 1 } = {}) {
   const res = await client.get('/admin/users', { params: { q, role, status, page } })
@@ -17,5 +15,21 @@ export async function toggleUserStatus(id, value) {
 /** Buat user baru (username + password auto-generate + peran + status). */
 export async function createUser(payload) {
   const { data } = await client.post('/admin/users', payload)
+  return data
+}
+
+/** Ambil detail satu user berdasarkan username (untuk halaman edit). */
+export async function fetchUserByID(id) {
+  const { data } = await client.get(`/admin/users/${id}`)
+  return data
+}
+
+/** Simpan perubahan data user (nama, username, peran, status). */
+export async function updateUser(id, payload) {
+  const { data } = await client.put(`/admin/users/${id}`, {
+    name: payload.name,
+    role: payload.role,
+    status: payload.status,
+  })
   return data
 }

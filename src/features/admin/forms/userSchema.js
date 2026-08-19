@@ -1,6 +1,10 @@
 import { z } from 'zod'
 
-/** Skema validasi form Buat User — aturan mengikuti checklist desain Penpot. */
+/**
+ * Skema validasi user — aturan mengikuti checklist desain Penpot.
+ * - createUserSchema: password wajib (diisi saat membuat akun)
+ * - updateUserSchema: tanpa password (ganti password lewat halaman terpisah)
+ */
 export const createUserSchema = z.object({
   name: z.string().min(1, 'Nama wajib diisi').min(4, 'Minimal 4 karakter'),
   username: z
@@ -19,6 +23,9 @@ export const createUserSchema = z.object({
   role: z.enum(['admin', 'sales'], { message: 'Pilih peran' }),
   status: z.enum(['active', 'inactive']),
 })
+
+/** Saat edit, password tidak ikut diformulir — hanya data profil. */
+export const updateUserSchema = createUserSchema.omit({ password: true })
 
 export const createUserDefaultValues = {
   name: '',

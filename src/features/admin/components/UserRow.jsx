@@ -67,7 +67,7 @@ export default function UserRow({ user, onToggle }) {
             <DropdownMenuContent align="end" sideOffset={4} className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg ">
               <DropdownMenuItem
                 className="hover:bg-primary hover:text-white mb-1"
-                onClick={() => navigate(`/admin/users/${user.username}`)}
+                onClick={() => navigate(`/admin/users/${user.id}/edit`)}
               >
                 Edit Pengguna
               </DropdownMenuItem>

@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router'
 import AppLayout from '../components/layout/AppLayout.jsx'
 import AdminUsersPage from '../pages/AdminUsersPage.jsx'
 import CreateUserPage from '../pages/CreateUserPage.jsx'
+import EditUserPage from '../pages/EditUserPage.jsx'
 import PlaceholderPage from '../pages/PlaceholderPage.jsx'
 
 /**
@@ -27,6 +28,14 @@ export const router = createBrowserRouter([
         handle: {
           title: 'Admin · Buat User',
           subtitle: 'Tambahkan akun pengguna baru',
+        },
+      },
+      {
+        path: 'admin/users/:id/edit',
+        element: <EditUserPage />,
+        handle: {
+          title: 'Admin · Edit User',
+          subtitle: 'Ubah data akun pengguna',
         },
       },
       {
