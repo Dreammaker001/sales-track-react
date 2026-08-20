@@ -9,12 +9,6 @@ const COLUMNS = ['No. Invoice', 'Barang', 'Qty Pesanan', 'Qty Invoice / Qty Terk
 export default function SalesOrderDetailPage() {
     return (
         <>
-            <div className="mb-5 flex items-end justify-between">
-                <div>
-                    <h2 className="text-lg font-bold">Sales Order Detail</h2>
-                    <p className="mt-0.5 text-xs text-ink-3">Detail informasi sales order</p>
-                </div>
-            </div>
             <Card className="mb-4">
                 <div className="grid grid-cols-3 gap-3 px-6 py-4">
                     <div className="border-r border-line pr-6">
