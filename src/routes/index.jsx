@@ -6,12 +6,17 @@ import AdminUsersPage from '../pages/AdminUsersPage.jsx'
 import CreateUserPage from '../pages/CreateUserPage.jsx'
 import EditUserPage from '../pages/EditUserPage.jsx'
 import PlaceholderPage from '../pages/PlaceholderPage.jsx'
+import LoginPage from '../pages/LoginPage.jsx'
 
 /**
  * Konfigurasi route terpusat.
  * handle.title/subtitle dibaca Topbar via useMatches().
  */
 export const router = createBrowserRouter([
+  {
+    path: 'login',
+    element: <LoginPage />,
+  },
   {
     element: <AppLayout />,
     children: [
@@ -60,7 +65,7 @@ export const router = createBrowserRouter([
       //   element: <PlaceholderPage title="Invoices" />,
       //   handle: { title: 'Invoices', subtitle: 'Status pengiriman & invoice' },
       // },
-      { path: '*', element: <PlaceholderPage title="Halaman tidak ditemukan" /> },
     ],
   },
+  { path: '*', element: <PlaceholderPage title="Halaman tidak ditemukan" /> },
 ])
