@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router'
 import SalesOrdersPage from '../pages/SalesOrdersPage.jsx'
+import SalesOrderDetailPage from '../pages/SalesOrderDetailPage.jsx'
 import AppLayout from '../components/layout/AppLayout.jsx'
 import AdminUsersPage from '../pages/AdminUsersPage.jsx'
 import CreateUserPage from '../pages/CreateUserPage.jsx'
@@ -48,6 +49,11 @@ export const router = createBrowserRouter([
         path: 'sales-orders',
         element: <SalesOrdersPage />,
         handle: { title: 'Sales Orders', subtitle: 'Kelola pesanan penjualan' },
+      },
+      {
+        path: 'sales-orders/:id',
+        element: <SalesOrderDetailPage />,
+        handle: { title: 'Sales Orders Detail', subtitle: 'Detail pesanan penjualan' },
       },
       // {
       //   path: 'invoices',
