@@ -24,7 +24,7 @@ client.interceptors.response.use(
   (response) => response,
   (error) => {
     const message =
-      error.response?.data?.message || error.message || 'Terjadi kesalahan jaringan'
+      error.response?.data?.error || error.message || 'Terjadi kesalahan jaringan'
     return Promise.reject(new Error(message))
   },
 )

@@ -12,4 +12,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    proxy: {
+      // Solusi A: request /api/* diteruskan ke backend → same-origin di browser,
+      // CORS & cookie (HttpOnly) jalan tanpa withCredentials.
+      '/api': {
+        target: 'http://127.0.0.1:8001',
+        changeOrigin: true,
+      },
+    },
+  },
 })
