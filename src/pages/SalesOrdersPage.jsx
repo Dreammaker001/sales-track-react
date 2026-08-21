@@ -8,7 +8,6 @@ export default function SalesOrdersPage() {
     const {
         salesOrders,
         loading,
-        error,
         query,
         setQuery,
         status,

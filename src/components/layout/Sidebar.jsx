@@ -1,17 +1,23 @@
 import { NavLink } from 'react-router'
 import Avatar from '../ui/Avatar.jsx'
+import { useAuth } from '@/features/auth/context/AuthContext.jsx'
+import { initials } from '@/utils/format.js'
 
 const NAV_ITEMS = [
   // { to: '/dashboard', label: 'Dashboard' },
   { to: '/sales-orders', label: 'Sales Orders' },
   { to: '/invoices', label: 'Invoices' },
-  { to: '/admin/users', label: 'Admin' },
+  { to: '/admin/users', label: 'Admin', adminOnly: true },
   // { to: '/settings', label: 'Pengaturan' },
 ]
 
 const SUPPORT_LINKS = ['Pusat Bantuan', 'Laporkan Masalah']
 
 export default function Sidebar() {
+  const { user, role } = useAuth()
+  const isAdmin = role === 'admin'
+  const items = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin)
+
   return (
     <aside className="fixed inset-y-0 left-0 z-20 flex w-[240px] flex-col border-r border-line bg-surface">
       <div className="flex items-center gap-3 px-6 pb-5 pt-6">
@@ -22,7 +28,7 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex flex-col gap-0.5 px-4" aria-label="Menu utama">
-        {NAV_ITEMS.map((item) => (
+        {items.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
@@ -69,10 +75,16 @@ export default function Sidebar() {
       ))}
 
       <div className="mt-auto flex items-center gap-3 border-t border-line px-6 py-4">
-        <Avatar initials="AW" size={36} variant="primary" />
+        <Avatar
+          initials={user?.name ? initials(user.name) : '?'}
+          size={36}
+          variant="primary"
+        />
         <div>
-          <div className="text-sm font-semibold">Andi Wijaya</div>
-          <div className="text-[11px] text-ink-3">Administrator</div>
+          <div className="text-sm font-semibold">{user?.name ?? 'Pengguna'}</div>
+          <div className="text-[11px] text-ink-3">
+            {isAdmin ? 'Administrator' : 'Sales'}
+          </div>
         </div>
       </div>
     </aside>

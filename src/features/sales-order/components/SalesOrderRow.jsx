@@ -1,11 +1,9 @@
-import { useNavigate } from 'react-router'
 import Badge from '../../../components/ui/Badge.jsx'
 
 const STATUS_BADGE = { 'PENDING-INVOICE': 'warning', COMPLETED: 'success' }
 
 /** Satu baris pengguna di tabel. */
 export default function SalesOrderRow({ order }) {
-  const navigate = useNavigate()
 
   return (
     <tr className="transition-colors hover:bg-[#fafafd]">

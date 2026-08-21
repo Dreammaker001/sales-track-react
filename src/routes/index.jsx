@@ -1,12 +1,14 @@
 import { createBrowserRouter, Navigate } from 'react-router'
 import SalesOrdersPage from '../pages/SalesOrdersPage.jsx'
 import SalesOrderDetailPage from '../pages/SalesOrderDetailPage.jsx'
+import LoginPage from '../pages/LoginPage.jsx'
 import AppLayout from '../components/layout/AppLayout.jsx'
 import AdminUsersPage from '../pages/AdminUsersPage.jsx'
 import CreateUserPage from '../pages/CreateUserPage.jsx'
 import EditUserPage from '../pages/EditUserPage.jsx'
 import PlaceholderPage from '../pages/PlaceholderPage.jsx'
-import LoginPage from '../pages/LoginPage.jsx'
+import RequireAuth from '../components/auth/RequireAuth.jsx'
+import RequireRole from '../components/auth/RequireRole.jsx'
 
 /**
  * Konfigurasi route terpusat.
@@ -18,12 +20,20 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    element: <AppLayout />,
+    element: (
+      <RequireAuth>
+        <AppLayout />
+      </RequireAuth>
+    ),
     children: [
-      { index: true, element: <Navigate to="/admin/users" replace /> },
+      { index: true, element: <Navigate to="sales-orders" replace /> },
       {
         path: 'admin/users',
-        element: <AdminUsersPage />,
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminUsersPage />
+          </RequireRole>
+        ),
         handle: {
           title: 'Admin · Users',
           subtitle: 'Kelola akun pengguna sistem',
@@ -31,7 +41,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'admin/users/create',
-        element: <CreateUserPage />,
+        element: (
+          <RequireRole roles={['admin']}>
+            <CreateUserPage />
+          </RequireRole>
+        ),
         handle: {
           title: 'Admin · Buat User',
           subtitle: 'Tambahkan akun pengguna baru',
@@ -39,17 +53,28 @@ export const router = createBrowserRouter([
       },
       {
         path: 'admin/users/:id/edit',
-        element: <EditUserPage />,
+        element: (
+          <RequireRole roles={['admin']}>
+            <EditUserPage />
+          </RequireRole>
+        ),
         handle: {
           title: 'Admin · Edit User',
           subtitle: 'Ubah data akun pengguna',
         },
       },
-      // {
-      //   path: 'dashboard',
-      //   element: <PlaceholderPage title="Dashboard" />,
-      //   handle: { title: 'Dashboard', subtitle: 'Ringkasan aktivitas penjualan' },
-      // },
+      {
+        path: 'admin/users/:username/change-password',
+        element: (
+          <RequireRole roles={['admin']}>
+            <PlaceholderPage title="Ganti Password" />
+          </RequireRole>
+        ),
+        handle: {
+          title: 'Admin · Ganti Password',
+          subtitle: 'Atur ulang password akun pengguna',
+        },
+      },
       {
         path: 'sales-orders',
         element: <SalesOrdersPage />,

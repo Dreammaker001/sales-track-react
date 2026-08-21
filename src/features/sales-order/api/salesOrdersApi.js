@@ -37,7 +37,7 @@ const mockData = [
 
 const delay = (ms = 400) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export async function fetchSalesOrders({ q = '', status = '', invoice = '', page = 1 } = {}) {
+export async function fetchSalesOrders() {
     
     // const res = await client.get('/sales-orders', { params: { q, status, invoice, page } })
     // return res.data

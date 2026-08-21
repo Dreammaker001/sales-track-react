@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { storage } from '../services/storage'
 
 /**
  * Instance axios terpusat untuk semua panggilan backend.
  * - baseURL dari env (VITE_API_URL, default '/api' → proxy Vite di dev)
- * - interceptor request: sisipkan Bearer token dari storage
+ * - Auth via COOKIE HttpOnly (di-set backend saat login) — frontend tidak
+ *   mengirim header Authorization manual; cookie terkirim otomatis.
  * - interceptor response: lemparkan error yang sudah dinormalisasi
  */
 export const client = axios.create({
@@ -12,13 +12,6 @@ export const client = axios.create({
   timeout: 15000,
 })
 
-client.interceptors.request.use((config) => {
-  const token = storage.get('auth.token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
 
 client.interceptors.response.use(
   (response) => response,

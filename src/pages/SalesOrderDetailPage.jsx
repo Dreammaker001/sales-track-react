@@ -55,7 +55,7 @@ export default function SalesOrderDetailPage() {
                         current={1}
                         perPage={10}
                         total={40}
-                        onPageChange={(page) => {
+                        onPageChange={() => {
                             // setSearchParams(prev => {
                             //   prev.set('page', page);
                             //   return prev;
