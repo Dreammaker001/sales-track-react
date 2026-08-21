@@ -1,50 +1,30 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { client } from '@/api/client.js'
+import { client, setAccessToken } from '@/api/client.js'
 
 /**
- * Sesi auth — MEMORY ONLY (bukan localStorage).
- * - Token hidup di cookie HttpOnly (dikirim otomatis tiap request) — frontend
- *   tidak menyimpan apa pun yang bisa diutak-atik user.
- * - user & role hanya state React: diisi dari response login, dan di-refresh
- *   lewat GET /auth/me saat aplikasi boot (cookie masih ada di browser).
- * - status: 'checking' (boot, cek /me) → 'ready' | 'guest'
+ * Sesi auth — access token di MEMORY, refresh token di cookie HttpOnly.
+ * - Access token: module variable di client.js (bukan localStorage) — dikirim
+ *   via header Authorization; hilang saat halaman di-reload (wajar).
+ * - Refresh token: cookie HttpOnly (backend) — dipakai boot & saat 401.
+ * - user & role: state React, dari response login/refresh (backend mengirim
+ *   response yang sama seperti login).
+ * - status: 'checking' (boot, refresh via cookie) → 'ready' | 'guest'
  */
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState({ user: null, role: null, status: 'checking' })
 
-  // Boot: cek sesi via cookie → /auth/me
-  useEffect(() => {
-    let active = true
-
-    client
-      .get('/auth/me')
-      .then((res) => {
-        if (!active) return
-        const d = res.data
-        setAuth({
-          user: d?.data ?? d,
-          role: d?.data?.role ?? null,
-          status: 'ready',
-        })
-      })
-      .catch(() => {
-        if (!active) return
-        setAuth({ user: null, role: null, status: 'guest' })
-      })
-
-    return () => {
-      active = false
-    }
-  }, [])
-
-  /** Dipanggil saat login sukses — isi sesi dari response backend. */
+  /** Dipanggil saat login/refresh sukses — simpan access di memory + isi sesi. */
   const setSession = useCallback((data) => {
+    const payload = data.data ?? data
+    if (payload.access_token) {
+      setAccessToken(payload.access_token)
+    }
     setAuth({
-      user: data.user ?? data,
-      role: data.role ?? data.user?.role ?? null,
+      user: payload.user ?? payload,
+      role: payload.role ?? payload.user?.role ?? null,
       status: 'ready',
     })
   }, [])
@@ -55,8 +35,52 @@ export function AuthProvider({ children }) {
     } catch {
       // tetap logout di sisi client walau request gagal
     }
+    setAccessToken(null)
     setAuth({ user: null, role: null, status: 'guest' })
   }, [])
+
+  // Sinkronisasi dengan interceptor axios (refresh flow di client.js):
+  // - onAuthRefreshed: refresh sukses → access token baru + update role/user
+  // - onSessionExpired: refresh gagal → bersihkan access + kosongkan sesi
+  useEffect(() => {
+    client.onAuthRefreshed = setSession
+    client.onSessionExpired = () => {
+      setAccessToken(null)
+      setAuth({ user: null, role: null, status: 'guest' })
+    }
+
+    return () => {
+      client.onAuthRefreshed = null
+      client.onSessionExpired = null
+    }
+  }, [setSession])
+
+  // Boot: access token hilang saat reload → POST /auth/refresh (cookie refresh
+  // terkirim otomatis) → dapat access_token + user/role sekaligus.
+  useEffect(() => {
+    let active = true
+
+    client
+      .post('/auth/refresh')
+      .then((res) => {
+        if (!active) return
+        setSession(res.data)
+      })
+      .catch(() => {
+        if (!active) return
+        // Jangan timpa sesi yang baru saja login (race: boot refresh selesai
+        // setelah login sukses)
+        setAuth((prev) =>
+          prev.status === 'ready'
+            ? prev
+            : { user: null, role: null, status: 'guest' },
+        )
+      })
+
+    return () => {
+      active = false
+    }
+  }, [setSession])
 
   return (
     <AuthContext.Provider

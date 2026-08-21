@@ -46,7 +46,7 @@ export default function LoginPage() {
     if (isAuthenticated) {
       navigate('/sales-orders', { replace: true })
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, navigate])
 
   return (
     <div className="flex min-h-screen bg-canvas">
