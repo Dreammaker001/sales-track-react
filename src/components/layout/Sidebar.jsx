@@ -2,6 +2,7 @@ import { NavLink } from 'react-router'
 import Avatar from '../ui/Avatar.jsx'
 import { useAuth } from '@/features/auth/context/AuthContext.jsx'
 import { initials } from '@/utils/format.js'
+import { SquareArrowRightExit } from 'lucide-react'
 
 const NAV_ITEMS = [
   // { to: '/dashboard', label: 'Dashboard' },
@@ -14,7 +15,7 @@ const NAV_ITEMS = [
 const SUPPORT_LINKS = ['Pusat Bantuan', 'Laporkan Masalah']
 
 export default function Sidebar() {
-  const { user, role } = useAuth()
+  const { user, role, logout } = useAuth()
   const isAdmin = role === 'admin'
   const items = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin)
 
@@ -74,18 +75,28 @@ export default function Sidebar() {
         </a>
       ))}
 
-      <div className="mt-auto flex items-center gap-3 border-t border-line px-6 py-4">
-        <Avatar
-          initials={user?.name ? initials(user.name) : '?'}
-          size={36}
-          variant="primary"
-        />
-        <div>
-          <div className="text-sm font-semibold">{user?.name ?? 'Pengguna'}</div>
-          <div className="text-[11px] text-ink-3">
-            {isAdmin ? 'Administrator' : 'Sales'}
+      <div className="mt-auto flex justify-between gap-3 border-t border-line">
+        <div className="mt-auto flex items-center gap-3 px-6 py-4">
+          <Avatar
+            initials={user?.name ? initials(user.name) : '?'}
+            size={36}
+            variant="primary"
+          />
+          <div>
+            <div className="text-sm font-semibold">{user?.name ?? 'Pengguna'}</div>
+            <div className="text-[11px] text-ink-3">
+              {isAdmin ? 'Administrator' : 'Sales'}
+            </div>
           </div>
         </div>
+        <button className="flex h-full cursor-pointer items-center justify-center px-4 text-ink-2 hover:text-ink" onClick={() => {
+          logout()
+        }}>
+          <SquareArrowRightExit className="h-6 w-6" />
+        </button>
+        {/* <div className="flex h-full cursor-pointer items-center justify-center px-4">
+          <SquareArrowRightExit className="h-6 w-6 text-ink-2 hover:text-ink"/>
+        </div> */}
       </div>
     </aside>
   )
