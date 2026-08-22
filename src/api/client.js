@@ -28,7 +28,7 @@ client.onSessionExpired = null
 
 // Sisipkan access token dari memory ke semua request (kecuali auth itu sendiri)
 client.interceptors.request.use((config) => {
-  if (accessToken && !config.url.includes('/auth/')) {
+  if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`
   }
   return config

@@ -1,4 +1,4 @@
-import { DataPagination } from '@/components/common/data-pagination.jsx'
+import { DataPagination } from '@/components/common/DataPagination.jsx'
 import SalesOrderRow from './SalesOrderRow.jsx'
 
 const COLUMNS = ['SO Number', 'Pelanggan', 'Tanggal', 'Proses', "Status", 'Aksi']

@@ -1,4 +1,4 @@
-import { DataPagination } from '@/components/common/data-pagination.jsx'
+import { DataPagination } from '@/components/common/DataPagination.jsx'
 import UserRow from './UserRow.jsx'
 
 const COLUMNS = ['User', 'Peran', 'Status', 'Terakhir Login', 'Aksi']

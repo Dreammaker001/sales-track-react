@@ -2,7 +2,7 @@ import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import FilterBarDetail from "@/features/sales-order/components/FilterBarDetail";
 import SalesOrderRow from "@/pages/SalesOrderRow";
-import { DataPagination } from '@/components/common/data-pagination.jsx'
+import { DataPagination } from '@/components/common/DataPagination.jsx'
 
 const COLUMNS = ['No. Invoice', 'Barang', 'Qty Pesanan', 'Qty Invoice / Qty Terkirim', 'Qty Outstanding SI / Qty Outstanding Delivery', 'Status Kirim', 'Invoice', 'SOkeSI', 'SIkeDN']
 

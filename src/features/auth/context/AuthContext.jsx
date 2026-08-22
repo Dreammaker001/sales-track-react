@@ -43,6 +43,9 @@ export function AuthProvider({ children }) {
   // - onAuthRefreshed: refresh sukses → access token baru + update role/user
   // - onSessionExpired: refresh gagal → bersihkan access + kosongkan sesi
   useEffect(() => {
+    if (auth.user) {
+      return
+    }
     client.onAuthRefreshed = setSession
     client.onSessionExpired = () => {
       setAccessToken(null)
@@ -53,11 +56,14 @@ export function AuthProvider({ children }) {
       client.onAuthRefreshed = null
       client.onSessionExpired = null
     }
-  }, [setSession])
+  }, [setSession, auth.user])
 
   // Boot: access token hilang saat reload → POST /auth/refresh (cookie refresh
   // terkirim otomatis) → dapat access_token + user/role sekaligus.
   useEffect(() => {
+    if(auth.user){
+      return
+    }
     let active = true
 
     client
@@ -80,7 +86,7 @@ export function AuthProvider({ children }) {
     return () => {
       active = false
     }
-  }, [setSession])
+  }, [setSession, auth.user])
 
   return (
     <AuthContext.Provider
