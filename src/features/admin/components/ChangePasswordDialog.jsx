@@ -11,11 +11,13 @@ import { toast } from "sonner"
 import { changeUserPassword } from "../api/usersApi";
 import React, { useCallback } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react'
 
 export default function ChangePasswordDialog({
     userData,
     onClose = () => { },
 }) {
+    const [showPassword, setShowPassword] = React.useState(false)
     const [levelPassword, setLevelPassword] = React.useState(0)
     const queryClient = useQueryClient()
 
@@ -84,10 +86,28 @@ export default function ChangePasswordDialog({
                                 <FormItem>
                                     <FormLabel>Password Baru</FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="Masukkan password baru" {...field} onChange={(e) => {
-                                            field.onChange(e);
-                                            checkPassword({ password: e.target.value });
-                                        }} />
+                                        <div className="relative">
+                                            <Input
+                                                className="h-11 w-full"
+                                                type={showPassword ? "text" : "password"}
+                                                placeholder="Masukkan password baru" {...field}
+                                                onChange={(e) => {
+                                                    field.onChange(e);
+                                                    checkPassword({ password: e.target.value });
+                                                }} />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword((v) => !v)}
+                                                className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-3 hover:text-ink-2"
+                                                aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="h-5 w-5" />
+                                                ) : (
+                                                    <Eye className="h-5 w-5" />
+                                                )}
+                                            </button>
+                                        </div>
                                     </FormControl>
                                     <FormDescription>Password harus minimal 8 karakter</FormDescription>
                                     <FormMessage />
@@ -101,7 +121,26 @@ export default function ChangePasswordDialog({
                                 <FormItem>
                                     <FormLabel>Konfirmasi Password</FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="Konfirmasi password baru" {...field} />
+                                        <div className="relative">
+                                            <Input
+                                                className="h-11 w-full"
+                                                type={showPassword ? "text" : "password"}
+                                                placeholder="Konfirmasi password baru"
+                                                {...field}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword((v) => !v)}
+                                                className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-3 hover:text-ink-2"
+                                                aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="h-5 w-5" />
+                                                ) : (
+                                                    <Eye className="h-5 w-5" />
+                                                )}
+                                            </button>
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -150,8 +189,11 @@ export default function ChangePasswordDialog({
                             <Button type="button" variant="outline" onClick={onClose}>
                                 Batal
                             </Button>
-                            <Button type="submit" disabled={mutation.isLoading}>
-                                {mutation.isLoading ? 'Menyimpan...' : 'Simpan'}
+                            <Button type="submit" disabled={mutation.isPending}>
+                                {mutation.isPending ? <>
+                                    <LoaderCircle className="h-4 w-4 animate-spin" />
+                                    Memproses...
+                                </> : 'Simpan'}
                             </Button>
                         </div>
                     </form>

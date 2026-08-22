@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { RefreshCw } from 'lucide-react'
+import { RefreshCw, LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import Button from '@/components/ui/Button.jsx'
@@ -159,16 +159,14 @@ export default function UserForm({
                           role="radio"
                           aria-checked={selected}
                           onClick={() => field.onChange(r.value)}
-                          className={`flex items-start gap-3 rounded-[10px] border p-4 text-left transition-colors ${
-                            selected
+                          className={`flex items-start gap-3 rounded-[10px] border p-4 text-left transition-colors ${selected
                               ? 'border-primary'
                               : 'border-line hover:border-ink-3'
-                          }`}
+                            }`}
                         >
                           <span
-                            className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${
-                              selected ? 'border-primary' : 'border-line'
-                            }`}
+                            className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${selected ? 'border-primary' : 'border-line'
+                              }`}
                           >
                             {selected && (
                               <span className="h-2 w-2 rounded-full bg-primary" />
@@ -225,7 +223,10 @@ export default function UserForm({
               Kembali
             </Button>
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? pendingLabel : submitLabel}
+              {isPending ? <>
+                <LoaderCircle className="h-4 w-4 animate-spin" />
+                {pendingLabel}
+              </> : submitLabel}
             </Button>
           </div>
 

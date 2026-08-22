@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckIcon, Lock, LoaderCircle } from "lucide-react";
+import { CheckIcon, Lock, LoaderCircle, Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,7 @@ import Button from "../../../components/ui/Button.jsx";
 import useAuth from "../hooks/useAuth.js";
 
 export default function FirstChangePasswordDialog() {
+    const [showPassword, setShowPassword] = React.useState(false)
     const [levelPassword, setLevelPassword] = React.useState(0)
     const [strongPassword, setStrongPassword] = React.useState({
         hasLowerCase: false,
@@ -90,9 +91,29 @@ export default function FirstChangePasswordDialog() {
                                     <FormItem>
                                         <FormLabel>Password Lama</FormLabel>
                                         <FormControl>
-                                            <Input type="password" placeholder="Masukkan password lama" {...field} onChange={(e) => {
-                                                field.onChange(e);
-                                            }} />
+                                            <div className="relative">
+                                                <Input
+                                                    className="h-11 w-full"
+                                                    type={showPassword ? "text" : "password"}
+                                                    placeholder="Masukkan password lama"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        field.onChange(e);
+                                                    }}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowPassword((v) => !v)}
+                                                    className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-3 hover:text-ink-2"
+                                                    aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                                                >
+                                                    {showPassword ? (
+                                                        <EyeOff className="h-5 w-5" />
+                                                    ) : (
+                                                        <Eye className="h-5 w-5" />
+                                                    )}
+                                                </button>
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -105,10 +126,30 @@ export default function FirstChangePasswordDialog() {
                                     <FormItem>
                                         <FormLabel>Password Baru</FormLabel>
                                         <FormControl>
-                                            <Input type="password" placeholder="Masukkan password baru" {...field} onChange={(e) => {
-                                                field.onChange(e);
-                                                checkPassword({ password: e.target.value });
-                                            }} />
+                                            <div className="relative">
+                                                <Input
+                                                    className="h-11 w-full"
+                                                    type={showPassword ? "text" : "password"}
+                                                    placeholder="Masukkan password baru"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        field.onChange(e);
+                                                        checkPassword({ password: e.target.value });
+                                                    }}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowPassword((v) => !v)}
+                                                    className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-3 hover:text-ink-2"
+                                                    aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                                                >
+                                                    {showPassword ? (
+                                                        <EyeOff className="h-5 w-5" />
+                                                    ) : (
+                                                        <Eye className="h-5 w-5" />
+                                                    )}
+                                                </button>
+                                            </div>
                                         </FormControl>
                                         <FormDescription>Password harus minimal 8 karakter</FormDescription>
                                         <FormMessage />
@@ -167,7 +208,26 @@ export default function FirstChangePasswordDialog() {
                                     <FormItem>
                                         <FormLabel>Konfirmasi Password</FormLabel>
                                         <FormControl>
-                                            <Input type="password" placeholder="Konfirmasi password baru" {...field} />
+                                            <div className="relative">
+                                                <Input
+                                                    className="h-11 w-full"
+                                                    type={showPassword ? "text" : "password"}
+                                                    placeholder="Konfirmasi password baru"
+                                                    {...field}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowPassword((v) => !v)}
+                                                    className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-3 hover:text-ink-2"
+                                                    aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                                                >
+                                                    {showPassword ? (
+                                                        <EyeOff className="h-5 w-5" />
+                                                    ) : (
+                                                        <Eye className="h-5 w-5" />
+                                                    )}
+                                                </button>
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
