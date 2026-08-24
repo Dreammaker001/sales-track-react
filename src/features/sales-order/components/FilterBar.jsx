@@ -1,3 +1,4 @@
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectLabel, SelectItem } from '@/components/ui/select.jsx'
 import Chip from '../../../components/ui/Chip.jsx'
 import Input from '../../../components/ui/Input.jsx'
 
@@ -10,35 +11,65 @@ const INVOICE_OPTIONS = [{
   value: '',
 }, { name: 'Ada', value: 'ada' }, { name: 'Belum', value: 'belum' }]
 
+const SEARCH_OPTIONS = [{
+  label: 'Customer Code',
+  value: 'customer_code',
+}, { label: 'SO Number', value: 'so_number' }]
+
 /** Bilah filter: search + chip peran + chip status. */
 export default function FilterBar({ query, onQuery, status, onStatus, invoice, onInvoice }) {
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
-      <Input
-        muted
-        className="w-[280px]"
-        placeholder="Cari username, nama, email..."
-        value={query}
-        onChange={(e) => onQuery(e.target.value)}
-        aria-label="Cari pengguna"
-      />
-
-      <div className="flex items-center gap-2" role="group" aria-label="Filter status">
-        <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
-        {STATUS_OPTIONS.map((opt) => (
-          <Chip key={opt.value} active={status === opt.value} onClick={() => onStatus(opt.value)}>
-            {opt.name}
-          </Chip>
-        ))}
+    <div className="mb-4 flex flex-col gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
+      <div className="flex items-center gap-2">
+        <Select
+          items={SEARCH_OPTIONS}
+          // value={query}
+          // onChange={(e) => onQuery(e.target.value)}
+          aria-label="Cari berdasarkan"
+          defaultValue={SEARCH_OPTIONS[0].value}
+        >
+          <SelectTrigger className="w-full max-w-48 border-line">
+            <SelectValue className="text-ink-2" />
+          </SelectTrigger>
+          <SelectContent position="popper" className="bg-surface border-line">
+            <SelectGroup>
+              <SelectLabel className="text-xs font-semibold text-ink-3">Cari berdasarkan</SelectLabel>
+              {SEARCH_OPTIONS.map((item) => (
+                <SelectItem key={item.value} value={item.value} className="text-ink-2">
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Input
+          muted
+          className="w-[280px]"
+          placeholder="Cari username, nama, email..."
+          value={query}
+          onChange={(e) => onQuery(e.target.value)}
+          aria-label="Cari pengguna"
+        />
       </div>
 
-      <div className="flex items-center gap-2" role="group" aria-label="Filter invoice">
-        <span className="mr-1 text-xs font-semibold text-ink-3">Invoice</span>
-        {INVOICE_OPTIONS.map((opt) => (
-          <Chip key={opt.value} active={invoice === opt.value} onClick={() => onInvoice(opt.value)}>
-            {opt.name}
-          </Chip>
-        ))}
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="flex items-center gap-2" role="group" aria-label="Filter status">
+          <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
+          {STATUS_OPTIONS.map((opt) => (
+            <Chip key={opt.value} active={status === opt.value} onClick={() => onStatus(opt.value)}>
+              {opt.name}
+            </Chip>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2" role="group" aria-label="Filter invoice">
+          <span className="mr-1 text-xs font-semibold text-ink-3">Invoice</span>
+          {INVOICE_OPTIONS.map((opt) => (
+            <Chip key={opt.value} active={invoice === opt.value} onClick={() => onInvoice(opt.value)}>
+              {opt.name}
+            </Chip>
+          ))}
+        </div>
       </div>
     </div>
   )
