@@ -2,7 +2,7 @@ import FilterBar from "@/features/sales-order/components/FilterBar";
 import SalesOrdersTable from "@/features/sales-order/components/SalesOrdersTable";
 import useSalesOrders from "@/features/sales-order/hooks/useSalesOrders";
 import Card from "@/components/ui/Card";
-import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function SalesOrdersPage() {
     const {
@@ -14,11 +14,11 @@ export default function SalesOrdersPage() {
         setStatus,
         invoice,
         setInvoice,
+        searchBy,
+        setSearchBy,
+        refetch,
     } = useSalesOrders()
 
-    useEffect(() => {
-        console.log(salesOrders)
-    }, [salesOrders])
     return (
         <>
             <div className="mb-5 flex items-end justify-between">
@@ -35,6 +35,15 @@ export default function SalesOrdersPage() {
                 onStatus={setStatus}
                 invoice={invoice}
                 onInvoice={setInvoice}
+                searchBy={searchBy}
+                onSearchBy={setSearchBy}
+                onSearch={() => {
+                    if (!query || query === '') {
+                        toast.error('Masukkan kata kunci pencarian terlebih dahulu')
+                        return
+                    }
+                    refetch()
+                }}
             />
 
             <Card>

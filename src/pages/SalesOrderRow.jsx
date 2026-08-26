@@ -1,33 +1,39 @@
 import Badge from "@/components/ui/Badge";
-export default function SalesOrderRow() {
+import { formatTimeFromSeconds } from "@/utils/format";
+
+export default function SalesOrderRow({ row }) {
     return (
         <tr className="transition-colors hover:bg-[#fafafd]">
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                INV-2026-0231
+                {row.invoice_number}
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                Baut M8 × 40mm
+                {row.item_name}
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                500
+                {row.qty_ordered}
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                500 / 500
+                {row.qty_invoiced} / {row.qty_delivered}
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                0 / 0
+                {row.qty_outstanding_si} / {row.qty_outstanding_delivery}
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap">
-                <Badge variant="success">Sudah</Badge>
+                <Badge variant={row.status_delivery === 'SUDAH TERKIRIM' ? 'success' : 'danger'}>
+                    {row.status_delivery}
+                </Badge>
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap">
-                <Badge variant="success">Ada</Badge>
+                <Badge variant={row.status_si === 'SUDAH SI' ? 'success' : 'danger'}>
+                    {row.status_si}
+                </Badge>
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                1 Jam 3 menit
+                {formatTimeFromSeconds(row.detik_so_ke_si)}
             </td>
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
-                1 Jam
+                {formatTimeFromSeconds(row.detik_si_ke_dn)}
             </td>
         </tr>
     )

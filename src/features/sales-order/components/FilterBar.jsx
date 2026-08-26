@@ -1,6 +1,7 @@
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectLabel, SelectItem } from '@/components/ui/select.jsx'
 import Chip from '../../../components/ui/Chip.jsx'
 import Input from '../../../components/ui/Input.jsx'
+import Button from '../../../components/ui/Button.jsx'
 
 const STATUS_OPTIONS = [{
   name: 'Semua',
@@ -17,14 +18,14 @@ const SEARCH_OPTIONS = [{
 }, { label: 'SO Number', value: 'so_number' }]
 
 /** Bilah filter: search + chip peran + chip status. */
-export default function FilterBar({ query, onQuery, status, onStatus, invoice, onInvoice }) {
+export default function FilterBar({ query, onQuery, status, onStatus, invoice, onInvoice, searchBy, onSearchBy, onSearch }) {
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
       <div className="flex items-center gap-2">
         <Select
           items={SEARCH_OPTIONS}
-          // value={query}
-          // onChange={(e) => onQuery(e.target.value)}
+          value={searchBy}
+          onChange={(e) => onSearchBy(e.target.value)}
           aria-label="Cari berdasarkan"
           defaultValue={SEARCH_OPTIONS[0].value}
         >
@@ -50,6 +51,7 @@ export default function FilterBar({ query, onQuery, status, onStatus, invoice, o
           onChange={(e) => onQuery(e.target.value)}
           aria-label="Cari pengguna"
         />
+        <Button onClick={onSearch}>Search</Button>
       </div>
 
       <div className="flex flex-wrap items-center gap-4">

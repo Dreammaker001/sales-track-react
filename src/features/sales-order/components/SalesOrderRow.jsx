@@ -1,4 +1,5 @@
 import Badge from '../../../components/ui/Badge.jsx'
+import dayjs from 'dayjs'
 
 const STATUS_BADGE = { 'PENDING-INVOICE': 'warning', COMPLETED: 'success' }
 
@@ -11,7 +12,7 @@ export default function SalesOrderRow({ order }) {
         {order.so_number}
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs">{order.customer_name}</td>
-        <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs">{order.so_date}</td>
+        <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs">{dayjs(order.so_date_time).format('DD/MM/YYYY')}</td>
         <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs flex gap-2">
             <div className="flex-auto relative">
                 <div className="h-2 bg-canvas rounded-md"></div>
@@ -20,9 +21,9 @@ export default function SalesOrderRow({ order }) {
             <span className="self-start">{order.percent_invoice}%</span>
         </td>
         <td className="px-4 py-3 align-middle whitespace-nowrap">
-            <Badge variant={STATUS_BADGE[order.status] ?? 'gray'}>{order.status === 'PENDING-INVOICE' ? 'Pending Invoice' : order.status === 'COMPLETED' ? 'Selesai' : '-'}</Badge>
+            <Badge variant={STATUS_BADGE[order.overall_status] ?? 'gray'}>{order.overall_status === 'PENDING-INVOICE' ? 'Pending Invoice' : order.overall_status === 'COMPLETED' ? 'Selesai' : '-'}</Badge>
         </td>
-      <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs"><a className="px-3 py-2 bg-canvas rounded-md" href={`/sales-orders/${order.id}`}>Detail</a></td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs"><a className="px-3 py-2 bg-canvas rounded-md" href={`/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}`}>Detail</a></td>
     </tr>
   )
 }

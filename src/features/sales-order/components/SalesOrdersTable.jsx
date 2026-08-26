@@ -1,4 +1,3 @@
-import { DataPagination } from '@/components/common/DataPagination.jsx'
 import SalesOrderRow from './SalesOrderRow.jsx'
 
 const COLUMNS = ['SO Number', 'Pelanggan', 'Tanggal', 'Proses', "Status", 'Aksi']
@@ -44,7 +43,7 @@ export default function SalesOrdersTable({ data, loading, setSearchParams }) {
           ))}
         </tbody>
       </table>
-      <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
+      {/* <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
         <DataPagination
           current={data.pagination.page}
           perPage={data.pagination.per_page}
@@ -56,7 +55,7 @@ export default function SalesOrdersTable({ data, loading, setSearchParams }) {
             });
           }}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

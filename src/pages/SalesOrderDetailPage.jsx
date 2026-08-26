@@ -1,33 +1,64 @@
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
-import FilterBarDetail from "@/features/sales-order/components/FilterBarDetail";
 import SalesOrderRow from "@/pages/SalesOrderRow";
-import { DataPagination } from '@/components/common/DataPagination.jsx'
+import useSalesOrderDetail from "@/features/sales-order/hooks/useSalesOrderDetail";
+import { useParams, useSearchParams } from 'react-router'
 
 const COLUMNS = ['No. Invoice', 'Barang', 'Qty Pesanan', 'Qty Invoice / Qty Terkirim', 'Qty Outstanding SI / Qty Outstanding Delivery', 'Status Kirim', 'Invoice', 'SOkeSI', 'SIkeDN']
 
 export default function SalesOrderDetailPage() {
+    const { id } = useParams()
+    const [searchParams] = useSearchParams()
+    const soNumber = searchParams.get('so_number')
+    const customerName = searchParams.get('pelanggan')
+    const status = searchParams.get('status')
+    const { salesOrder, loading, error } = useSalesOrderDetail(id) 
+    
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-full">
+                <div className="text-ink-3">Loading...</div>
+            </div>
+        )
+    }
+    
+    if (error) {
+        return (
+            <div className="flex items-center justify-center h-full">
+                <div className="text-ink-3">Error: {error}</div>
+            </div>
+        )
+    }
+    
+    if (!salesOrder) {
+        return (
+            <div className="flex items-center justify-center h-full">
+                <div className="text-ink-3">Sales order not found.</div>
+            </div>
+        )
+    }
+    
     return (
         <>
             <Card className="mb-4">
                 <div className="grid grid-cols-3 gap-3 px-6 py-4">
                     <div className="border-r border-line pr-6">
                         <div className="text-xs text-ink-3 mb-1">SO Number</div>
-                        <div className="text-2xl font-semibold">SO-001</div>
+                        <div className="text-2xl font-semibold">{soNumber}</div>
                     </div>
                     <div className="border-r border-line pr-6">
                         <div className="text-xs text-ink-3 mb-1">Pelanggan</div>
-                        <div className="text-2xl font-semibold">PT. Contoh Pelanggan</div>
+                        <div className="text-2xl font-semibold">{customerName}</div>
                     </div>
                     <div>
                         <div className="text-xs text-ink-3 mb-1">Status</div>
                         <div className="text-2xl font-semibold">
-                            <Badge variant="success" className="!text-xl py-4">COMPLETED</Badge>
+                            <Badge variant={status === 'COMPLETED' ? 'success' : status === 'PENDING-INVOICE' ? 'warning' : 'gray'} className="!text-xl py-4">{status}</Badge>
                         </div>
                     </div>
                 </div>
             </Card>
-            <FilterBarDetail />
+            {/* <FilterBarDetail /> */}
             <Card className="mt-4">
                 <div className="overflow-x-auto">
                     <table className="w-full min-w-[900px] border-collapse">
@@ -44,13 +75,13 @@ export default function SalesOrderDetailPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {[1, 2, 3, 4].map((row) => (
-                                <SalesOrderRow key={row} />
+                            {salesOrder.data.map((row) => (
+                                <SalesOrderRow key={row.id} row={row} />
                             ))}
                         </tbody>
                     </table>
                 </div>
-                <div className="py-4">
+                {/* <div className="py-4">
                     <DataPagination
                         current={1}
                         perPage={10}
@@ -62,7 +93,7 @@ export default function SalesOrderDetailPage() {
                             // });
                         }}
                     />
-                </div>
+                </div> */}
             </Card>
         </>
     )
