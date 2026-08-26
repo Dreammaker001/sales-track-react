@@ -16,14 +16,14 @@ export default function FilterBar({ query, onQuery, role, onRole, status, onStat
     <div className="mb-4 flex flex-wrap items-center gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
       <Input
         muted
-        className="w-[280px]"
+        className="w-full sm:w-[280px]"
         placeholder="Cari username, nama, email..."
         value={query}
         onChange={(e) => onQuery(e.target.value)}
         aria-label="Cari pengguna"
       />
 
-      <div className="flex items-center gap-2" role="group" aria-label="Filter peran">
+      <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto" role="group" aria-label="Filter peran">
         <span className="mr-1 text-xs font-semibold text-ink-3">Peran</span>
         {ROLE_OPTIONS.map((opt) => (
           <Chip key={opt.value} active={role === opt.value} onClick={() => onRole(opt.value)}>
@@ -32,7 +32,7 @@ export default function FilterBar({ query, onQuery, role, onRole, status, onStat
         ))}
       </div>
 
-      <div className="flex items-center gap-2" role="group" aria-label="Filter status">
+      <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto" role="group" aria-label="Filter status">
         <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
         {STATUS_OPTIONS.map((opt) => (
           <Chip key={opt.value} active={status === opt.value} onClick={() => onStatus(opt.value)}>

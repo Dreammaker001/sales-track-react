@@ -185,7 +185,7 @@ export default function ChangePasswordDialog({
                                 )}
                             />
                         </div>
-                        <div className="grid grid-cols-2 gap-2 mt-10">
+                        <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 gap-2 mt-10">
                             <Button type="button" variant="outline" onClick={onClose}>
                                 Batal
                             </Button>

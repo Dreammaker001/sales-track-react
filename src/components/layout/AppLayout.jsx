@@ -12,10 +12,11 @@ export default function AppLayout() {
 
   return (
     <div className="flex min-h-screen bg-canvas">
+      {openSidebar && <div className="fixed inset-0 z-30 bg-black/40 lg:hidden" onClick={() => setOpenSidebar(false)} aria-hidden="true" />}
       <Sidebar open={openSidebar} />
       <main className="flex min-w-0 flex-1 flex-col">
         <Topbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
-        <div className="px-6 pb-6">
+        <div className="px-4 pb-6 lg:px-6">
           <Outlet />
         </div>
       </main>

@@ -55,8 +55,8 @@ export default function UserForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-[600px]">
-        <Card className="p-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-[600px]">
+        <Card className="p-4 sm:p-6">
           <h2 className="text-xl font-bold">{title}</h2>
           <p className="mt-1 text-[13px] text-ink-2">{subtitle}</p>
           <div className="my-5 h-px bg-line" />
@@ -110,13 +110,13 @@ export default function UserForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password (auto-generate)</FormLabel>
-                    <div className="flex gap-2">
-                      <FormControl>
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                      <FormControl className="flex-1">
                         <Input
                           readOnly
                           value={field.value}
                           placeholder="—"
-                          className="bg-gray-soft"
+                          className="bg-gray-soft min-h-[40px]"
                         />
                       </FormControl>
                       <Button
@@ -149,7 +149,7 @@ export default function UserForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Peran</FormLabel>
-                  <div className="grid grid-cols-2 gap-3" role="radiogroup">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" role="radiogroup">
                     {ROLES.map((r) => {
                       const selected = field.value === r.value
                       return (
@@ -213,7 +213,7 @@ export default function UserForm({
             />
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-2 border-t border-line pt-5">
+          <div className="mt-8 flex flex-col-reverse gap-2 border-t border-line pt-5 sm:grid sm:grid-cols-2 sm:gap-2">
             <Button
               type="button"
               variant="outline"

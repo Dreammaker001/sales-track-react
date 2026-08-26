@@ -20,7 +20,7 @@ export default function Sidebar({open}) {
   const items = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin)
 
   return (
-    <aside className={`z-20 flex flex-col border-r border-line bg-surface transition-all ease-in-out duration-300 overflow-hidden ${open ? 'w-[240px]' : 'w-0'}`}>
+    <aside className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-line bg-surface transition-transform duration-300 lg:static lg:z-auto lg:transition-all lg:duration-300 overflow-y-auto lg:overflow-hidden ${open ? 'translate-x-0 lg:w-[240px]' : '-translate-x-full lg:w-0'}`}>
       <div className="flex items-center gap-3 px-6 pb-5 pt-6">
         <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-primary text-xl font-black text-white">
           S

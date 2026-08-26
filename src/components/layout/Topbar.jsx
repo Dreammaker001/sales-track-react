@@ -11,7 +11,7 @@ export default function Topbar({ openSidebar, setOpenSidebar }) {
   const handle = matches.at(-1)?.handle ?? {}
 
   return (
-    <header className="flex items-center gap-3 px-6 pb-5 pt-6">
+    <header className="flex items-center gap-3 px-4 pb-5 pt-6 lg:px-6">
       <Button onClick={() => setOpenSidebar((prev) => !prev)} className="h-8 w-8 rounded-sm p-0 text-ink-3 hover:opacity-80 cursor-pointer">
         {openSidebar ? (
           <PanelLeftClose className="h-5 w-5 text-white" />

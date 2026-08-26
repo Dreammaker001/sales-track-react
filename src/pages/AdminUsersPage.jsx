@@ -40,12 +40,15 @@ export default function AdminUsersPage() {
 
   return (
     <>
-      <div className="mb-5 flex items-end justify-between">
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className="text-lg font-bold">Daftar Pengguna</h2>
           <p className="mt-0.5 text-xs text-ink-3">{users.pagination.total} pengguna terdaftar</p>
         </div>
-        <Button onClick={() => navigate('/admin/users/create')}>+ Buat User</Button>
+        <Button
+          className="cursor-pointer"
+          onClick={() => navigate('/admin/users/create')}
+        >+ Buat User</Button>
       </div>
 
       <FilterBar

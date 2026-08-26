@@ -64,18 +64,6 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: 'admin/users/:username/change-password',
-        element: (
-          <RequireRole roles={['admin']}>
-            <PlaceholderPage title="Ganti Password" />
-          </RequireRole>
-        ),
-        handle: {
-          title: 'Admin · Ganti Password',
-          subtitle: 'Atur ulang password akun pengguna',
-        },
-      },
-      {
         path: 'sales-orders',
         element: <SalesOrdersPage />,
         handle: { title: 'Sales Orders', subtitle: 'Kelola pesanan penjualan' },
