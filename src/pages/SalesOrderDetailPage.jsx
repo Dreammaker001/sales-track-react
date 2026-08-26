@@ -12,16 +12,17 @@ export default function SalesOrderDetailPage() {
     const soNumber = searchParams.get('so_number')
     const customerName = searchParams.get('pelanggan')
     const status = searchParams.get('status')
-    const { salesOrder, loading, error } = useSalesOrderDetail(id) 
-    
+    const { salesOrder, loading, error } = useSalesOrderDetail(id)
+
     if (loading) {
         return (
-            <div className="flex items-center justify-center h-full">
-                <div className="text-ink-3">Loading...</div>
+            <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
+                <span className="h-[18px] w-[18px] animate-spin rounded-full border-2 border-track border-t-primary" />
+                Memuat...
             </div>
         )
     }
-    
+
     if (error) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -29,7 +30,7 @@ export default function SalesOrderDetailPage() {
             </div>
         )
     }
-    
+
     if (!salesOrder) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -37,7 +38,7 @@ export default function SalesOrderDetailPage() {
             </div>
         )
     }
-    
+
     return (
         <>
             <Card className="mb-4">

@@ -9,14 +9,13 @@ export default function SalesOrdersPage() {
         salesOrders,
         loading,
         query,
-        setQuery,
         status,
         setStatus,
         invoice,
         setInvoice,
         searchBy,
-        setSearchBy,
         refetch,
+        setSearchParams,
     } = useSalesOrders()
 
     return (
@@ -30,13 +29,12 @@ export default function SalesOrdersPage() {
 
             <FilterBar
                 query={query}
-                onQuery={setQuery}
                 status={status}
                 onStatus={setStatus}
                 invoice={invoice}
                 onInvoice={setInvoice}
                 searchBy={searchBy}
-                onSearchBy={setSearchBy}
+                setSearchParams={setSearchParams}
                 onSearch={() => {
                     if (!query || query === '') {
                         toast.error('Masukkan kata kunci pencarian terlebih dahulu')

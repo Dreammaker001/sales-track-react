@@ -18,14 +18,18 @@ const SEARCH_OPTIONS = [{
 }, { label: 'SO Number', value: 'so_number' }]
 
 /** Bilah filter: search + chip peran + chip status. */
-export default function FilterBar({ query, onQuery, status, onStatus, invoice, onInvoice, searchBy, onSearchBy, onSearch }) {
+export default function FilterBar({ query, onQuery, status, onStatus, invoice, onInvoice, searchBy, onSearchBy, onSearch, setSearchParams }) {
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
       <div className="flex items-center gap-2">
         <Select
           items={SEARCH_OPTIONS}
           value={searchBy}
-          onChange={(e) => onSearchBy(e.target.value)}
+          onValueChange={(e) => {
+            setSearchParams(prev => {
+            prev.set('search_by', e)
+            return prev
+          })}}
           aria-label="Cari berdasarkan"
           defaultValue={SEARCH_OPTIONS[0].value}
         >
@@ -48,7 +52,10 @@ export default function FilterBar({ query, onQuery, status, onStatus, invoice, o
           className="w-[280px]"
           placeholder="Cari username, nama, email..."
           value={query}
-          onChange={(e) => onQuery(e.target.value)}
+          onChange={(e) => setSearchParams(prev => {
+            prev.set('q', e.target.value)
+            return prev
+          })}
           aria-label="Cari pengguna"
         />
         <Button onClick={onSearch}>Search</Button>
