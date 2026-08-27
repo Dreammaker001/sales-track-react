@@ -9,6 +9,8 @@ import EditUserPage from '../pages/EditUserPage.jsx'
 import PlaceholderPage from '../pages/PlaceholderPage.jsx'
 import RequireAuth from '../components/auth/RequireAuth.jsx'
 import RequireRole from '../components/auth/RequireRole.jsx'
+import AdminPTDatabaseConfigsPage from '@/pages/AdminPTDatabaseConfigsPage.jsx'
+import AdminCreatePTDatabaseConfigPage from '@/pages/AdminCreatePTDatabaseConfigPage.jsx'
 
 /**
  * Konfigurasi route terpusat.
@@ -61,6 +63,22 @@ export const router = createBrowserRouter([
         handle: {
           title: 'Admin · Edit User',
           subtitle: 'Ubah data akun pengguna',
+        },
+      },
+      {
+        path: 'admin/pt-database-configs',
+        element: <AdminPTDatabaseConfigsPage/>,
+        handle: {
+          title: 'Admin · PT Database Configs',
+          subtitle: 'Kelola konfigurasi database PT',
+        },
+      },
+      {
+        path: 'admin/pt-database-configs/create',
+        element: <AdminCreatePTDatabaseConfigPage />,
+        handle: {
+          title: 'Admin · Buat PT Database Config',
+          subtitle: 'Tambahkan konfigurasi database PT baru',
         },
       },
       {
