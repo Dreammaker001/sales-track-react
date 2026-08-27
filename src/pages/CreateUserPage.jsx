@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
-import { createUser } from '@/features/admin/api/usersApi.js'
-import UserForm from '@/features/admin/components/UserForm.jsx'
+import { createUser } from '@/features/admin-user/api/usersApi.js'
+import UserForm from '@/features/admin-user/components/UserForm.jsx'
 
 /** Halaman Buat User — bungkus tipis di atas UserForm mode="create". */
 export default function CreateUserPage() {

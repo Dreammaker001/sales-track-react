@@ -2,11 +2,11 @@ import { useNavigate, useSearchParams } from 'react-router'
 import * as React from 'react'
 import Button from '../components/ui/Button.jsx'
 import Card from '../components/ui/Card.jsx'
-import FilterBar from '../features/admin/components/FilterBar.jsx'
-import UsersTable from '../features/admin/components/UsersTable.jsx'
-import useUsers from '../features/admin/hooks/useUsers.js'
-import StatusDialog from '@/features/admin/components/StatusDialog.jsx'
-import ChangePasswordDialog from '@/features/admin/components/ChangePasswordDialog.jsx'
+import FilterBar from '../features/admin-user/components/FilterBar.jsx'
+import UsersTable from '../features/admin-user/components/UsersTable.jsx'
+import useUsers from '../features/admin-user/hooks/useUsers.js'
+import StatusDialog from '@/features/admin-user/components/StatusDialog.jsx'
+import ChangePasswordDialog from '@/features/admin-user/components/ChangePasswordDialog.jsx'
 
 export default function AdminUsersPage() {
   const [searchParams, setSearchParams] = useSearchParams()

@@ -19,7 +19,7 @@ import {
   createUserDefaultValues,
   createUserSchema,
   updateUserSchema,
-} from '@/features/admin/forms/userSchema.js'
+} from '@/features/admin-user/forms/userSchema.js'
 import { generatePassword } from '@/utils/validators.js'
 
 const ROLES = [

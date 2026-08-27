@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router'
 import Button from '@/components/ui/Button.jsx'
 import Card from '@/components/ui/Card.jsx'
-import UserForm from '@/features/admin/components/UserForm.jsx'
-import { useUpdateUser, useUser } from '@/features/admin/hooks/useUser.js'
+import UserForm from '@/features/admin-user/components/UserForm.jsx'
+import { useUpdateUser, useUser } from '@/features/admin-user/hooks/useUser.js'
 
 /** Halaman Edit User — muat data user, lalu tampilkan UserForm mode="edit". */
 export default function EditUserPage() {
