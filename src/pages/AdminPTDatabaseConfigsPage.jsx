@@ -4,9 +4,13 @@ import Card from '../components/ui/Card.jsx'
 import PTDatabaseConfigsTable from '@/features/admin-pt-database-config/components/PTDatabaseConfigsTable.jsx'
 import usePTDatabaseConfigs from '@/features/admin-pt-database-config/hooks/usePTDatabaseConfigs.js'
 import { useNavigate } from 'react-router'
+import DeleteDialog from '@/features/admin-pt-database-config/components/DeleteDialog.jsx'
+import { useState } from 'react'
+import { useDeletePTDatabaseConfig } from '@/features/admin-pt-database-config/hooks/usePTDatabaseConfig.js'
 
 export default function AdminPTDatabaseConfigsPage() {
     const navigate = useNavigate()
+    const [deleteId, setDeleteId] = useState(null)
 
     const {
         datas,
@@ -18,6 +22,8 @@ export default function AdminPTDatabaseConfigsPage() {
         setStatus,
         setPage,
     } = usePTDatabaseConfigs()
+
+    const deleteMutation = useDeletePTDatabaseConfig()
 
     return (
         <>
@@ -44,8 +50,22 @@ export default function AdminPTDatabaseConfigsPage() {
                     datas={datas}
                     loading={loading}
                     error={error}
-                    setPage={setPage} />
+                    setPage={setPage}
+                    onDelete={(id) => setDeleteId(id)}
+                    />
             </Card>
+
+            {deleteId !== null && (
+                <DeleteDialog
+                    onClose={() => setDeleteId(null)}
+                    onDelete={() => {
+                        deleteMutation.mutate(deleteId, {
+                            onSuccess: () => setDeleteId(null)
+                        })
+                    }}
+                    isLoading={deleteMutation.isPending}
+                />
+            )}
         </>
     )
 }

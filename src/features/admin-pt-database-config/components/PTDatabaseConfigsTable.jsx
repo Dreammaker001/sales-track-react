@@ -5,7 +5,7 @@ import PTDatabaseConfigRow from './PTDatabaseConfigRow.jsx'
 const COLUMNS = ['Kode', 'Nama PT', 'Dibuat', 'Diubah', 'Status', 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function PTDatabaseConfigsTable({ datas, loading, error, setPage }) {
+export default function PTDatabaseConfigsTable({ datas, loading, error, setPage, onDelete }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -46,7 +46,7 @@ export default function PTDatabaseConfigsTable({ datas, loading, error, setPage 
           </thead>
           <tbody>
             {datas.data?.map((data) => (
-              <PTDatabaseConfigRow key={data.id} data={data} />
+              <PTDatabaseConfigRow key={data.id} data={data} onDelete={onDelete} />
             ))}
           </tbody>
         </table>

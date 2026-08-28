@@ -7,7 +7,7 @@ import { EllipsisVertical } from 'lucide-react'
 const STATUS_BADGE = { active: 'success', inactive: 'gray' }
 
 /** Satu baris pengguna di tabel. */
-export default function PTDatabaseConfigRow({ data }) {
+export default function PTDatabaseConfigRow({ data, onDelete }) {
   const navigate = useNavigate()
 
   return (
@@ -44,7 +44,7 @@ export default function PTDatabaseConfigRow({ data }) {
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="hover:bg-primary hover:text-white"
-                onClick={() => {}}
+                onClick={() => onDelete(data.id)}
               >
                 Hapus
               </DropdownMenuItem>
