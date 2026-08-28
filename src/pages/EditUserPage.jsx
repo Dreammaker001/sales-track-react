@@ -2,13 +2,14 @@ import { useNavigate, useParams } from 'react-router'
 import Button from '@/components/ui/Button.jsx'
 import Card from '@/components/ui/Card.jsx'
 import UserForm from '@/features/admin-user/components/UserForm.jsx'
-import { useUpdateUser, useUser } from '@/features/admin-user/hooks/useUser.js'
+import { useUpdateUser, useUser, usePTDatabaseConfigOptions } from '@/features/admin-user/hooks/useUser.js'
 
 /** Halaman Edit User — muat data user, lalu tampilkan UserForm mode="edit". */
 export default function EditUserPage() {
   const { id } = useParams()
   const navigate = useNavigate()
 
+  const {data: ptAccessOptions, isLoading: isLoadingPTAccessOptions} = usePTDatabaseConfigOptions()
   const { data: user, isLoading, isError, error } = useUser(id)
   const mutation = useUpdateUser()
 
@@ -39,13 +40,23 @@ export default function EditUserPage() {
   }
 
   return (
-    <UserForm
-      mode="edit"
-      initialValues={user.data}
-      onSubmit={(values) => {
-        mutation.mutate({ id: user?.data?.id, payload: values })
-      }}
-      isPending={mutation.isPending}
-    />
+    <div className="flex justify-center">
+        <UserForm
+          mode="edit"
+          initialValues={{
+            username: user?.data?.username,
+            name: user?.data?.name,
+            role: user?.data?.role,
+            status: user?.data?.status,
+            access: user?.data?.access.map(a => a.pt_key) || [],
+          }}
+          onSubmit={(values) => {
+            mutation.mutate({ id: user?.data?.id, payload: values })
+          }}
+          isPending={mutation.isPending}
+          ptAccessOptions={ptAccessOptions?.data}
+          isLoadingPTAccessOptions={isLoadingPTAccessOptions}
+        />
+    </div>
   )
 }

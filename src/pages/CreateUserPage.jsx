@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { usePTDatabaseConfigOptions } from '@/features/admin-user/hooks/useUser.js'
 import { useNavigate } from 'react-router'
 import { createUser } from '@/features/admin-user/api/usersApi.js'
 import UserForm from '@/features/admin-user/components/UserForm.jsx'
@@ -7,6 +8,8 @@ import UserForm from '@/features/admin-user/components/UserForm.jsx'
 export default function CreateUserPage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+
+  const {data: ptAccessOptions, isLoading} = usePTDatabaseConfigOptions()
 
   const mutation = useMutation({
     mutationFn: createUser,
@@ -17,10 +20,14 @@ export default function CreateUserPage() {
   })
 
   return (
-    <UserForm
-      mode="create"
-      onSubmit={(values) => mutation.mutate(values)}
-      isPending={mutation.isPending}
-    />
+    <div className="flex justify-center">
+        <UserForm
+          mode="create"
+          onSubmit={(values) => mutation.mutate(values)}
+          isPending={mutation.isPending}
+          ptAccessOptions={ptAccessOptions?.data}
+          isLoadingPTAccessOptions={isLoading}
+        />
+    </div>
   )
 }

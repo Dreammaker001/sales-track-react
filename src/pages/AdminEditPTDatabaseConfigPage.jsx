@@ -37,21 +37,23 @@ export default function AdminEditPTDatabaseConfigPage() {
     }
 
     return (
-        <CreateEditForm
-            mode="edit"
-            initialValues={{
-                ptKey: data?.data?.pt_key,
-                ptName: data?.data?.pt_name,
-                dbHost: data?.data?.db_host,
-                dbPort: data?.data?.db_port,
-                dbName: data?.data?.db_name,
-                dbUser: data?.data?.db_user,
-                status: data?.data?.status,
-            }}
-            onSubmit={(values) => {
-                mutation.mutate({ id: data?.data?.id, payload: values })
-            }}
-            isPending={mutation.isPending}
-        />
+        <div className="flex justify-center">
+            <CreateEditForm
+                mode="edit"
+                initialValues={{
+                    ptKey: data?.data?.pt_key,
+                    ptName: data?.data?.pt_name,
+                    dbHost: data?.data?.db_host,
+                    dbPort: data?.data?.db_port,
+                    dbName: data?.data?.db_name,
+                    dbUser: data?.data?.db_user,
+                    status: data?.data?.status,
+                }}
+                onSubmit={(values) => {
+                    mutation.mutate({ id: data?.data?.id, payload: values })
+                }}
+                isPending={mutation.isPending}
+            />
+        </div>
     )
 }

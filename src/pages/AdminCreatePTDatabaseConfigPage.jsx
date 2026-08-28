@@ -4,10 +4,12 @@ export default function AdminCreatePTDatabaseConfigPage() {
     const mutation = useCreatePTDatabaseConfig()
 
     return(
-        <CreateEditForm
-            mode="create"
-            isPending={mutation.isPending}
-            onSubmit={(values) => mutation.mutate(values)}
-        />
+        <div className="flex justify-center">
+            <CreateEditForm
+                mode="create"
+                isPending={mutation.isPending}
+                onSubmit={(values) => mutation.mutate(values)}
+            />
+        </div>
     )
 }

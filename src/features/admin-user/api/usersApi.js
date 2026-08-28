@@ -30,6 +30,7 @@ export async function updateUser(id, payload) {
     name: payload.name,
     role: payload.role,
     status: payload.status,
+    access: payload.access,
   })
   return data
 }
@@ -39,5 +40,10 @@ export async function changeUserPassword(id, payload) {
     password: payload.password,
     password_change_required: payload.forceChangePassword,
   })
+  return data
+}
+
+export async function getPTDatabaseConfigOptons() {
+  const { data } = await client.get(`/admin/pt-database-configs/options`)
   return data
 }

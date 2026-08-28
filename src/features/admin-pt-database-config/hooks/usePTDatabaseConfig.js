@@ -20,7 +20,7 @@ export function useCreatePTDatabaseConfig() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['pt-database-configs'] })
             toast.success('Konfigurasi database PT berhasil dibuat')
-            navigate('/admin/pt-database-configs')
+            navigate(-1)
         },
         onError: (error) => {
             toast.error(`Gagal membuat konfigurasi database PT: ${error.message}`)
@@ -37,7 +37,7 @@ export function useUpdatePTDatabaseConfig() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['pt-database-configs'] })
             toast.success('Perubahan konfigurasi database PT berhasil disimpan')
-            navigate('/admin/pt-database-configs')
+            navigate(-1)
         },
         onError: (error) => {
             toast.error(`Gagal menyimpan perubahan konfigurasi database PT: ${error.message}`)

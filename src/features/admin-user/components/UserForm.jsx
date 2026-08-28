@@ -1,3 +1,4 @@
+import * as React from "react"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RefreshCw, LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
@@ -21,6 +22,18 @@ import {
   updateUserSchema,
 } from '@/features/admin-user/forms/userSchema.js'
 import { generatePassword } from '@/utils/validators.js'
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+  useComboboxAnchor,
+} from "@/components/ui/combobox"
 
 const ROLES = [
   { name: 'Admin', value: 'admin', desc: 'Akses penuh sistem' },
@@ -37,9 +50,13 @@ export default function UserForm({
   initialValues,
   onSubmit,
   isPending = false,
+  ptAccessOptions,
+  isLoadingPTAccessOptions,
 }) {
+  const accessOptions = ptAccessOptions?.map((opt) => ({ value: opt.pt_key, label: opt.pt_name })) ?? []
   const navigate = useNavigate()
   const isEdit = mode === 'edit'
+  const anchor = useComboboxAnchor()
 
   const form = useForm({
     resolver: zodResolver(isEdit ? updateUserSchema : createUserSchema),
@@ -160,8 +177,8 @@ export default function UserForm({
                           aria-checked={selected}
                           onClick={() => field.onChange(r.value)}
                           className={`flex items-start gap-3 rounded-[10px] border p-4 text-left transition-colors ${selected
-                              ? 'border-primary'
-                              : 'border-line hover:border-ink-3'
+                            ? 'border-primary'
+                            : 'border-line hover:border-ink-3'
                             }`}
                         >
                           <span
@@ -184,6 +201,62 @@ export default function UserForm({
                       )
                     })}
                   </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Access */}
+            <FormField
+              control={form.control}
+              name="access"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Akses</FormLabel>
+                  <FormControl>
+                    {/* <Input placeholder="contoh: 1,2,3" {...field} /> */}
+                    <Combobox
+                      multiple
+                      autoHighlight
+                      items={accessOptions}
+                      onValueChange={(values) => {field.onChange(values)}}
+                      value={field.value}
+                    >
+                      <ComboboxChips ref={anchor} className="w-full ring-0 border border-line rounded-md bg-white px-3 py-2 text-sm focus-within:ring-1 focus-within:ring-primary">
+                        <ComboboxValue>
+                          {(values) => (
+                            <React.Fragment>
+                              {values?.map((value) => (
+                                <ComboboxChip key={value}>{value}</ComboboxChip>
+                              ))}
+                              <ComboboxChipsInput />
+                            </React.Fragment>
+                          )}
+                        </ComboboxValue>
+                      </ComboboxChips>
+                      <ComboboxContent anchor={anchor} className="w-full max-w-xs bg-white border border-line rounded-md shadow-md ring-0">
+                        {isLoadingPTAccessOptions ? (
+                          <div className="flex items-center justify-center p-4">
+                            <LoaderCircle className="h-4 w-4 animate-spin" />
+                          </div>
+                        ) : (
+                          <>
+                            <ComboboxEmpty>No items found.</ComboboxEmpty>
+                            <ComboboxList>
+                              {(item) => (
+                                <ComboboxItem key={item.label} value={item.value}>
+                                  {item.label}
+                                </ComboboxItem>
+                              )}
+                            </ComboboxList>
+                          </>
+                        )}
+                      </ComboboxContent>
+                    </Combobox>
+                  </FormControl>
+                  <FormDescription>
+                    Akses ke PT Database. Pilih satu atau lebih PT yang bisa diakses user ini.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -237,6 +310,6 @@ export default function UserForm({
           </p>
         </Card>
       </form>
-    </Form>
+    </Form >
   )
 }

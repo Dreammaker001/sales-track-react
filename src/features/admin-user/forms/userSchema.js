@@ -22,6 +22,7 @@ export const createUserSchema = z.object({
     .regex(/[^A-Za-z0-9]/, 'Harus ada karakter khusus'),
   role: z.enum(['admin', 'sales'], { message: 'Pilih peran' }),
   status: z.enum(['active', 'inactive']),
+  access: z.array(z.string()).optional(),
 })
 
 /** Saat edit, password tidak ikut diformulir — hanya data profil. */
@@ -33,4 +34,5 @@ export const createUserDefaultValues = {
   password: '',
   role: 'sales',
   status: 'active',
+  access: [],
 }
