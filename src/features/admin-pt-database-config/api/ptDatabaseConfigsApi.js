@@ -25,7 +25,16 @@ export async function createPTDatabaseConfig(payload) {
 }
 
 export async function updatePTDatabaseConfig(id, payload) {
-  const res = await client.put(`/admin/pt-database-configs/${id}`, payload)
+  const res = await client.put(`/admin/pt-database-configs/${id}`, {
+    pt_key: payload.ptKey,
+    pt_name: payload.ptName,
+    db_host: payload.dbHost,
+    db_port: payload.dbPort,
+    db_name: payload.dbName,
+    db_user: payload.dbUser,
+    db_password: payload.dbPassword,
+    status: payload.status,
+  })
   return res.data
 }
 

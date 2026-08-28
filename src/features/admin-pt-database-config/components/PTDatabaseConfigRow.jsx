@@ -38,7 +38,7 @@ export default function PTDatabaseConfigRow({ data }) {
             <DropdownMenuContent align="end" sideOffset={4} className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg ">
               <DropdownMenuItem
                 className="hover:bg-primary hover:text-white mb-1"
-                onClick={() => navigate(`/admin/users/${user.id}/edit`)}
+                onClick={() => navigate(`/admin/pt-database-configs/${data.id}/edit`)}
               >
                 Edit
               </DropdownMenuItem>

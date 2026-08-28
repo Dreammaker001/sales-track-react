@@ -30,11 +30,14 @@ export function useCreatePTDatabaseConfig() {
 
 export function useUpdatePTDatabaseConfig() {
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
+
     return useMutation({
         mutationFn: ({ id, payload }) => updatePTDatabaseConfig(id, payload),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['pt-database-configs'] })
             toast.success('Perubahan konfigurasi database PT berhasil disimpan')
+            navigate('/admin/pt-database-configs')
         },
         onError: (error) => {
             toast.error(`Gagal menyimpan perubahan konfigurasi database PT: ${error.message}`)

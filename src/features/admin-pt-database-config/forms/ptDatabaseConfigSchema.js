@@ -11,6 +11,10 @@ export const createPTDatabaseConfigSchema = z.object({
     status: z.enum(['active', 'inactive'], { message: 'Pilih status' }),
 })
 
+export const editPTDatabaseConfigSchema = createPTDatabaseConfigSchema.omit({ dbPassword: true }).extend({
+    dbPassword: z.string().max(50).optional(),
+})
+
 export const createPTDatabaseConfigDefaultValues = {
     ptKey: '',
     ptName: '',

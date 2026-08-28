@@ -14,6 +14,7 @@ import {
 import {
     createPTDatabaseConfigDefaultValues,
     createPTDatabaseConfigSchema,
+    editPTDatabaseConfigSchema,
 } from '@/features/admin-pt-database-config/forms/ptDatabaseConfigSchema.js'
 import Button from '@/components/ui/Button.jsx'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, SelectLabel } from '@/components/ui/select'
@@ -34,7 +35,7 @@ export default function CreateEditForm({
     const isEdit = mode === 'edit'
 
     const form = useForm({
-        resolver: zodResolver(createPTDatabaseConfigSchema),
+        resolver: zodResolver(isEdit ? editPTDatabaseConfigSchema : createPTDatabaseConfigSchema),
         defaultValues: initialValues ?? createPTDatabaseConfigDefaultValues,
     })
 

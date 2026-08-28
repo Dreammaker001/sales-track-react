@@ -11,6 +11,7 @@ import RequireAuth from '../components/auth/RequireAuth.jsx'
 import RequireRole from '../components/auth/RequireRole.jsx'
 import AdminPTDatabaseConfigsPage from '@/pages/AdminPTDatabaseConfigsPage.jsx'
 import AdminCreatePTDatabaseConfigPage from '@/pages/AdminCreatePTDatabaseConfigPage.jsx'
+import AdminEditPTDatabaseConfigPage from '@/pages/AdminEditPTDatabaseConfigPage.jsx'
 
 /**
  * Konfigurasi route terpusat.
@@ -79,6 +80,14 @@ export const router = createBrowserRouter([
         handle: {
           title: 'Admin · Buat PT Database Config',
           subtitle: 'Tambahkan konfigurasi database PT baru',
+        },
+      },
+      {
+        path: 'admin/pt-database-configs/:id/edit',
+        element: <AdminEditPTDatabaseConfigPage />,
+        handle: {
+          title: 'Admin · Edit PT Database Config',
+          subtitle: 'Ubah konfigurasi database PT',
         },
       },
       {
