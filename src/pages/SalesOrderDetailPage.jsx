@@ -5,6 +5,7 @@ import useSalesOrderDetail from "@/features/sales-order/hooks/useSalesOrderDetai
 import { useParams, useSearchParams } from 'react-router'
 
 const COLUMNS = ['No. Invoice', 'Barang', 'Qty Pesanan', 'Qty Invoice / Qty Terkirim', 'Qty Outstanding SI / Qty Outstanding Delivery', 'Status Kirim', 'Invoice', 'SOkeSI', 'SIkeDN']
+const STATUS_BADGE = { 'PENDING-INVOICE': 'warning', COMPLETED: 'success', 'CLOSED-PARTIAL': 'danger' }
 
 export default function SalesOrderDetailPage() {
     const { id } = useParams()
@@ -54,7 +55,7 @@ export default function SalesOrderDetailPage() {
                     <div>
                         <div className="text-xs text-ink-3 mb-1">Status</div>
                         <div className="text-2xl font-semibold">
-                            <Badge variant={status === 'COMPLETED' ? 'success' : status === 'PENDING-INVOICE' ? 'warning' : 'gray'} className="!text-xl py-4">{status}</Badge>
+                            <Badge variant={STATUS_BADGE[status] ?? 'gray'} className="!text-xl py-4">{status}</Badge>
                         </div>
                     </div>
                 </div>

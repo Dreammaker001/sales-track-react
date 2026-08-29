@@ -1,7 +1,7 @@
 import Badge from '../../../components/ui/Badge.jsx'
 import dayjs from 'dayjs'
 
-const STATUS_BADGE = { 'PENDING-INVOICE': 'warning', COMPLETED: 'success' }
+const STATUS_BADGE = { 'PENDING-INVOICE': 'warning', COMPLETED: 'success', 'CLOSED-PARTIAL': 'danger' }
 
 /** Satu baris pengguna di tabel. */
 export default function SalesOrderRow({ order }) {
@@ -21,7 +21,7 @@ export default function SalesOrderRow({ order }) {
         <span className="self-start">{order.percent_invoice}%</span>
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap">
-        <Badge variant={STATUS_BADGE[order.overall_status] ?? 'gray'}>{order.overall_status === 'PENDING-INVOICE' ? 'Pending Invoice' : order.overall_status === 'COMPLETED' ? 'Selesai' : '-'}</Badge>
+        <Badge variant={STATUS_BADGE[order.overall_status] ?? 'gray'}>{order.overall_status ?? '-'}</Badge>
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs"><a className="px-3 py-2 bg-canvas rounded-md" href={`/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}`}>Detail</a></td>
     </tr>
