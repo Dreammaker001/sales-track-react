@@ -1,11 +1,16 @@
 import { client } from '../../../api/client'
 
-export async function fetchSalesOrders({q, searchBy, status, invoice}) {
-    const res = await client.get('/sales-orders', { params: { q, search_by:searchBy, status, invoice } })
+export async function fetchSalesOrders({q, searchBy, pt, status, invoice}) {
+    const res = await client.get('/sales-orders', { params: { q, search_by:searchBy, pt, status, invoice } })
     return res.data
 }
 
 export async function getSalesOrderByID(id) {
     const res = await client.get(`/sales-orders/${id}`)
+    return res.data
+}
+
+export async function getPTAccess() {
+    const res = await client.get('/user-pt-access/options')
     return res.data
 }

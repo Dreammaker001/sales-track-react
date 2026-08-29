@@ -18,10 +18,46 @@ const SEARCH_OPTIONS = [{
 }, { label: 'SO Number', value: 'so_number' }]
 
 /** Bilah filter: search + chip peran + chip status. */
-export default function FilterBar({ query, onQuery, status, onStatus, invoice, onInvoice, searchBy, onSearchBy, onSearch, setSearchParams }) {
+export default function FilterBar({ 
+  query, 
+  status, 
+  onStatus, 
+  invoice, 
+  onInvoice, 
+  searchBy, 
+  onSearch, 
+  setSearchParams, 
+  ptAccessOptions,
+  ptAccess
+}) {
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
       <div className="flex items-center gap-2">
+        <Select
+          items={ptAccessOptions}
+          value={ptAccess}
+          defaultValue={ptAccessOptions[0]?.value || ''}
+          onValueChange={(e) => {
+            setSearchParams(prev => {
+            prev.set('pt', e)
+            return prev
+          })}}
+          aria-label="Pilih PT"
+        >
+          <SelectTrigger className="w-full max-w-48 border-line">
+            <SelectValue className="text-ink-2" placeholder="Pilih PT" />
+          </SelectTrigger>
+          <SelectContent position="popper" className="bg-surface border-line">
+            <SelectGroup>
+              <SelectLabel className="text-xs font-semibold text-ink-3">Pilih PT</SelectLabel>
+              {ptAccessOptions.map((item) => (
+                <SelectItem key={item.value} value={item.value} className="text-ink-2">
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <Select
           items={SEARCH_OPTIONS}
           value={searchBy}
@@ -34,7 +70,7 @@ export default function FilterBar({ query, onQuery, status, onStatus, invoice, o
           defaultValue={SEARCH_OPTIONS[0].value}
         >
           <SelectTrigger className="w-full max-w-48 border-line">
-            <SelectValue className="text-ink-2" />
+            <SelectValue className="text-ink-2" placeholder="Cari berdasarkan" />
           </SelectTrigger>
           <SelectContent position="popper" className="bg-surface border-line">
             <SelectGroup>

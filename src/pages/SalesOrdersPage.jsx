@@ -1,6 +1,6 @@
 import FilterBar from "@/features/sales-order/components/FilterBar";
 import SalesOrdersTable from "@/features/sales-order/components/SalesOrdersTable";
-import useSalesOrders from "@/features/sales-order/hooks/useSalesOrders";
+import useSalesOrders, { usePTAccess } from "@/features/sales-order/hooks/useSalesOrders";
 import Card from "@/components/ui/Card";
 import { toast } from "sonner";
 
@@ -14,9 +14,16 @@ export default function SalesOrdersPage() {
         invoice,
         setInvoice,
         searchBy,
+        pt,
         refetch,
         setSearchParams,
     } = useSalesOrders()
+
+    const {
+        data: ptAccessOptions = {
+            data: [],
+        },
+    } = usePTAccess()
 
     return (
         <>
@@ -36,12 +43,14 @@ export default function SalesOrdersPage() {
                 searchBy={searchBy}
                 setSearchParams={setSearchParams}
                 onSearch={() => {
-                    if (!query || query === '') {
+                    if (!query || query === '' || pt === null || pt === '' || searchBy === null || searchBy === '') {
                         toast.error('Masukkan kata kunci pencarian terlebih dahulu')
                         return
                     }
                     refetch()
                 }}
+                ptAccessOptions={ptAccessOptions?.data?.map((item) => ({ label: item?.pt?.pt_name, value: item?.pt_key })) || []}
+                ptAccess={pt}
             />
 
             <Card>
