@@ -12,9 +12,10 @@ export default function useSalesOrders() {
   const [status, setStatus] = useState('')
   const searchBy = searchParams.get('search_by') || 'customer_code'
   const pt = searchParams.get('pt') || ''
+  const periodMonth = searchParams.get('period_month') || '1'
 
   const debouncedQuery = useDebounce(query, 250)
-  const filters = { q: debouncedQuery, searchBy: searchBy, pt, status, invoice }
+  const filters = { q: debouncedQuery, searchBy: searchBy, pt, status, invoice, periodMonth }
 
   const {
     data: salesOrders = {
@@ -28,6 +29,8 @@ export default function useSalesOrders() {
     queryKey: ['salesOrders', filters],
     queryFn: () => fetchSalesOrders(filters),
     enabled: false,
+    gcTime: 0,
+    staleTime: 0,
   })
 
   return {
@@ -41,6 +44,7 @@ export default function useSalesOrders() {
     setInvoice,
     searchBy,
     pt,
+    periodMonth,
     refetch,
     setSearchParams,
   }

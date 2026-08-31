@@ -1,8 +1,8 @@
 import { client } from '../../../api/client'
 
-export async function fetchSalesOrders({ q, searchBy, pt, status, invoice }) {
+export async function fetchSalesOrders({ q, searchBy, pt, status, invoice, periodMonth }) {
   const res = await client.get('/sales-orders', {
-    params: { q, search_by: searchBy, pt, status, invoice },
+    params: { q, search_by: searchBy, pt, status, invoice, period_month: periodMonth },
   })
   return res.data
 }

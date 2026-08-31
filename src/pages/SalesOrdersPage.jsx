@@ -15,6 +15,7 @@ export default function SalesOrdersPage() {
     setInvoice,
     searchBy,
     pt,
+    periodMonth,
     refetch,
     setSearchParams,
   } = useSalesOrders()
@@ -42,6 +43,8 @@ export default function SalesOrdersPage() {
         onInvoice={setInvoice}
         searchBy={searchBy}
         setSearchParams={setSearchParams}
+        ptAccess={pt}
+        periodMonth={periodMonth}
         onSearch={() => {
           if (
             !query ||
@@ -62,7 +65,6 @@ export default function SalesOrdersPage() {
             value: item?.pt_key,
           })) || []
         }
-        ptAccess={pt}
       />
 
       <Card>
