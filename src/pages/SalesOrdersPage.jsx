@@ -55,6 +55,7 @@ export default function SalesOrdersPage() {
 
             <Card>
                 <SalesOrdersTable
+                    ptAccess={pt}
                     data={salesOrders}
                     loading={loading}
                 />

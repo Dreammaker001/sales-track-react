@@ -1,6 +1,7 @@
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
-import SalesOrderRow from "@/pages/SalesOrderRow";
+import SalesOrderDetailCard from "@/features/sales-order/components/SalesOrderDetailCard";
+import SalesOrderDetailRow from "@/features/sales-order/components/SalesOrderDetailRow";
 import useSalesOrderDetail from "@/features/sales-order/hooks/useSalesOrderDetail";
 import { useParams, useSearchParams } from 'react-router'
 
@@ -13,7 +14,8 @@ export default function SalesOrderDetailPage() {
     const soNumber = searchParams.get('so_number')
     const customerName = searchParams.get('pelanggan')
     const status = searchParams.get('status')
-    const { salesOrder, loading, error } = useSalesOrderDetail(id)
+    const ptAccess = searchParams.get('pt')
+    const { salesOrder, loading, error } = useSalesOrderDetail(id, ptAccess)
 
     if (loading) {
         return (
@@ -43,26 +45,26 @@ export default function SalesOrderDetailPage() {
     return (
         <>
             <Card className="mb-4">
-                <div className="grid grid-cols-3 gap-3 px-6 py-4">
-                    <div className="border-r border-line pr-6">
+                <div className="grid grid-cols-1 gap-4 px-4 py-4 sm:grid-cols-3 sm:gap-3 sm:px-6">
+                    <div className="border-b border-line pb-3 sm:border-b-0 sm:border-r sm:pb-0 sm:pr-6">
                         <div className="text-xs text-ink-3 mb-1">SO Number</div>
-                        <div className="text-2xl font-semibold">{soNumber}</div>
+                        <div className="text-lg font-semibold sm:text-2xl">{soNumber}</div>
                     </div>
-                    <div className="border-r border-line pr-6">
+                    <div className="border-b border-line pb-3 sm:border-b-0 sm:border-r sm:pb-0 sm:pr-6">
                         <div className="text-xs text-ink-3 mb-1">Pelanggan</div>
-                        <div className="text-2xl font-semibold">{customerName}</div>
+                        <div className="text-lg font-semibold sm:text-2xl">{customerName}</div>
                     </div>
                     <div>
                         <div className="text-xs text-ink-3 mb-1">Status</div>
-                        <div className="text-2xl font-semibold">
-                            <Badge variant={STATUS_BADGE[status] ?? 'gray'} className="!text-xl py-4">{status}</Badge>
+                        <div className="text-lg font-semibold sm:text-2xl">
+                            <Badge variant={STATUS_BADGE[status] ?? 'gray'} className="!text-base sm:!text-xl sm:py-4">{status}</Badge>
                         </div>
                     </div>
                 </div>
             </Card>
             {/* <FilterBarDetail /> */}
             <Card className="mt-4">
-                <div className="overflow-x-auto">
+                <div className="hidden overflow-x-auto lg:block">
                     <table className="w-full min-w-[900px] border-collapse">
                         <thead>
                             <tr>
@@ -78,10 +80,15 @@ export default function SalesOrderDetailPage() {
                         </thead>
                         <tbody>
                             {salesOrder.data.map((row) => (
-                                <SalesOrderRow key={row.id} row={row} />
+                                <SalesOrderDetailRow key={row.id} row={row}/>
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className="space-y-3 p-4 lg:hidden">
+                    {salesOrder.data.map((row) => (
+                        <SalesOrderDetailCard key={row.id} row={row} />
+                    ))}
                 </div>
                 {/* <div className="py-4">
                     <DataPagination

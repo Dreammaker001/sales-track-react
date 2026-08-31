@@ -1,9 +1,10 @@
 import SalesOrderRow from './SalesOrderRow.jsx'
+import SalesOrderCard from './SalesOrderCard.jsx'
 
 const COLUMNS = ['SO Number', 'Pelanggan', 'Tanggal', 'Proses', "Status", 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function SalesOrdersTable({ data, loading, setSearchParams }) {
+export default function SalesOrdersTable({ data, loading, ptAccess }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -18,31 +19,39 @@ export default function SalesOrdersTable({ data, loading, setSearchParams }) {
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div>
       <div className="flex items-center justify-between px-6 pt-5 pb-3">
         <h3 className="text-base font-bold">Semua Sales Order</h3>
         <span className="text-xs text-ink-3">{data.data?.length} hasil</span>
       </div>
 
-      <table className="w-full min-w-[900px] border-collapse">
-        <thead>
-          <tr>
-            {COLUMNS.map((col) => (
-              <th
-                key={col}
-                className="border-y border-line px-4 py-3 text-left text-xs font-semibold whitespace-nowrap text-ink-3"
-              >
-                {col}
-              </th>
+      <div className="hidden overflow-x-auto lg:block">
+        <table className="w-full min-w-[900px] border-collapse">
+          <thead>
+            <tr>
+              {COLUMNS.map((col) => (
+                <th
+                  key={col}
+                  className="border-y border-line px-4 py-3 text-left text-xs font-semibold whitespace-nowrap text-ink-3"
+                >
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data?.data?.map((order) => (
+              <SalesOrderRow key={order.id} order={order} ptAccess={ptAccess} />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data?.data?.map((order) => (
-            <SalesOrderRow key={order.id} order={order} />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
+        {data?.data?.map((order) => (
+          <SalesOrderCard key={order.id} order={order} ptAccess={ptAccess} />
+        ))}
+      </div>
       {/* <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
         <DataPagination
           current={data.pagination.page}

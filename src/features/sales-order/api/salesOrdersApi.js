@@ -5,8 +5,8 @@ export async function fetchSalesOrders({q, searchBy, pt, status, invoice}) {
     return res.data
 }
 
-export async function getSalesOrderByID(id) {
-    const res = await client.get(`/sales-orders/${id}`)
+export async function getSalesOrderByID(id, pt) {
+    const res = await client.get(`/sales-orders/${id}`, { params: { pt } })
     return res.data
 }
 

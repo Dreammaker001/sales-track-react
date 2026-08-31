@@ -1,7 +1,7 @@
 import Badge from "@/components/ui/Badge";
 import { formatTimeFromSeconds } from "@/utils/format";
 
-export default function SalesOrderRow({ row }) {
+export default function SalesOrderDetailRow({ row }) {
     return (
         <tr className="transition-colors hover:bg-[#fafafd]">
             <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">

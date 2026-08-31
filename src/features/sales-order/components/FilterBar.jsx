@@ -32,7 +32,7 @@ export default function FilterBar({
 }) {
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <Select
           items={ptAccessOptions}
           value={ptAccess}
@@ -44,7 +44,7 @@ export default function FilterBar({
           })}}
           aria-label="Pilih PT"
         >
-          <SelectTrigger className="w-full max-w-48 border-line">
+          <SelectTrigger className="w-full max-w-48 border-line !max-w-full w-full sm:w-auto">
             <SelectValue className="text-ink-2" placeholder="Pilih PT" />
           </SelectTrigger>
           <SelectContent position="popper" className="bg-surface border-line">
@@ -69,7 +69,7 @@ export default function FilterBar({
           aria-label="Cari berdasarkan"
           defaultValue={SEARCH_OPTIONS[0].value}
         >
-          <SelectTrigger className="w-full max-w-48 border-line">
+          <SelectTrigger className="w-full max-w-48 border-line !max-w-full w-full sm:w-auto">
             <SelectValue className="text-ink-2" placeholder="Cari berdasarkan" />
           </SelectTrigger>
           <SelectContent position="popper" className="bg-surface border-line">
@@ -85,7 +85,7 @@ export default function FilterBar({
         </Select>
         <Input
           muted
-          className="w-[280px]"
+          className="w-full sm:w-[280px]"
           placeholder="Cari username, nama, email..."
           value={query}
           onChange={(e) => setSearchParams(prev => {
@@ -94,11 +94,11 @@ export default function FilterBar({
           })}
           aria-label="Cari pengguna"
         />
-        <Button onClick={onSearch}>Search</Button>
+        <Button onClick={onSearch} className="w-full sm:w-auto">Search</Button>
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <div className="flex items-center gap-2" role="group" aria-label="Filter status">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter status">
           <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
           {STATUS_OPTIONS.map((opt) => (
             <Chip key={opt.value} active={status === opt.value} onClick={() => onStatus(opt.value)}>
@@ -107,7 +107,7 @@ export default function FilterBar({
           ))}
         </div>
 
-        <div className="flex items-center gap-2" role="group" aria-label="Filter invoice">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter invoice">
           <span className="mr-1 text-xs font-semibold text-ink-3">Invoice</span>
           {INVOICE_OPTIONS.map((opt) => (
             <Chip key={opt.value} active={invoice === opt.value} onClick={() => onInvoice(opt.value)}>
