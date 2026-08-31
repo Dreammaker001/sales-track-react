@@ -68,7 +68,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'admin/pt-database-configs',
-        element: <AdminPTDatabaseConfigsPage/>,
+        element: <AdminPTDatabaseConfigsPage />,
         handle: {
           title: 'Admin · PT Database Configs',
           subtitle: 'Kelola konfigurasi database PT',

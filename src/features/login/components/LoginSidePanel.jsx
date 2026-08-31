@@ -29,8 +29,7 @@ export default function LoginSidePanel() {
           dan Invoice dalam satu platform.
         </h1>
         <p className="mt-6 max-w-[430px] text-[15px] leading-relaxed text-white/80">
-          Pantau progres pesanan, status pengiriman, dan faktur — real-time
-          untuk tim sales Anda.
+          Pantau progres pesanan, status pengiriman, dan faktur — real-time untuk tim sales Anda.
         </p>
       </div>
 

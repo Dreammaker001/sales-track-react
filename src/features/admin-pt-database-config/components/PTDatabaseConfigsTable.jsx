@@ -16,7 +16,11 @@ export default function PTDatabaseConfigsTable({ datas, loading, error, setPage,
   }
 
   if (datas.data?.length === 0) {
-    return <div className="p-10 text-center text-sm text-ink-3">Tidak ada data yang cocok dengan filter.</div>
+    return (
+      <div className="p-10 text-center text-sm text-ink-3">
+        Tidak ada data yang cocok dengan filter.
+      </div>
+    )
   }
 
   if (error) {

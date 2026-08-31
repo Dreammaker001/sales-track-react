@@ -12,7 +12,10 @@ export default function Topbar({ openSidebar, setOpenSidebar }) {
 
   return (
     <header className="flex items-center gap-3 px-4 pb-5 pt-6 lg:px-6">
-      <Button onClick={() => setOpenSidebar((prev) => !prev)} className="h-8 w-8 rounded-sm p-0 text-ink-3 hover:opacity-80 cursor-pointer">
+      <Button
+        onClick={() => setOpenSidebar((prev) => !prev)}
+        className="h-8 w-8 rounded-sm p-0 text-ink-3 hover:opacity-80 cursor-pointer"
+      >
         {openSidebar ? (
           <PanelLeftClose className="h-5 w-5 text-white" />
         ) : (
@@ -20,9 +23,7 @@ export default function Topbar({ openSidebar, setOpenSidebar }) {
         )}
       </Button>
       <div>
-        <h1 className="text-[22px] font-bold leading-tight">
-          {handle.title ?? 'SalesTrack'}
-        </h1>
+        <h1 className="text-[22px] font-bold leading-tight">{handle.title ?? 'SalesTrack'}</h1>
         {/* <p className="mt-0.5 text-[13px] text-ink-2">{handle.subtitle ?? ''}</p> */}
       </div>
     </header>

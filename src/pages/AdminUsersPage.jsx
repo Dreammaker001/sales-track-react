@@ -20,23 +20,14 @@ export default function AdminUsersPage() {
   const [selectedUserForDialog, setSelectedUserForDialog] = React.useState(null)
   const [deleteData, setDeleteData] = React.useState(null)
 
-  const {
-    users,
-    loading,
-    query,
-    setQuery,
-    role,
-    setRole,
-    status,
-    setStatus,
-    toggleStatus,
-  } = useUsers(initialQuery, page)
-  
+  const { users, loading, query, setQuery, role, setRole, status, setStatus, toggleStatus } =
+    useUsers(initialQuery, page)
+
   const deleteMutation = useDeleteUser()
 
   const handleQueryChange = (value) => {
     setQuery(value)
-    setSearchParams(prev => {
+    setSearchParams((prev) => {
       prev.set('q', value)
       prev.set('page', 1) // Reset to first page on new query
       return prev
@@ -50,10 +41,9 @@ export default function AdminUsersPage() {
           <h2 className="text-lg font-bold">Daftar Pengguna</h2>
           <p className="mt-0.5 text-xs text-ink-3">{users.pagination.total} pengguna terdaftar</p>
         </div>
-        <Button
-          className="cursor-pointer"
-          onClick={() => navigate('/admin/users/create')}
-        >+ Buat User</Button>
+        <Button className="cursor-pointer" onClick={() => navigate('/admin/users/create')}>
+          + Buat User
+        </Button>
       </div>
 
       <FilterBar
@@ -82,42 +72,36 @@ export default function AdminUsersPage() {
         />
       </Card>
 
-      {
-        openStatusDialog && (
-          <StatusDialog
-            onSubmit={() => {
-              toggleStatus(selectedUserForDialog.id, selectedUserForDialog.value)
-              setOpenStatusDialog(false)
-            }}
-            data={selectedUserForDialog}
-            onCancel={() => setOpenStatusDialog(false)}
-          />
-        )
-      }
+      {openStatusDialog && (
+        <StatusDialog
+          onSubmit={() => {
+            toggleStatus(selectedUserForDialog.id, selectedUserForDialog.value)
+            setOpenStatusDialog(false)
+          }}
+          data={selectedUserForDialog}
+          onCancel={() => setOpenStatusDialog(false)}
+        />
+      )}
 
-      {
-        openChangePasswordDialog && (
-          <ChangePasswordDialog
-            userData={selectedUserForDialog}
-            onClose={() => setOpenChangePasswordDialog(false)}
-          />
-        )
-      }
+      {openChangePasswordDialog && (
+        <ChangePasswordDialog
+          userData={selectedUserForDialog}
+          onClose={() => setOpenChangePasswordDialog(false)}
+        />
+      )}
 
-      {
-        deleteData !== null && (
-          <DeleteDialog
-            data={deleteData}
-            onClose={() => setDeleteData(null)}
-            onDelete={() => {
-              deleteMutation.mutate(deleteData?.id, {
-                onSuccess: () => setDeleteData(null)
-              })
-            }}
-            isLoading={deleteMutation.isPending}
-          />
-        )
-      }
+      {deleteData !== null && (
+        <DeleteDialog
+          data={deleteData}
+          onClose={() => setDeleteData(null)}
+          onDelete={() => {
+            deleteMutation.mutate(deleteData?.id, {
+              onSuccess: () => setDeleteData(null),
+            })
+          }}
+          isLoading={deleteMutation.isPending}
+        />
+      )}
     </>
   )
 }

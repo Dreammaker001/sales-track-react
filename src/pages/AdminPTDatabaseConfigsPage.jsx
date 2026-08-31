@@ -9,64 +9,53 @@ import { useState } from 'react'
 import { useDeletePTDatabaseConfig } from '@/features/admin-pt-database-config/hooks/usePTDatabaseConfig.js'
 
 export default function AdminPTDatabaseConfigsPage() {
-    const navigate = useNavigate()
-    const [deleteData, setDeleteData] = useState(null)
+  const navigate = useNavigate()
+  const [deleteData, setDeleteData] = useState(null)
 
-    const {
-        datas,
-        loading,
-        error,
-        query,
-        setQuery,
-        status,
-        setStatus,
-        setPage,
-    } = usePTDatabaseConfigs()
+  const { datas, loading, error, query, setQuery, status, setStatus, setPage } =
+    usePTDatabaseConfigs()
 
-    const deleteMutation = useDeletePTDatabaseConfig()
+  const deleteMutation = useDeletePTDatabaseConfig()
 
-    return (
-        <>
-            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                    <h2 className="text-lg font-bold">Daftar Konfigurasi Database PT</h2>
-                    <p className="mt-0.5 text-xs text-ink-3">Kelola konfigurasi database PT</p>
-                </div>
-                <Button
-                    className="cursor-pointer"
-                    onClick={() => navigate('/admin/pt-database-configs/create')}
-                >+ Tambah Konfigurasi</Button>
-            </div>
+  return (
+    <>
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-lg font-bold">Daftar Konfigurasi Database PT</h2>
+          <p className="mt-0.5 text-xs text-ink-3">Kelola konfigurasi database PT</p>
+        </div>
+        <Button
+          className="cursor-pointer"
+          onClick={() => navigate('/admin/pt-database-configs/create')}
+        >
+          + Tambah Konfigurasi
+        </Button>
+      </div>
 
-            <FilterBar
-                query={query}
-                onQuery={setQuery}
-                status={status}
-                onStatus={setStatus}
-            />
+      <FilterBar query={query} onQuery={setQuery} status={status} onStatus={setStatus} />
 
-            <Card>
-                <PTDatabaseConfigsTable
-                    datas={datas}
-                    loading={loading}
-                    error={error}
-                    setPage={setPage}
-                    onDelete={(val) => setDeleteData(val)}
-                    />
-            </Card>
+      <Card>
+        <PTDatabaseConfigsTable
+          datas={datas}
+          loading={loading}
+          error={error}
+          setPage={setPage}
+          onDelete={(val) => setDeleteData(val)}
+        />
+      </Card>
 
-            {deleteData !== null && (
-                <DeleteDialog
-                    data={deleteData}
-                    onClose={() => setDeleteData(null)}
-                    onDelete={() => {
-                        deleteMutation.mutate(deleteData?.id, {
-                            onSuccess: () => setDeleteData(null)
-                        })
-                    }}
-                    isLoading={deleteMutation.isPending}
-                />
-            )}
-        </>
-    )
+      {deleteData !== null && (
+        <DeleteDialog
+          data={deleteData}
+          onClose={() => setDeleteData(null)}
+          onDelete={() => {
+            deleteMutation.mutate(deleteData?.id, {
+              onSuccess: () => setDeleteData(null),
+            })
+          }}
+          isLoading={deleteMutation.isPending}
+        />
+      )}
+    </>
+  )
 }

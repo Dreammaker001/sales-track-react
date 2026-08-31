@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
   // Boot: access token hilang saat reload → POST /auth/refresh (cookie refresh
   // terkirim otomatis) → dapat access_token + user/role sekaligus.
   useEffect(() => {
-    if(auth.user){
+    if (auth.user) {
       return
     }
     let active = true
@@ -77,9 +77,7 @@ export function AuthProvider({ children }) {
         // Jangan timpa sesi yang baru saja login (race: boot refresh selesai
         // setelah login sukses)
         setAuth((prev) =>
-          prev.status === 'ready'
-            ? prev
-            : { user: null, role: null, status: 'guest' },
+          prev.status === 'ready' ? prev : { user: null, role: null, status: 'guest' },
         )
       })
 

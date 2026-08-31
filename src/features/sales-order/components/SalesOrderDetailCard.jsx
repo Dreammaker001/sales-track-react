@@ -1,5 +1,5 @@
-import Badge from "@/components/ui/Badge";
-import { formatTimeFromSeconds } from "@/utils/format";
+import Badge from '@/components/ui/Badge'
+import { formatTimeFromSeconds } from '@/utils/format'
 
 /** Kartu baris detail sales order untuk mode mobile. */
 export default function SalesOrderDetailCard({ row }) {
@@ -23,11 +23,15 @@ export default function SalesOrderDetailCard({ row }) {
         </div>
         <div>
           <div className="text-[11px] text-ink-3">Qty Invoice / Terkirim</div>
-          <div className="text-xs text-ink">{row.qty_invoiced} / {row.qty_delivered}</div>
+          <div className="text-xs text-ink">
+            {row.qty_invoiced} / {row.qty_delivered}
+          </div>
         </div>
         <div>
           <div className="text-[11px] text-ink-3">Outstanding SI / Delivery</div>
-          <div className="text-xs text-ink">{row.qty_outstanding_si} / {row.qty_outstanding_delivery}</div>
+          <div className="text-xs text-ink">
+            {row.qty_outstanding_si} / {row.qty_outstanding_delivery}
+          </div>
         </div>
         <div>
           <div className="text-[11px] text-ink-3">Status SI</div>

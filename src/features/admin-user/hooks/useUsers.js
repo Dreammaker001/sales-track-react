@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useDebounce } from '../../../hooks/useDebounce.js'
 import { fetchUsers, toggleUserStatus } from '../api/usersApi.js'
-import { toast } from "sonner"
+import { toast } from 'sonner'
 
 /**
  * State halaman Admin Users (pola TanStack Query):
@@ -40,9 +40,7 @@ export default function useUsers(initialQuery = '', page = 1) {
       const previous = queryClient.getQueryData(['users', filters])
       queryClient.setQueryData(['users', filters], (old = { data: [] }) => ({
         ...old,
-        data: old.data.map((u) =>
-          u.id === id ? { ...u, status: value } : u,
-        ),
+        data: old.data.map((u) => (u.id === id ? { ...u, status: value } : u)),
       }))
       return { previous }
     },

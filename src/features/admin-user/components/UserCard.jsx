@@ -4,7 +4,12 @@ import Avatar from '../../../components/ui/Avatar.jsx'
 import Badge from '../../../components/ui/Badge.jsx'
 import Toggle from '../../../components/ui/Toggle.jsx'
 import { initials } from '@/utils/format.js'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu.jsx'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu.jsx'
 import { EllipsisVertical } from 'lucide-react'
 
 const STATUS_BADGE = { active: 'success', inactive: 'gray' }
@@ -42,7 +47,8 @@ export default function UserCard({ user, onToggle, onChangePassword, onDelete })
 
       <div className="mt-3 flex items-center justify-between gap-3">
         <span className="text-xs text-ink-2">
-          Terakhir login: {user.last_login ? dayjs(user.last_login).format('DD/MM/YYYY HH:mm') : '-'}
+          Terakhir login:{' '}
+          {user.last_login ? dayjs(user.last_login).format('DD/MM/YYYY HH:mm') : '-'}
         </span>
         <div className="flex items-center gap-3">
           <DropdownMenu>
@@ -55,7 +61,11 @@ export default function UserCard({ user, onToggle, onChangePassword, onDelete })
                 <EllipsisVertical />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" sideOffset={4} className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg ">
+            <DropdownMenuContent
+              align="end"
+              sideOffset={4}
+              className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg "
+            >
               <DropdownMenuItem
                 className="hover:bg-primary hover:text-white mb-1"
                 onClick={() => navigate(`/admin/users/${user.id}/edit`)}
@@ -78,11 +88,13 @@ export default function UserCard({ user, onToggle, onChangePassword, onDelete })
           </DropdownMenu>
           <Toggle
             checked={user.status === 'active'}
-            onChange={() => onToggle({
-              id: user.id,
-              name: user.name,
-              value: user.status === 'active' ? 'inactive' : 'active',
-            })}
+            onChange={() =>
+              onToggle({
+                id: user.id,
+                name: user.name,
+                value: user.status === 'active' ? 'inactive' : 'active',
+              })
+            }
             label={`Aktifkan/nonaktifkan ${user.name}`}
           />
         </div>

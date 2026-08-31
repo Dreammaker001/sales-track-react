@@ -9,12 +9,7 @@ const VARIANTS = {
   primary: 'bg-primary text-white',
 }
 
-export default function Avatar({
-  initials,
-  size = 32,
-  variant = 'default',
-  className = '',
-}) {
+export default function Avatar({ initials, size = 32, variant = 'default', className = '' }) {
   return (
     <span
       className={`inline-grid shrink-0 select-none place-items-center rounded-full font-bold ${VARIANTS[variant]} ${className}`}

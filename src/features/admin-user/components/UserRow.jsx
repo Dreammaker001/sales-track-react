@@ -4,7 +4,12 @@ import Avatar from '../../../components/ui/Avatar.jsx'
 import Badge from '../../../components/ui/Badge.jsx'
 import Toggle from '../../../components/ui/Toggle.jsx'
 import { initials } from '../../../utils/format.js'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu.jsx'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu.jsx'
 import { EllipsisVertical } from 'lucide-react'
 
 const STATUS_BADGE = { active: 'success', inactive: 'gray' }
@@ -25,27 +30,26 @@ export default function UserRow({ user, onToggle, onChangePassword, onDelete }) 
           />
           <div>
             <div className="text-sm leading-tight font-semibold">{user.name}</div>
-            <div className="text-[11px] leading-tight text-ink-3">
-              {user.username}
-            </div>
+            <div className="text-[11px] leading-tight text-ink-3">{user.username}</div>
           </div>
         </div>
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap">
         <span
-          className={`inline-flex items-center gap-2 text-xs font-semibold ${isAdmin ? 'text-primary' : 'text-ink-2'
-            }`}
+          className={`inline-flex items-center gap-2 text-xs font-semibold ${
+            isAdmin ? 'text-primary' : 'text-ink-2'
+          }`}
         >
-          <span
-            className={`h-1.5 w-1.5 rounded-full ${isAdmin ? 'bg-primary' : 'bg-ink-2'}`}
-          />
+          <span className={`h-1.5 w-1.5 rounded-full ${isAdmin ? 'bg-primary' : 'bg-ink-2'}`} />
           {user.role}
         </span>
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap">
-        <Badge variant={STATUS_BADGE[user.status] ?? 'gray'}>{user.status === 'active' ? 'Aktif' : 'Nonaktif'}</Badge>
+        <Badge variant={STATUS_BADGE[user.status] ?? 'gray'}>
+          {user.status === 'active' ? 'Aktif' : 'Nonaktif'}
+        </Badge>
       </td>
 
       <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
@@ -64,7 +68,11 @@ export default function UserRow({ user, onToggle, onChangePassword, onDelete }) 
                 <EllipsisVertical />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" sideOffset={4} className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg ">
+            <DropdownMenuContent
+              align="end"
+              sideOffset={4}
+              className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg "
+            >
               <DropdownMenuItem
                 className="hover:bg-primary hover:text-white mb-1"
                 onClick={() => navigate(`/admin/users/${user.id}/edit`)}
@@ -87,11 +95,13 @@ export default function UserRow({ user, onToggle, onChangePassword, onDelete }) 
           </DropdownMenu>
           <Toggle
             checked={user.status === 'active'}
-            onChange={() => onToggle({
-              id: user.id,
-              name: user.name,
-              value: user.status === 'active' ? 'inactive' : 'active',
-            })}
+            onChange={() =>
+              onToggle({
+                id: user.id,
+                name: user.name,
+                value: user.status === 'active' ? 'inactive' : 'active',
+              })
+            }
             label={`Aktifkan/nonaktifkan ${user.name}`}
           />
         </div>

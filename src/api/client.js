@@ -43,11 +43,9 @@ let refreshPromise = null
  * SATU refresh (promise bersama).
  */
 async function refreshAndRetry(original) {
-  const { data } = await axios.post(
-    `${client.defaults.baseURL}/auth/refresh`,
-    null,
-    { timeout: 15000 },
-  )
+  const { data } = await axios.post(`${client.defaults.baseURL}/auth/refresh`, null, {
+    timeout: 15000,
+  })
 
   setAccessToken(data.access_token)
   client.onAuthRefreshed?.(data)
@@ -88,8 +86,7 @@ client.interceptors.response.use(
       }
     }
 
-    const message =
-      error.response?.data?.error || error.message || 'Terjadi kesalahan jaringan'
+    const message = error.response?.data?.error || error.message || 'Terjadi kesalahan jaringan'
     return Promise.reject(new Error(message))
   },
 )

@@ -4,9 +4,7 @@ import { useAuth } from '@/features/auth/context/AuthContext.jsx'
 import { initials } from '@/utils/format.js'
 import { SquareArrowRightExit } from 'lucide-react'
 
-const NAV_ITEMS = [
-  { to: '/sales-orders', label: 'Sales Orders' },
-]
+const NAV_ITEMS = [{ to: '/sales-orders', label: 'Sales Orders' }]
 
 const NAV_ITEMS_ADMIN = [
   { to: '/admin/users', label: 'Users' },
@@ -20,7 +18,9 @@ export default function Sidebar({ open }) {
   const isAdmin = role === 'admin'
 
   return (
-    <aside className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-line bg-surface transition-transform duration-300 lg:static lg:z-auto lg:transition-all lg:duration-300 overflow-y-auto lg:overflow-hidden ${open ? 'translate-x-0 lg:w-[240px]' : '-translate-x-full lg:w-0'}`}>
+    <aside
+      className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-line bg-surface transition-transform duration-300 lg:static lg:z-auto lg:transition-all lg:duration-300 overflow-y-auto lg:overflow-hidden ${open ? 'translate-x-0 lg:w-[240px]' : '-translate-x-full lg:w-0'}`}
+    >
       <div className="flex items-center gap-3 px-6 pb-5 pt-6">
         <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-primary text-xl font-black text-white">
           S
@@ -34,9 +34,10 @@ export default function Sidebar({ open }) {
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `relative flex h-10 items-center gap-4 rounded-sm px-4 text-sm transition-colors ${isActive
-                ? 'bg-primary-soft font-semibold text-primary'
-                : 'text-ink-2 hover:bg-gray-soft hover:text-ink'
+              `relative flex h-10 items-center gap-4 rounded-sm px-4 text-sm transition-colors ${
+                isActive
+                  ? 'bg-primary-soft font-semibold text-primary'
+                  : 'text-ink-2 hover:bg-gray-soft hover:text-ink'
               }`
             }
           >
@@ -46,48 +47,49 @@ export default function Sidebar({ open }) {
                   <span className="absolute -left-4 top-2 bottom-2 w-1 rounded bg-primary" />
                 )}
                 <span
-                  className={`h-1.5 w-1.5 shrink-0 rounded-full ${isActive ? 'bg-primary' : 'bg-line'
-                    }`}
+                  className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                    isActive ? 'bg-primary' : 'bg-line'
+                  }`}
                 />
                 {item.label}
               </>
             )}
           </NavLink>
         ))}
-        {
-          isAdmin && (
-            <>
-              <div className="mt-4 mb-2 px-4 text-[11px] font-semibold tracking-wider text-ink-3 uppercase">
-                Admin
-              </div>
-              {NAV_ITEMS_ADMIN.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `relative flex h-10 items-center gap-4 rounded-sm px-4 text-sm transition-colors ${isActive
+        {isAdmin && (
+          <>
+            <div className="mt-4 mb-2 px-4 text-[11px] font-semibold tracking-wider text-ink-3 uppercase">
+              Admin
+            </div>
+            {NAV_ITEMS_ADMIN.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `relative flex h-10 items-center gap-4 rounded-sm px-4 text-sm transition-colors ${
+                    isActive
                       ? 'bg-primary-soft font-semibold text-primary'
                       : 'text-ink-2 hover:bg-gray-soft hover:text-ink'
-                    }`
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      {isActive && (
-                        <span className="absolute -left-4 top-2 bottom-2 w-1 rounded bg-primary" />
-                      )}
-                      <span
-                        className={`h-1.5 w-1.5 shrink-0 rounded-full ${isActive ? 'bg-primary' : 'bg-line'
-                          }`}
-                      />
-                      {item.label}
-                    </>
-                  )}
-                </NavLink>
-              ))}
-            </>
-          )
-        }
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <span className="absolute -left-4 top-2 bottom-2 w-1 rounded bg-primary" />
+                    )}
+                    <span
+                      className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                        isActive ? 'bg-primary' : 'bg-line'
+                      }`}
+                    />
+                    {item.label}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </>
+        )}
       </nav>
 
       <div className="mx-6 mb-5 mt-6 h-px bg-line" />
@@ -109,21 +111,18 @@ export default function Sidebar({ open }) {
 
       <div className="mt-auto flex justify-between gap-3 border-t border-line">
         <div className="mt-auto flex items-center gap-3 px-6 py-4">
-          <Avatar
-            initials={user?.name ? initials(user.name) : '?'}
-            size={36}
-            variant="primary"
-          />
+          <Avatar initials={user?.name ? initials(user.name) : '?'} size={36} variant="primary" />
           <div>
             <div className="text-sm font-semibold">{user?.name ?? 'Pengguna'}</div>
-            <div className="text-[11px] text-ink-3">
-              {isAdmin ? 'Administrator' : 'Sales'}
-            </div>
+            <div className="text-[11px] text-ink-3">{isAdmin ? 'Administrator' : 'Sales'}</div>
           </div>
         </div>
-        <button className="flex h-full cursor-pointer items-center justify-center px-4 text-ink-2 hover:text-ink" onClick={() => {
-          logout()
-        }}>
+        <button
+          className="flex h-full cursor-pointer items-center justify-center px-4 text-ink-2 hover:text-ink"
+          onClick={() => {
+            logout()
+          }}
+        >
           <SquareArrowRightExit className="h-6 w-6" />
         </button>
         {/* <div className="flex h-full cursor-pointer items-center justify-center px-4">

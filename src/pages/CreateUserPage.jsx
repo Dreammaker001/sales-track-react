@@ -9,7 +9,7 @@ export default function CreateUserPage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  const {data: ptAccessOptions, isLoading} = usePTDatabaseConfigOptions()
+  const { data: ptAccessOptions, isLoading } = usePTDatabaseConfigOptions()
 
   const mutation = useMutation({
     mutationFn: createUser,
@@ -21,13 +21,13 @@ export default function CreateUserPage() {
 
   return (
     <div className="flex justify-center">
-        <UserForm
-          mode="create"
-          onSubmit={(values) => mutation.mutate(values)}
-          isPending={mutation.isPending}
-          ptAccessOptions={ptAccessOptions?.data}
-          isLoadingPTAccessOptions={isLoading}
-        />
+      <UserForm
+        mode="create"
+        onSubmit={(values) => mutation.mutate(values)}
+        isPending={mutation.isPending}
+        ptAccessOptions={ptAccessOptions?.data}
+        isLoadingPTAccessOptions={isLoading}
+      />
     </div>
   )
 }

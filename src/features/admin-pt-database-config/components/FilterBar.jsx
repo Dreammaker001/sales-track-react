@@ -1,10 +1,14 @@
 import Chip from '../../../components/ui/Chip.jsx'
 import Input from '../../../components/ui/Input.jsx'
 
-const STATUS_OPTIONS = [{
-  name: 'Semua',
-  value: '',
-}, { name: 'Aktif', value: 'active' }, { name: 'Nonaktif', value: 'inactive' }]
+const STATUS_OPTIONS = [
+  {
+    name: 'Semua',
+    value: '',
+  },
+  { name: 'Aktif', value: 'active' },
+  { name: 'Nonaktif', value: 'inactive' },
+]
 
 /** Bilah filter: search + chip peran + chip status. */
 export default function FilterBar({ query, onQuery, status, onStatus }) {
@@ -19,7 +23,11 @@ export default function FilterBar({ query, onQuery, status, onStatus }) {
         aria-label="Cari PT"
       />
 
-      <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto" role="group" aria-label="Filter status">
+      <div
+        className="flex w-full flex-wrap items-center gap-2 sm:w-auto"
+        role="group"
+        aria-label="Filter status"
+      >
         <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
         {STATUS_OPTIONS.map((opt) => (
           <Chip key={opt.value} active={status === opt.value} onClick={() => onStatus(opt.value)}>

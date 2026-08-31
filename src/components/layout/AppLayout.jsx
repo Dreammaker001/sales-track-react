@@ -12,7 +12,13 @@ export default function AppLayout() {
 
   return (
     <div className="flex min-h-screen bg-canvas">
-      {openSidebar && <div className="fixed inset-0 z-30 bg-black/40 lg:hidden" onClick={() => setOpenSidebar(false)} aria-hidden="true" />}
+      {openSidebar && (
+        <div
+          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          onClick={() => setOpenSidebar(false)}
+          aria-hidden="true"
+        />
+      )}
       <Sidebar open={openSidebar} />
       <main className="overflow-y-auto max-h-screen no-scrollbar flex min-w-0 flex-1 flex-col">
         <Topbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
@@ -20,9 +26,7 @@ export default function AppLayout() {
           <Outlet />
         </div>
       </main>
-      {
-        user?.password_changed_at === null && <FirstChangePasswordDialog />
-      }
+      {user?.password_changed_at === null && <FirstChangePasswordDialog />}
     </div>
   )
 }

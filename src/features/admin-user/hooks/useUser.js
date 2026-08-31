@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { fetchUserByID, updateUser, getPTDatabaseConfigOptons, deleteUser } from '../api/usersApi.js'
-import { toast } from "sonner"
+import {
+  fetchUserByID,
+  updateUser,
+  getPTDatabaseConfigOptons,
+  deleteUser,
+} from '../api/usersApi.js'
+import { toast } from 'sonner'
 import { useNavigate } from 'react-router'
 
 /** Ambil detail satu user (cache per username). */
@@ -32,7 +37,7 @@ export function useUpdateUser() {
     },
     onError: (error) => {
       toast.error(`Gagal menyimpan perubahan user: ${error.message}`)
-    }
+    },
   })
 }
 
@@ -46,6 +51,6 @@ export function useDeleteUser() {
     },
     onError: (error) => {
       toast.error(`Gagal menghapus user: ${error.message}`)
-    }
+    },
   })
 }

@@ -1,7 +1,12 @@
 import { useNavigate } from 'react-router'
 import dayjs from 'dayjs'
 import Badge from '../../../components/ui/Badge.jsx'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu.jsx'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu.jsx'
 import { EllipsisVertical } from 'lucide-react'
 
 const STATUS_BADGE = { active: 'success', inactive: 'gray' }
@@ -21,7 +26,9 @@ export default function PTDatabaseConfigRow({ data, onDelete }) {
         {data.updated_at ? dayjs(data.updated_at).format('DD/MM/YYYY HH:mm') : '-'}
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap">
-        <Badge variant={STATUS_BADGE[data.status] ?? 'gray'}>{data.status === 'active' ? 'Aktif' : 'Nonaktif'}</Badge>
+        <Badge variant={STATUS_BADGE[data.status] ?? 'gray'}>
+          {data.status === 'active' ? 'Aktif' : 'Nonaktif'}
+        </Badge>
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap">
         <div className="flex items-center gap-6">
@@ -35,7 +42,11 @@ export default function PTDatabaseConfigRow({ data, onDelete }) {
                 <EllipsisVertical />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" sideOffset={4} className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg ">
+            <DropdownMenuContent
+              align="end"
+              sideOffset={4}
+              className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg "
+            >
               <DropdownMenuItem
                 className="hover:bg-primary hover:text-white mb-1"
                 onClick={() => navigate(`/admin/pt-database-configs/${data.id}/edit`)}

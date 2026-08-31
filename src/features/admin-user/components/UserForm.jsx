@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RefreshCw, LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
@@ -33,7 +33,7 @@ import {
   ComboboxList,
   ComboboxValue,
   useComboboxAnchor,
-} from "@/components/ui/combobox"
+} from '@/components/ui/combobox'
 
 const ROLES = [
   { name: 'Admin', value: 'admin', desc: 'Akses penuh sistem' },
@@ -53,7 +53,8 @@ export default function UserForm({
   ptAccessOptions,
   isLoadingPTAccessOptions,
 }) {
-  const accessOptions = ptAccessOptions?.map((opt) => ({ value: opt.pt_key, label: opt.pt_name })) ?? []
+  const accessOptions =
+    ptAccessOptions?.map((opt) => ({ value: opt.pt_key, label: opt.pt_name })) ?? []
   const navigate = useNavigate()
   const isEdit = mode === 'edit'
   const anchor = useComboboxAnchor()
@@ -150,8 +151,7 @@ export default function UserForm({
                       </Button>
                     </div>
                     <div className="flex items-center gap-2 rounded-sm bg-info-soft px-3 py-2.5 text-xs font-semibold text-info">
-                      Password dibuat otomatis — salin &amp; kirim ke user, tidak
-                      bisa dilihat lagi
+                      Password dibuat otomatis — salin &amp; kirim ke user, tidak bisa dilihat lagi
                     </div>
                     <FormMessage />
                   </FormItem>
@@ -176,26 +176,20 @@ export default function UserForm({
                           role="radio"
                           aria-checked={selected}
                           onClick={() => field.onChange(r.value)}
-                          className={`flex items-start gap-3 rounded-[10px] border p-4 text-left transition-colors ${selected
-                            ? 'border-primary'
-                            : 'border-line hover:border-ink-3'
-                            }`}
+                          className={`flex items-start gap-3 rounded-[10px] border p-4 text-left transition-colors ${
+                            selected ? 'border-primary' : 'border-line hover:border-ink-3'
+                          }`}
                         >
                           <span
-                            className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${selected ? 'border-primary' : 'border-line'
-                              }`}
+                            className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${
+                              selected ? 'border-primary' : 'border-line'
+                            }`}
                           >
-                            {selected && (
-                              <span className="h-2 w-2 rounded-full bg-primary" />
-                            )}
+                            {selected && <span className="h-2 w-2 rounded-full bg-primary" />}
                           </span>
                           <span>
-                            <span className="block text-[13px] font-semibold">
-                              {r.name}
-                            </span>
-                            <span className="block text-[11px] text-ink-3">
-                              {r.desc}
-                            </span>
+                            <span className="block text-[13px] font-semibold">{r.name}</span>
+                            <span className="block text-[11px] text-ink-3">{r.desc}</span>
                           </span>
                         </button>
                       )
@@ -219,10 +213,15 @@ export default function UserForm({
                       multiple
                       autoHighlight
                       items={accessOptions}
-                      onValueChange={(values) => {field.onChange(values)}}
+                      onValueChange={(values) => {
+                        field.onChange(values)
+                      }}
                       value={field.value}
                     >
-                      <ComboboxChips ref={anchor} className="w-full ring-0 border border-line rounded-md bg-white px-3 py-2 text-sm focus-within:ring-1 focus-within:ring-primary">
+                      <ComboboxChips
+                        ref={anchor}
+                        className="w-full ring-0 border border-line rounded-md bg-white px-3 py-2 text-sm focus-within:ring-1 focus-within:ring-primary"
+                      >
                         <ComboboxValue>
                           {(values) => (
                             <React.Fragment>
@@ -234,7 +233,10 @@ export default function UserForm({
                           )}
                         </ComboboxValue>
                       </ComboboxChips>
-                      <ComboboxContent anchor={anchor} className="w-full max-w-xs bg-white border border-line rounded-md shadow-md ring-0">
+                      <ComboboxContent
+                        anchor={anchor}
+                        className="w-full max-w-xs bg-white border border-line rounded-md shadow-md ring-0"
+                      >
                         {isLoadingPTAccessOptions ? (
                           <div className="flex items-center justify-center p-4">
                             <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -296,10 +298,14 @@ export default function UserForm({
               Kembali
             </Button>
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? <>
-                <LoaderCircle className="h-4 w-4 animate-spin" />
-                {pendingLabel}
-              </> : submitLabel}
+              {isPending ? (
+                <>
+                  <LoaderCircle className="h-4 w-4 animate-spin" />
+                  {pendingLabel}
+                </>
+              ) : (
+                submitLabel
+              )}
             </Button>
           </div>
 
@@ -310,6 +316,6 @@ export default function UserForm({
           </p>
         </Card>
       </form>
-    </Form >
+    </Form>
   )
 }

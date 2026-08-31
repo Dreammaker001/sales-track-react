@@ -6,7 +6,14 @@ import { AlertCircle, Eye, EyeOff, LoaderCircle } from 'lucide-react'
 import Button from '@/components/ui/Button.jsx'
 import Input from '@/components/ui/Input.jsx'
 import LoginSidePanel from '@/features/login/components/LoginSidePanel.jsx'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { useLogin } from '@/features/login/hooks/useLogin.js'
 import { loginSchema } from '@/features/login/forms/loginSchema.js'
 import { useAuth } from '@/features/auth/context/AuthContext.jsx'
@@ -56,21 +63,19 @@ export default function LoginPage() {
       <main className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-[420px] rounded-xl bg-surface p-5 shadow-sm">
           <h2 className="text-2xl font-bold text-ink">Selamat Datang</h2>
-          <p className="mt-1 text-sm text-ink-2">
-            Masuk untuk melanjutkan ke dashboard
-          </p>
+          <p className="mt-1 text-sm text-ink-2">Masuk untuk melanjutkan ke dashboard</p>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit((data) => onLogin.mutate(data))} className="mt-12">
               {errorMessage && (
-            <div
-              role="alert"
-              className="mb-2 flex items-start gap-2 rounded-sm bg-danger-soft px-3 py-2.5 text-[13px] font-medium text-danger"
-            >
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
+                <div
+                  role="alert"
+                  className="mb-2 flex items-start gap-2 rounded-sm bg-danger-soft px-3 py-2.5 text-[13px] font-medium text-danger"
+                >
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
               {/* Username */}
               <FormField
                 control={form.control}
@@ -121,12 +126,7 @@ export default function LoginPage() {
               />
 
               {/* Tombol Masuk — 46px sesuai desain */}
-              <Button
-                type="submit"
-                size="lg"
-                className="mt-8 w-full"
-                disabled={onLogin.isPending}
-              >
+              <Button type="submit" size="lg" className="mt-8 w-full" disabled={onLogin.isPending}>
                 {onLogin.isPending ? (
                   <>
                     <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -143,9 +143,7 @@ export default function LoginPage() {
           <p className="mt-8 text-center text-[13px] text-ink-2">
             Belum punya akun? Hubungi administrator
           </p>
-          <p className="mt-2 text-center text-xs text-ink-3">
-            Akses terbatas untuk tim sales
-          </p>
+          <p className="mt-2 text-center text-xs text-ink-3">Akses terbatas untuk tim sales</p>
         </div>
       </main>
     </div>
