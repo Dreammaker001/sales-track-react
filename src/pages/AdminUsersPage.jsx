@@ -7,6 +7,8 @@ import UsersTable from '../features/admin-user/components/UsersTable.jsx'
 import useUsers from '../features/admin-user/hooks/useUsers.js'
 import StatusDialog from '@/features/admin-user/components/StatusDialog.jsx'
 import ChangePasswordDialog from '@/features/admin-user/components/ChangePasswordDialog.jsx'
+import DeleteDialog from '@/features/admin-user/components/DeleteDialog.jsx'
+import { useDeleteUser } from '@/features/admin-user/hooks/useUser.js'
 
 export default function AdminUsersPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -16,6 +18,7 @@ export default function AdminUsersPage() {
   const [openStatusDialog, setOpenStatusDialog] = React.useState(false)
   const [openChangePasswordDialog, setOpenChangePasswordDialog] = React.useState(false)
   const [selectedUserForDialog, setSelectedUserForDialog] = React.useState(null)
+  const [deleteData, setDeleteData] = React.useState(null)
 
   const {
     users,
@@ -28,6 +31,8 @@ export default function AdminUsersPage() {
     setStatus,
     toggleStatus,
   } = useUsers(initialQuery, page)
+  
+  const deleteMutation = useDeleteUser()
 
   const handleQueryChange = (value) => {
     setQuery(value)
@@ -72,7 +77,9 @@ export default function AdminUsersPage() {
             setSelectedUserForDialog(val)
             setOpenChangePasswordDialog(true)
           }}
-          setSearchParams={setSearchParams} />
+          setSearchParams={setSearchParams}
+          onDelete={(val) => setDeleteData(val)}
+        />
       </Card>
 
       {
@@ -93,6 +100,21 @@ export default function AdminUsersPage() {
           <ChangePasswordDialog
             userData={selectedUserForDialog}
             onClose={() => setOpenChangePasswordDialog(false)}
+          />
+        )
+      }
+
+      {
+        deleteData !== null && (
+          <DeleteDialog
+            data={deleteData}
+            onClose={() => setDeleteData(null)}
+            onDelete={() => {
+              deleteMutation.mutate(deleteData?.id, {
+                onSuccess: () => setDeleteData(null)
+              })
+            }}
+            isLoading={deleteMutation.isPending}
           />
         )
       }

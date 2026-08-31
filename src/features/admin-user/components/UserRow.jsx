@@ -10,7 +10,7 @@ import { EllipsisVertical } from 'lucide-react'
 const STATUS_BADGE = { active: 'success', inactive: 'gray' }
 
 /** Satu baris pengguna di tabel. */
-export default function UserRow({ user, onToggle, onChangePassword }) {
+export default function UserRow({ user, onToggle, onChangePassword, onDelete }) {
   const navigate = useNavigate()
   const isAdmin = user.role === 'admin'
 
@@ -76,6 +76,12 @@ export default function UserRow({ user, onToggle, onChangePassword }) {
                 onClick={() => onChangePassword(user)}
               >
                 Ganti Password
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="text-red-500 hover:bg-red-500 hover:text-white"
+                onClick={() => onDelete(user)}
+              >
+                Hapus
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

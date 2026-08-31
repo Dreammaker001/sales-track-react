@@ -7,9 +7,9 @@ export default function DeleteDialog({ data, onClose, onDelete, isLoading }) {
         <Dialog open={true} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-sm bg-white">
                 <DialogHeader>
-                    <DialogTitle>Hapus Konfigurasi Database PT</DialogTitle>
+                    <DialogTitle>Hapus Pengguna</DialogTitle>
                     <DialogDescription>
-                        Apakah anda yakin ingin menghapus konfigurasi database '<span className="font-bold">{data?.pt_name}</span>' ini? Tindakan ini tidak dapat dibatalkan.
+                        Apakah anda yakin ingin menghapus user '<span className="font-bold">{data?.name}</span>' ini? Tindakan ini tidak dapat dibatalkan.
                     </DialogDescription>
                 </DialogHeader>
 

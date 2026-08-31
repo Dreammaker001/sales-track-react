@@ -5,7 +5,7 @@ import UserCard from './UserCard.jsx'
 const COLUMNS = ['User', 'Peran', 'Status', 'Terakhir Login', 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function UsersTable({ users, loading, onToggle, onChangePassword, setSearchParams }) {
+export default function UsersTable({ users, loading, onToggle, onChangePassword, setSearchParams, onDelete }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -42,7 +42,7 @@ export default function UsersTable({ users, loading, onToggle, onChangePassword,
           </thead>
           <tbody>
             {users.data?.map((user) => (
-              <UserRow key={user.id} user={user} onToggle={onToggle} onChangePassword={onChangePassword} />
+              <UserRow key={user.id} user={user} onToggle={onToggle} onChangePassword={onChangePassword} onDelete={onDelete} />
             ))}
           </tbody>
         </table>
@@ -50,7 +50,7 @@ export default function UsersTable({ users, loading, onToggle, onChangePassword,
 
       <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
         {users.data?.map((user) => (
-          <UserCard key={user.id} user={user} onToggle={onToggle} onChangePassword={onChangePassword} />
+          <UserCard key={user.id} user={user} onToggle={onToggle} onChangePassword={onChangePassword} onDelete={onDelete} />
         ))}
       </div>
 

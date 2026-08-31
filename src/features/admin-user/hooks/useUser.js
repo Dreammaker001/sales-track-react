@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { fetchUserByID, updateUser, getPTDatabaseConfigOptons } from '../api/usersApi.js'
+import { fetchUserByID, updateUser, getPTDatabaseConfigOptons, deleteUser } from '../api/usersApi.js'
 import { toast } from "sonner"
 import { useNavigate } from 'react-router'
 
@@ -32,6 +32,20 @@ export function useUpdateUser() {
     },
     onError: (error) => {
       toast.error(`Gagal menyimpan perubahan user: ${error.message}`)
+    }
+  })
+}
+
+export function useDeleteUser() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id) => deleteUser(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] })
+      toast.success('User berhasil dihapus')
+    },
+    onError: (error) => {
+      toast.error(`Gagal menghapus user: ${error.message}`)
     }
   })
 }

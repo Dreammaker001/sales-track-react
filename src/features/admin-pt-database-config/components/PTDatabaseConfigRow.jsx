@@ -43,7 +43,7 @@ export default function PTDatabaseConfigRow({ data, onDelete }) {
                 Edit
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="hover:bg-primary hover:text-white"
+                className="text-red-500 hover:bg-red-500 hover:text-white"
                 onClick={() => onDelete(data)}
               >
                 Hapus

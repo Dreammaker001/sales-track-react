@@ -43,6 +43,11 @@ export async function changeUserPassword(id, payload) {
   return data
 }
 
+export async function deleteUser(id) {
+  const { data } = await client.delete(`/admin/users/${id}`)
+  return data
+}
+
 export async function getPTDatabaseConfigOptons() {
   const { data } = await client.get(`/admin/pt-database-configs/options`)
   return data
