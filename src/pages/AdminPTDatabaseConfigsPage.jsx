@@ -10,7 +10,7 @@ import { useDeletePTDatabaseConfig } from '@/features/admin-pt-database-config/h
 
 export default function AdminPTDatabaseConfigsPage() {
     const navigate = useNavigate()
-    const [deleteId, setDeleteId] = useState(null)
+    const [deleteData, setDeleteData] = useState(null)
 
     const {
         datas,
@@ -51,16 +51,17 @@ export default function AdminPTDatabaseConfigsPage() {
                     loading={loading}
                     error={error}
                     setPage={setPage}
-                    onDelete={(id) => setDeleteId(id)}
+                    onDelete={(val) => setDeleteData(val)}
                     />
             </Card>
 
-            {deleteId !== null && (
+            {deleteData !== null && (
                 <DeleteDialog
-                    onClose={() => setDeleteId(null)}
+                    data={deleteData}
+                    onClose={() => setDeleteData(null)}
                     onDelete={() => {
-                        deleteMutation.mutate(deleteId, {
-                            onSuccess: () => setDeleteId(null)
+                        deleteMutation.mutate(deleteData?.id, {
+                            onSuccess: () => setDeleteData(null)
                         })
                     }}
                     isLoading={deleteMutation.isPending}

@@ -44,7 +44,7 @@ export default function PTDatabaseConfigCard({ data, onDelete }) {
             </DropdownMenuItem>
             <DropdownMenuItem
               className="hover:bg-primary hover:text-white"
-              onClick={() => onDelete(data.id)}
+              onClick={() => onDelete(data)}
             >
               Hapus
             </DropdownMenuItem>

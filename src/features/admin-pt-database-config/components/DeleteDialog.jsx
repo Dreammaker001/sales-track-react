@@ -2,14 +2,14 @@ import Button from "@/components/ui/Button";
 import { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogContent } from "@/components/ui/dialog";
 import { LoaderCircle } from 'lucide-react'
 
-export default function DeleteDialog({ onClose, onDelete, isLoading }) {
+export default function DeleteDialog({ data, onClose, onDelete, isLoading }) {
     return (
         <Dialog open={true} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-sm bg-white">
                 <DialogHeader>
                     <DialogTitle>Delete Konfigurasi Database PT</DialogTitle>
                     <DialogDescription>
-                        Apakah anda yakin ingin menghapus konfigurasi database PT ini? Tindakan ini tidak dapat dibatalkan.
+                        Apakah anda yakin ingin menghapus konfigurasi database '<span className="font-bold">{data?.pt_name}</span>' ini? Tindakan ini tidak dapat dibatalkan.
                     </DialogDescription>
                 </DialogHeader>
 
