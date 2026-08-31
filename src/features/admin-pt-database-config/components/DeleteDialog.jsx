@@ -13,11 +13,11 @@ export default function DeleteDialog({ onClose, onDelete, isLoading }) {
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="flex justify-end gap-2">
-                    <Button variant="outline" className="" onClick={onClose}>
+                <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                    <Button variant="outline" className="w-full sm:w-auto" onClick={onClose}>
                         Batal
                     </Button>
-                    <Button className="bg-red-500 text-white hover:bg-red-600" onClick={onDelete} disabled={isLoading}>
+                    <Button className="w-full bg-red-500 text-white hover:bg-red-600 sm:w-auto" onClick={onDelete} disabled={isLoading}>
                         {
                             isLoading ? <>
                                 <LoaderCircle className="h-4 w-4 animate-spin" />

@@ -1,6 +1,6 @@
 import { DataPagination } from '@/components/common/DataPagination.jsx'
 import PTDatabaseConfigRow from './PTDatabaseConfigRow.jsx'
-// import PTDatabaseConfigCard from './PTDatabaseConfigCard.jsx'
+import PTDatabaseConfigCard from './PTDatabaseConfigCard.jsx'
 
 const COLUMNS = ['Kode', 'Nama PT', 'Dibuat', 'Diubah', 'Status', 'Aksi']
 
@@ -52,11 +52,11 @@ export default function PTDatabaseConfigsTable({ datas, loading, error, setPage,
         </table>
       </div>
 
-      {/* <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
+      <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
         {datas.data?.map((data) => (
-          <UserCard key={data.id} data={data} />
+          <PTDatabaseConfigCard key={data.id} data={data} onDelete={onDelete} />
         ))}
-      </div> */}
+      </div>
 
       <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
         <DataPagination
