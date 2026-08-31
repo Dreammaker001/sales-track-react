@@ -12,6 +12,7 @@ import RequireRole from '../components/auth/RequireRole.jsx'
 import AdminPTDatabaseConfigsPage from '@/pages/AdminPTDatabaseConfigsPage.jsx'
 import AdminCreatePTDatabaseConfigPage from '@/pages/AdminCreatePTDatabaseConfigPage.jsx'
 import AdminEditPTDatabaseConfigPage from '@/pages/AdminEditPTDatabaseConfigPage.jsx'
+import SalesInvoicesPage from '../pages/SalesInvoicesPage.jsx'
 
 /**
  * Konfigurasi route terpusat.
@@ -100,11 +101,11 @@ export const router = createBrowserRouter([
         element: <SalesOrderDetailPage />,
         handle: { title: 'Sales Orders Detail', subtitle: 'Detail pesanan penjualan' },
       },
-      // {
-      //   path: 'invoices',
-      //   element: <PlaceholderPage title="Invoices" />,
-      //   handle: { title: 'Invoices', subtitle: 'Status pengiriman & invoice' },
-      // },
+      {
+        path: 'sales-invoices',
+        element: <SalesInvoicesPage />,
+        handle: { title: 'Sales Invoices', subtitle: 'Status pengiriman & invoice' },
+      },
     ],
   },
   { path: '*', element: <PlaceholderPage title="Halaman tidak ditemukan" /> },

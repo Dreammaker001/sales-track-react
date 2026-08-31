@@ -4,7 +4,10 @@ import { useAuth } from '@/features/auth/context/AuthContext.jsx'
 import { initials } from '@/utils/format.js'
 import { SquareArrowRightExit } from 'lucide-react'
 
-const NAV_ITEMS = [{ to: '/sales-orders', label: 'Sales Orders' }]
+const NAV_ITEMS = [
+  { to: '/sales-orders', label: 'Sales Orders' },
+  { to: '/sales-invoices', label: 'Sales Invoices' },
+]
 
 const NAV_ITEMS_ADMIN = [
   { to: '/admin/users', label: 'Users' },
