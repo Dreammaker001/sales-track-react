@@ -24,7 +24,7 @@ import Input from '../../../components/ui/Input.jsx'
 import Button from '../../../components/ui/Button.jsx'
 import useAuth from '../hooks/useAuth.js'
 
-export default function FirstChangePasswordDialog() {
+export default function FirstChangePasswordDialog({ isFirstLogin, setChangePasswordDialog }) {
   const [showPassword, setShowPassword] = React.useState(false)
   const [levelPassword, setLevelPassword] = React.useState(0)
   const [strongPassword, setStrongPassword] = React.useState({
@@ -81,12 +81,22 @@ export default function FirstChangePasswordDialog() {
             </div>
           </div>
           <DialogTitle className="text-xl text-ink">Ubah Kata Sandi</DialogTitle>
-          <DialogDescription className="text-ink-2">
-            Ini login pertamamu — demi keamanan akun,
-          </DialogDescription>
-          <DialogDescription className="text-ink-2">
-            kamu wajib mengganti kata sandi baru.
-          </DialogDescription>
+          {isFirstLogin ? (
+            <>
+              <DialogDescription className="text-ink-2">
+                Ini login pertamamu — demi keamanan akun,
+              </DialogDescription>
+              <DialogDescription className="text-ink-2">
+                kamu wajib mengganti kata sandi baru.
+              </DialogDescription>
+            </>
+          ) : (
+            <>
+              <DialogDescription className="text-ink-2">
+                Kamu dapat mengganti kata sandi kapan saja melalui pengaturan akun.
+              </DialogDescription>
+            </>
+          )}
         </DialogHeader>
         <div className="overflow-y-auto max-h-[calc(100vh-10rem)] no-scrollbar">
           <div className="bg-warning-soft p-4 rounded-md mt-2 flex gap-2 items-center mb-3">
@@ -266,9 +276,17 @@ export default function FirstChangePasswordDialog() {
               />
 
               <div className="grid grid-cols-1 gap-2 mt-10">
-                {/* <Button type="button" variant="outline" onClick={() => { }}>
-                                    Batal
-                                </Button> */}
+                {!isFirstLogin && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setChangePasswordDialog(false)
+                    }}
+                  >
+                    Batal
+                  </Button>
+                )}
                 <Button type="submit" disabled={mutation.isPending}>
                   {mutation.isPending ? (
                     <>

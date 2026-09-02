@@ -2,7 +2,13 @@ import { NavLink } from 'react-router'
 import Avatar from '../ui/Avatar.jsx'
 import { useAuth } from '@/features/auth/context/AuthContext.jsx'
 import { initials } from '@/utils/format.js'
-import { SquareArrowRightExit } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu.jsx'
+import { EllipsisVertical } from 'lucide-react'
 
 const NAV_ITEMS = [
   { to: '/sales-orders', label: 'Sales Orders' },
@@ -16,7 +22,7 @@ const NAV_ITEMS_ADMIN = [
 
 const SUPPORT_LINKS = ['Pusat Bantuan', 'Laporkan Masalah']
 
-export default function Sidebar({ open }) {
+export default function Sidebar({ open, setChangePasswordDialog }) {
   const { user, role, logout } = useAuth()
   const isAdmin = role === 'admin'
 
@@ -112,25 +118,51 @@ export default function Sidebar({ open }) {
         </a>
       ))}
 
-      <div className="mt-auto flex justify-between gap-3 border-t border-line">
-        <div className="mt-auto flex items-center gap-3 px-6 py-4">
-          <Avatar initials={user?.name ? initials(user.name) : '?'} size={36} variant="primary" />
-          <div>
-            <div className="text-sm font-semibold">{user?.name ?? 'Pengguna'}</div>
-            <div className="text-[11px] text-ink-3">{isAdmin ? 'Administrator' : 'Sales'}</div>
-          </div>
-        </div>
-        <button
-          className="flex h-full cursor-pointer items-center justify-center px-4 text-ink-2 hover:text-ink"
-          onClick={() => {
-            logout()
-          }}
-        >
-          <SquareArrowRightExit className="h-6 w-6" />
-        </button>
-        {/* <div className="flex h-full cursor-pointer items-center justify-center px-4">
-          <SquareArrowRightExit className="h-6 w-6 text-ink-2 hover:text-ink"/>
-        </div> */}
+      <div className="mt-auto border-t border-line">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="w-full">
+            <button
+              type="button"
+              className="cursor-pointer w-full text-ink-3 hover:text-ink-1 focus:outline-none focus:ring-0"
+              aria-label="Aksi pengguna"
+            >
+              <div className="flex justify-between gap-3 items-center">
+                <div className="mt-auto flex items-center gap-3 px-6 py-4">
+                  <Avatar
+                    initials={user?.name ? initials(user.name) : '?'}
+                    size={36}
+                    variant="primary"
+                  />
+                  <div>
+                    <div className="text-sm font-semibold">{user?.name ?? 'Pengguna'}</div>
+                    <div className="text-[11px] text-ink-3">
+                      {isAdmin ? 'Administrator' : 'Sales'}
+                    </div>
+                  </div>
+                </div>
+                <EllipsisVertical />
+              </div>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            sideOffset={4}
+            className="w-[180px] ring-0 bg-white border border-line shadow-md rounded-lg "
+          >
+            <DropdownMenuItem
+              className="hover:bg-primary hover:text-white"
+              onClick={() => setChangePasswordDialog(true)}
+            >
+              Ganti Password
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="text-red-500 hover:bg-red-500 hover:text-white"
+              onClick={() => logout()}
+            >
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </aside>
   )

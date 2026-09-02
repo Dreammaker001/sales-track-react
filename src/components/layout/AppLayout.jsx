@@ -9,6 +9,7 @@ import { useAuth } from '@/features/auth/context/AuthContext.jsx'
 export default function AppLayout() {
   const { user } = useAuth()
   const [openSidebar, setOpenSidebar] = useState(true)
+  const [openChangePasswordDialog, setChangePasswordDialog] = useState(false)
 
   return (
     <div className="flex min-h-screen bg-canvas">
@@ -19,14 +20,19 @@ export default function AppLayout() {
           aria-hidden="true"
         />
       )}
-      <Sidebar open={openSidebar} />
+      <Sidebar open={openSidebar} setChangePasswordDialog={setChangePasswordDialog} />
       <main className="overflow-y-auto max-h-screen no-scrollbar flex min-w-0 flex-1 flex-col">
         <Topbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
         <div className="px-4 pb-6 lg:px-6">
           <Outlet />
         </div>
       </main>
-      {user?.password_changed_at === null && <FirstChangePasswordDialog />}
+      {(user?.password_changed_at === null || openChangePasswordDialog) && (
+        <FirstChangePasswordDialog
+          isFirstLogin={!openChangePasswordDialog}
+          setChangePasswordDialog={setChangePasswordDialog}
+        />
+      )}
     </div>
   )
 }
