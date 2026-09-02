@@ -9,6 +9,16 @@ import {
 } from '@/components/ui/select.jsx'
 import Input from '../../../components/ui/Input.jsx'
 import Button from '../../../components/ui/Button.jsx'
+import Chip from '../../../components/ui/Chip.jsx'
+
+const STATUS_OPTIONS = [
+  {
+    label: 'Semua',
+    value: null,
+  },
+  { label: 'Sudah Terkirim', value: 'SUDAH TERKIRIM' },
+  { label: 'Belum Terkirim', value: 'BELUM TERKIRIM' },
+]
 
 const SEARCH_OPTIONS = [
   {
@@ -41,6 +51,8 @@ export default function FilterBar({
   ptAccessOptions,
   ptAccess,
   periodMonth,
+  status,
+  onStatus,
 }) {
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-md bg-surface p-3 px-5 shadow-card">
@@ -144,6 +156,16 @@ export default function FilterBar({
         <Button onClick={onSearch} className="w-full sm:w-auto">
           Search
         </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter status">
+          <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
+          {STATUS_OPTIONS.map((opt) => (
+            <Chip key={opt.value} active={status === opt.value} onClick={() => onStatus(opt.value)}>
+              {opt.label}
+            </Chip>
+          ))}
+        </div>
       </div>
     </div>
   )

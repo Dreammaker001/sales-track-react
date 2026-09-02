@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router'
 import { useDebounce } from '../../../hooks/useDebounce'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchSalesInvoices } from '../api/salesInvoicesApi'
 
@@ -9,6 +10,7 @@ export default function useSalesInvoices() {
   const searchBy = searchParams.get('search_by') || 'customer_code'
   const pt = searchParams.get('pt') || ''
   const periodMonth = searchParams.get('period_month') || '1'
+  const [status, setStatus] = useState()
 
   const debouncedQuery = useDebounce(query, 250)
   const filters = { q: debouncedQuery, searchBy: searchBy, pt, periodMonth }
@@ -37,6 +39,8 @@ export default function useSalesInvoices() {
     searchBy,
     pt,
     periodMonth,
+    status,
+    setStatus,
     refetch,
     setSearchParams,
   }

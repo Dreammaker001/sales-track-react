@@ -6,8 +6,18 @@ import Card from '@/components/ui/Card'
 import { SalesInvoicesTable } from '@/features/sales-invoice/components/SalesInvoicesTable.jsx'
 
 export default function SalesInvoicesPage() {
-  const { salesInvoices, loading, query, searchBy, pt, periodMonth, refetch, setSearchParams } =
-    useSalesInvoices()
+  const {
+    salesInvoices,
+    loading,
+    query,
+    searchBy,
+    pt,
+    periodMonth,
+    status,
+    setStatus,
+    refetch,
+    setSearchParams,
+  } = useSalesInvoices()
 
   const {
     data: ptAccessOptions = {
@@ -30,6 +40,8 @@ export default function SalesInvoicesPage() {
         setSearchParams={setSearchParams}
         ptAccess={pt}
         periodMonth={periodMonth}
+        status={status}
+        onStatus={setStatus}
         onSearch={() => {
           if (
             !query ||
@@ -53,7 +65,7 @@ export default function SalesInvoicesPage() {
       />
 
       <Card>
-        <SalesInvoicesTable datas={salesInvoices} loading={loading} />
+        <SalesInvoicesTable datas={salesInvoices} loading={loading} status={status} />
       </Card>
     </>
   )

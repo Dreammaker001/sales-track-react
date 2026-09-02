@@ -4,7 +4,7 @@ import SalesInvoiceCard from './SalesInvoiceCard.jsx'
 const COLUMNS = ['Invoice Number', 'Pelanggan', 'Tanggal', 'Tanggal Pengiriman', 'SIkeDN', 'Status']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export function SalesInvoicesTable({ datas, loading }) {
+export function SalesInvoicesTable({ datas, loading, status }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -44,17 +44,21 @@ export function SalesInvoicesTable({ datas, loading }) {
             </tr>
           </thead>
           <tbody>
-            {datas?.data?.map((row) => (
-              <SalesInvoiceRow key={row.id} data={row} />
-            ))}
+            {datas?.data
+              ?.filter((row) => (status ? row.status === status : true))
+              ?.map((row) => (
+                <SalesInvoiceRow key={row.id} data={row} />
+              ))}
           </tbody>
         </table>
       </div>
 
       <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
-        {datas?.data?.map((row) => (
-          <SalesInvoiceCard key={row.id} data={row} />
-        ))}
+        {datas?.data
+          ?.filter((row) => (status ? row.status === status : true))
+          ?.map((row) => (
+            <SalesInvoiceCard key={row.id} data={row} />
+          ))}
       </div>
       {/* <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
         <DataPagination
