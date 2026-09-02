@@ -4,7 +4,7 @@ import SalesOrderCard from './SalesOrderCard.jsx'
 const COLUMNS = ['SO Number', 'Pelanggan', 'Tanggal', 'Proses', 'Status', 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function SalesOrdersTable({ data, loading, ptAccess }) {
+export default function SalesOrdersTable({ data, loading, ptAccess, status }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -44,17 +44,21 @@ export default function SalesOrdersTable({ data, loading, ptAccess }) {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.map((order) => (
-              <SalesOrderRow key={order.id} order={order} ptAccess={ptAccess} />
-            ))}
+            {data?.data
+              .filter((order) => (status != '' ? order.overall_status === status : true))
+              ?.map((order) => (
+                <SalesOrderRow key={order.id} order={order} ptAccess={ptAccess} />
+              ))}
           </tbody>
         </table>
       </div>
 
       <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
-        {data?.data?.map((order) => (
-          <SalesOrderCard key={order.id} order={order} ptAccess={ptAccess} />
-        ))}
+        {data?.data
+          ?.filter((order) => order.overall_status === status)
+          ?.map((order) => (
+            <SalesOrderCard key={order.id} order={order} ptAccess={ptAccess} />
+          ))}
       </div>
       {/* <div className="flex items-center justify-end px-6 py-4 border-t border-(--color-canvas)">
         <DataPagination

@@ -7,14 +7,13 @@ import { useSearchParams } from 'react-router'
 export default function useSalesOrders() {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get('q') || ''
-  const [invoice, setInvoice] = useState('')
   const [status, setStatus] = useState('')
   const searchBy = searchParams.get('search_by') || 'customer_code'
   const pt = searchParams.get('pt') || ''
   const periodMonth = searchParams.get('period_month') || '1'
 
   const debouncedQuery = useDebounce(query, 250)
-  const filters = { q: debouncedQuery, searchBy: searchBy, pt, status, invoice, periodMonth }
+  const filters = { q: debouncedQuery, searchBy: searchBy, pt, periodMonth }
 
   const {
     data: salesOrders = {
@@ -39,8 +38,6 @@ export default function useSalesOrders() {
     query,
     status,
     setStatus,
-    invoice,
-    setInvoice,
     searchBy,
     pt,
     periodMonth,

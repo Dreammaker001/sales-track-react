@@ -12,8 +12,6 @@ export default function SalesOrdersPage() {
     query,
     status,
     setStatus,
-    invoice,
-    setInvoice,
     searchBy,
     pt,
     periodMonth,
@@ -40,8 +38,6 @@ export default function SalesOrdersPage() {
         query={query}
         status={status}
         onStatus={setStatus}
-        invoice={invoice}
-        onInvoice={setInvoice}
         searchBy={searchBy}
         setSearchParams={setSearchParams}
         ptAccess={pt}
@@ -69,7 +65,7 @@ export default function SalesOrdersPage() {
       />
 
       <Card>
-        <SalesOrdersTable ptAccess={pt} data={salesOrders} loading={loading} />
+        <SalesOrdersTable ptAccess={pt} data={salesOrders} status={status} loading={loading} />
       </Card>
     </>
   )

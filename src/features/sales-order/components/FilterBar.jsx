@@ -9,23 +9,17 @@ import {
 } from '@/components/ui/select.jsx'
 import Input from '../../../components/ui/Input.jsx'
 import Button from '../../../components/ui/Button.jsx'
+import Chip from '../../../components/ui/Chip.jsx'
 
-// const STATUS_OPTIONS = [
-//   {
-//     name: 'Semua',
-//     value: '',
-//   },
-//   { name: 'Pending-Invoice', value: 'pending-invoice' },
-//   { name: 'Selesai', value: 'completed' },
-// ]
-// const INVOICE_OPTIONS = [
-//   {
-//     name: 'Semua',
-//     value: '',
-//   },
-//   { name: 'Ada', value: 'ada' },
-//   { name: 'Belum', value: 'belum' },
-// ]
+const STATUS_OPTIONS = [
+  {
+    name: 'Semua',
+    value: '',
+  },
+  { name: 'Pending-Invoice', value: 'PENDING-INVOICE' },
+  { name: 'Closed-Partial', value: 'CLOSED-PARTIAL' },
+  { name: 'Selesai', value: 'COMPLETED' },
+]
 
 const SEARCH_OPTIONS = [
   {
@@ -53,10 +47,8 @@ const PERIOD_OPTIONS = [
 /** Bilah filter: search + chip peran + chip status. */
 export default function FilterBar({
   query,
-  // status,
-  // onStatus,
-  // invoice,
-  // onInvoice,
+  status,
+  onStatus,
   searchBy,
   onSearch,
   setSearchParams,
@@ -168,7 +160,7 @@ export default function FilterBar({
         </Button>
       </div>
 
-      {/* <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter status">
           <span className="mr-1 text-xs font-semibold text-ink-3">Status</span>
           {STATUS_OPTIONS.map((opt) => (
@@ -177,20 +169,7 @@ export default function FilterBar({
             </Chip>
           ))}
         </div>
-
-        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter invoice">
-          <span className="mr-1 text-xs font-semibold text-ink-3">Invoice</span>
-          {INVOICE_OPTIONS.map((opt) => (
-            <Chip
-              key={opt.value}
-              active={invoice === opt.value}
-              onClick={() => onInvoice(opt.value)}
-            >
-              {opt.name}
-            </Chip>
-          ))}
-        </div>
-      </div> */}
+      </div>
     </div>
   )
 }
