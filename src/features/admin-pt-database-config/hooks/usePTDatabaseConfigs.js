@@ -23,6 +23,9 @@ export default function usePTDatabaseConfigs(initialQuery = '', page = 1) {
   } = useQuery({
     queryKey: ['pt-database-configs', filters],
     queryFn: () => getPTDatabaseConfigs(filters),
+    // enabled: false,
+    gcTime: 0,
+    staleTime: 0,
   })
 
   return {

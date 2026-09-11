@@ -58,7 +58,7 @@ export default function SalesOrdersPage() {
         }}
         ptAccessOptions={
           ptAccessOptions?.data?.map((item) => ({
-            label: item?.pt?.pt_name,
+            label: item?.pt_name,
             value: item?.pt_key,
           })) || []
         }

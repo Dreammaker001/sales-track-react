@@ -30,6 +30,8 @@ export default function useUsers(initialQuery = '', page = 1) {
   } = useQuery({
     queryKey: ['users', filters],
     queryFn: () => fetchUsers(filters),
+    gcTime: 0,
+    staleTime: 0,
   })
 
   const mutation = useMutation({

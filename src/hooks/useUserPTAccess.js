@@ -5,5 +5,7 @@ export function usePTAccess() {
   return useQuery({
     queryKey: ['ptAccess'],
     queryFn: () => getPTAccess(),
+    gcTime: 0,
+    staleTime: 0,
   })
 }

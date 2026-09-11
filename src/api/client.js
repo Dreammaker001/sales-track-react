@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'sonner'
 
 /**
  * Instance axios terpusat untuk semua panggilan backend.
@@ -57,6 +58,18 @@ client.interceptors.response.use(
   async (error) => {
     const original = error.config
     const status = error.response?.status
+
+    // 1. TIMEOUT — axios membatalkan sendiri setelah 15s
+    if (error.code === 'ECONNABORTED' && !status) {
+      toast.error('Permintaan melebihi batas waktu (15 detik). Silakan coba lagi.')
+      return Promise.reject(new Error('Request timeout'))
+    }
+
+    // 2. REQUEST DIBATALKAN — via AbortController / cancelQueries
+    if (axios.isCancel(error) || error.code === 'ERR_CANCELED') {
+      toast.info('Permintaan dibatalkan')
+      return Promise.reject(error)
+    }
 
     // 401 pada request biasa → coba refresh sekali.
     // Kecuali: /auth/login (401 = kredensial salah, bukan sesi kedaluwarsa)
