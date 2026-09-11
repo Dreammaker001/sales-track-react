@@ -6,11 +6,16 @@ import { z } from 'zod'
  * - updateUserSchema: tanpa password (ganti password lewat halaman terpisah)
  */
 export const createUserSchema = z.object({
-  name: z.string().min(1, 'Nama wajib diisi').min(4, 'Minimal 4 karakter'),
+  name: z
+    .string()
+    .min(1, 'Nama wajib diisi')
+    .min(4, 'Minimal 4 karakter')
+    .max(250, 'Maksimal 250 karakter'),
   username: z
     .string()
     .min(1, 'Username wajib diisi')
     .min(4, 'Minimal 4 karakter')
+    .max(200, 'Maksimal 200 karakter')
     .regex(/^[a-z0-9._-]+$/, 'Huruf kecil, angka, titik, strip, underscore'),
   password: z
     .string()
