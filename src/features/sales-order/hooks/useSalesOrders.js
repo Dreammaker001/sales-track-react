@@ -19,7 +19,7 @@ export default function useSalesOrders() {
     data: salesOrders = {
       data: [],
     },
-    isLoading,
+    isFetching,
     isError,
     error,
     refetch,
@@ -33,7 +33,7 @@ export default function useSalesOrders() {
 
   return {
     salesOrders,
-    loading: isLoading,
+    loading: isFetching,
     error: isError ? error.message : null,
     query,
     status,

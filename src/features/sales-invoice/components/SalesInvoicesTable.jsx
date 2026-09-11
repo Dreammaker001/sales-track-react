@@ -14,7 +14,7 @@ export function SalesInvoicesTable({ datas, loading, status }) {
     )
   }
 
-  if (datas?.data?.length === 0) {
+  if (datas?.data == null || datas?.data?.length === 0) {
     return (
       <div className="p-10 text-center text-sm text-ink-3">
         Tidak ada sales invoice yang cocok dengan filter.

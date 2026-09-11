@@ -17,7 +17,7 @@ export default function usePTDatabaseConfigs(initialQuery = '', page = 1) {
       data: [],
       pagination: { page: 1, per_page: 10, total: 0 },
     },
-    isLoading,
+    isFetching,
     isError,
     error,
   } = useQuery({
@@ -30,7 +30,7 @@ export default function usePTDatabaseConfigs(initialQuery = '', page = 1) {
 
   return {
     datas: configs,
-    loading: isLoading,
+    loading: isFetching,
     error: isError ? error.message : null,
     query,
     setQuery: (value) => {

@@ -14,7 +14,7 @@ export default function SalesOrdersTable({ data, loading, ptAccess, status }) {
     )
   }
 
-  if (data?.data?.length === 0) {
+  if (data?.data == null || data?.data?.length === 0) {
     return (
       <div className="p-10 text-center text-sm text-ink-3">
         Tidak ada sales order yang cocok dengan filter.

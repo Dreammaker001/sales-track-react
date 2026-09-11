@@ -19,7 +19,7 @@ export default function useSalesInvoices() {
     data: salesInvoices = {
       data: [],
     },
-    isLoading,
+    isFetching,
     isError,
     error,
     refetch,
@@ -33,7 +33,7 @@ export default function useSalesInvoices() {
 
   return {
     salesInvoices,
-    loading: isLoading,
+    loading: isFetching,
     error: isError ? error.message : null,
     query,
     searchBy,

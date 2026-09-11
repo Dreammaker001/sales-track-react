@@ -6,7 +6,7 @@ export default function useSalesOrderDetail(id, pt) {
     data: salesOrder = {
       data: [],
     },
-    isLoading,
+    isFetching,
     isError,
     error,
   } = useQuery({
@@ -17,7 +17,7 @@ export default function useSalesOrderDetail(id, pt) {
 
   return {
     salesOrder,
-    loading: isLoading,
+    loading: isFetching,
     error: isError ? error.message : null,
   }
 }
