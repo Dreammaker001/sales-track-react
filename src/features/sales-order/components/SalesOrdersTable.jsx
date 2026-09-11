@@ -55,7 +55,7 @@ export default function SalesOrdersTable({ data, loading, ptAccess, status }) {
 
       <div className="space-y-3 px-4 pt-1 pb-4 lg:hidden">
         {data?.data
-          ?.filter((order) => order.overall_status === status)
+          ?.filter((order) => (status != '' ? order.overall_status === status : true))
           ?.map((order) => (
             <SalesOrderCard key={order.id} order={order} ptAccess={ptAccess} />
           ))}

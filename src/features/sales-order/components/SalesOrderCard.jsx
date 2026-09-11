@@ -1,5 +1,6 @@
 import Badge from '@/components/ui/Badge.jsx'
 import dayjs from 'dayjs'
+import { useNavigate } from 'react-router'
 
 const STATUS_BADGE = {
   'PENDING-INVOICE': 'warning',
@@ -9,6 +10,7 @@ const STATUS_BADGE = {
 
 /** Kartu sales order untuk daftar di mode mobile. */
 export default function SalesOrderCard({ order, ptAccess }) {
+  const navigate = useNavigate()
   return (
     <div className="rounded-md border border-line bg-surface p-4 shadow-card">
       <div className="flex items-start justify-between gap-3">
@@ -36,12 +38,16 @@ export default function SalesOrderCard({ order, ptAccess }) {
 
       <div className="mt-3 flex items-center justify-between gap-3">
         <span className="text-xs text-ink-2">{dayjs(order.so_date_time).format('DD/MM/YYYY')}</span>
-        <a
+        <button
           className="inline-flex px-3 py-2 bg-canvas rounded-md text-xs font-medium text-ink"
-          href={`/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}&pt=${ptAccess}`}
+          onClick={() =>
+            navigate(
+              `/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}&pt=${ptAccess}`,
+            )
+          }
         >
           Detail
-        </a>
+        </button>
       </div>
     </div>
   )

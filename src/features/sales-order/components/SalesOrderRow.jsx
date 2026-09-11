@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router'
 import Badge from '../../../components/ui/Badge.jsx'
 import dayjs from 'dayjs'
 
@@ -9,6 +10,7 @@ const STATUS_BADGE = {
 
 /** Satu baris pengguna di tabel. */
 export default function SalesOrderRow({ order, ptAccess }) {
+  const navigate = useNavigate()
   return (
     <tr className="transition-colors hover:bg-[#fafafd]">
       <td className="px-4 py-3 align-middle whitespace-nowrap text-xs text-ink-2">
@@ -36,12 +38,16 @@ export default function SalesOrderRow({ order, ptAccess }) {
         </Badge>
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs">
-        <a
+        <button
           className="px-3 py-2 bg-canvas rounded-md"
-          href={`/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}&pt=${ptAccess}`}
+          onClick={() =>
+            navigate(
+              `/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}&pt=${ptAccess}`,
+            )
+          }
         >
           Detail
-        </a>
+        </button>
       </td>
     </tr>
   )
