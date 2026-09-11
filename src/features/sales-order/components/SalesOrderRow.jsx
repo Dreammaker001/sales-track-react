@@ -39,7 +39,7 @@ export default function SalesOrderRow({ order, ptAccess }) {
       </td>
       <td className="px-4 py-3 align-middle whitespace-nowrap text-ink text-xs">
         <button
-          className="px-3 py-2 bg-canvas rounded-md"
+          className="px-3 py-2 bg-canvas rounded-md cursor-pointer"
           onClick={() =>
             navigate(
               `/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}&pt=${ptAccess}`,

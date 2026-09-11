@@ -39,7 +39,7 @@ export default function SalesOrderCard({ order, ptAccess }) {
       <div className="mt-3 flex items-center justify-between gap-3">
         <span className="text-xs text-ink-2">{dayjs(order.so_date_time).format('DD/MM/YYYY')}</span>
         <button
-          className="inline-flex px-3 py-2 bg-canvas rounded-md text-xs font-medium text-ink"
+          className="inline-flex px-3 py-2 bg-canvas rounded-md text-xs font-medium text-ink cursor-pointer"
           onClick={() =>
             navigate(
               `/sales-orders/${order.so_id}?so_number=${order.so_number}&pelanggan=${order.customer_name}&status=${order.overall_status}&pt=${ptAccess}`,
