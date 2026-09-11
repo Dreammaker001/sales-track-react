@@ -25,7 +25,7 @@ const SEARCH_OPTIONS = [
     label: 'Customer Code',
     value: 'customer_code',
   },
-  { label: 'SO Number', value: 'so_number' },
+  { label: 'Invoice Number', value: 'invoice_number' },
 ]
 
 const PERIOD_OPTIONS = [
