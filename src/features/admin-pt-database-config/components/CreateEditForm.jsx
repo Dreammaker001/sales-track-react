@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Input from '@/components/ui/Input.jsx'
@@ -26,7 +27,7 @@ import {
   SelectValue,
   SelectLabel,
 } from '@/components/ui/select'
-import { LoaderCircle } from 'lucide-react'
+import { LoaderCircle, Eye, EyeOff } from 'lucide-react'
 
 const STATUS_OPTIONS = [
   { value: 'active', label: 'Aktif' },
@@ -41,6 +42,7 @@ export default function CreateEditForm({
 }) {
   const navigate = useNavigate()
   const isEdit = mode === 'edit'
+  const [showPassword, setShowPassword] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(isEdit ? editPTDatabaseConfigSchema : createPTDatabaseConfigSchema),
@@ -149,7 +151,26 @@ export default function CreateEditForm({
                   <FormItem>
                     <FormLabel>Password Database</FormLabel>
                     <FormControl>
-                      <Input placeholder="contoh: password123" {...field} />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="contoh: password123"
+                          className="pr-10 w-full"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-3 hover:text-ink-2"
+                          aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
