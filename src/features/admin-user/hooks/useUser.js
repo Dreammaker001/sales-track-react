@@ -14,6 +14,8 @@ export function useUser(id) {
     queryKey: ['users', 'detail', id],
     queryFn: () => fetchUserByID(id),
     enabled: Boolean(id),
+    gcTime: 0,
+    staleTime: 0,
   })
 }
 
@@ -21,6 +23,8 @@ export function usePTDatabaseConfigOptions() {
   return useQuery({
     queryKey: ['users', 'pt-access-options'],
     queryFn: () => getPTDatabaseConfigOptons(),
+    gcTime: 0,
+    staleTime: 0,
   })
 }
 
