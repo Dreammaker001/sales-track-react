@@ -8,6 +8,7 @@ const COLUMNS = ['User', 'Peran', 'Status', 'Terakhir Login', 'Aksi']
 export default function UsersTable({
   users,
   loading,
+  error,
   onToggle,
   onChangePassword,
   setSearchParams,
@@ -20,6 +21,10 @@ export default function UsersTable({
         Memuat pengguna...
       </div>
     )
+  }
+
+  if (error) {
+    return <div className="p-10 text-center text-sm text-red-500">Terjadi kesalahan: {error}</div>
   }
 
   if (users.data?.length === 0) {

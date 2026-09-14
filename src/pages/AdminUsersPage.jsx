@@ -20,7 +20,7 @@ export default function AdminUsersPage() {
   const [selectedUserForDialog, setSelectedUserForDialog] = React.useState(null)
   const [deleteData, setDeleteData] = React.useState(null)
 
-  const { users, loading, query, setQuery, role, setRole, status, setStatus, toggleStatus } =
+  const { users, loading, error, query, setQuery, role, setRole, status, setStatus, toggleStatus } =
     useUsers(initialQuery, page)
 
   const deleteMutation = useDeleteUser()
@@ -59,6 +59,7 @@ export default function AdminUsersPage() {
         <UsersTable
           users={users}
           loading={loading}
+          error={error}
           onToggle={(val) => {
             setOpenStatusDialog(true)
             setSelectedUserForDialog(val)

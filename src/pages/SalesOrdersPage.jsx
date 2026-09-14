@@ -9,6 +9,7 @@ export default function SalesOrdersPage() {
   const {
     salesOrders,
     loading,
+    error,
     query,
     status,
     setStatus,
@@ -65,7 +66,13 @@ export default function SalesOrdersPage() {
       />
 
       <Card>
-        <SalesOrdersTable ptAccess={pt} data={salesOrders} status={status} loading={loading} />
+        <SalesOrdersTable
+          ptAccess={pt}
+          data={salesOrders}
+          status={status}
+          loading={loading}
+          error={error}
+        />
       </Card>
     </>
   )

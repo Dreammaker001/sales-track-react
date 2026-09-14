@@ -4,12 +4,20 @@ import SalesInvoiceCard from './SalesInvoiceCard.jsx'
 const COLUMNS = ['Invoice Number', 'Pelanggan', 'Tanggal', 'Tanggal Pengiriman', 'SIkeDN', 'Status']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export function SalesInvoicesTable({ datas, loading, status }) {
+export function SalesInvoicesTable({ datas, loading, status, error }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
         <span className="h-[18px] w-[18px] animate-spin rounded-full border-2 border-track border-t-primary" />
         Memuat sales invoice...
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="p-10 text-center text-sm text-red-500">
+        Terjadi kesalahan: {error.message || error}
       </div>
     )
   }

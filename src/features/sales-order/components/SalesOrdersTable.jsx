@@ -4,7 +4,7 @@ import SalesOrderCard from './SalesOrderCard.jsx'
 const COLUMNS = ['SO Number', 'Pelanggan', 'Tanggal', 'Proses', 'Status', 'Aksi']
 
 /** Tabel daftar pengguna dengan header + state loading/empty. */
-export default function SalesOrdersTable({ data, loading, ptAccess, status }) {
+export default function SalesOrdersTable({ data, loading, ptAccess, status, error }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 p-10 text-sm text-ink-3">
@@ -12,6 +12,10 @@ export default function SalesOrdersTable({ data, loading, ptAccess, status }) {
         Memuat sales order...
       </div>
     )
+  }
+
+  if (error) {
+    return <div className="p-10 text-center text-sm text-red-500">Terjadi kesalahan: {error}</div>
   }
 
   if (data?.data == null || data?.data?.length === 0) {

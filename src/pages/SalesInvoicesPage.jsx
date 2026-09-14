@@ -9,6 +9,7 @@ export default function SalesInvoicesPage() {
   const {
     salesInvoices,
     loading,
+    error,
     query,
     searchBy,
     pt,
@@ -65,7 +66,7 @@ export default function SalesInvoicesPage() {
       />
 
       <Card>
-        <SalesInvoicesTable datas={salesInvoices} loading={loading} status={status} />
+        <SalesInvoicesTable datas={salesInvoices} loading={loading} status={status} error={error} />
       </Card>
     </>
   )
