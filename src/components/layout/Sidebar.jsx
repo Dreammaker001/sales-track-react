@@ -20,7 +20,12 @@ const NAV_ITEMS_ADMIN = [
   { to: '/admin/pt-database-configs', label: 'PT Database Configs' },
 ]
 
-const SUPPORT_LINKS = ['Pusat Bantuan', 'Laporkan Masalah']
+const SUPPORT_LINKS = [
+  {
+    label: 'Laporkan Masalah',
+    link: 'https://wa.me/6285260560617?text=Halo%2C%20saya%20ingin%20melaporkan%20masalah%20website%20SalesTrack',
+  },
+]
 
 export default function Sidebar({ open, setChangePasswordDialog }) {
   const { user, role, logout } = useAuth()
@@ -106,11 +111,13 @@ export default function Sidebar({ open, setChangePasswordDialog }) {
       <p className="mb-2 px-6 text-[11px] font-semibold tracking-wider text-ink-3 uppercase">
         Dukungan
       </p>
-      {SUPPORT_LINKS.map((label) => (
+      {SUPPORT_LINKS.map(({ label, link }) => (
         <a
           key={label}
-          href="#"
-          onClick={(e) => e.preventDefault()}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          // onClick={(e) => e.preventDefault()}
           className="flex items-center gap-4 px-6 py-2 text-sm text-ink-2 hover:text-ink"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-line" />
