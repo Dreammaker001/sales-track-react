@@ -34,7 +34,7 @@ export default function useSalesOrders() {
   return {
     salesOrders,
     loading: isFetching,
-    error: isError ? error.message : null,
+    error: isError ? (error.message ? error.message : error) : null,
     query,
     status,
     setStatus,

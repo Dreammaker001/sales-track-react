@@ -34,7 +34,7 @@ export default function useSalesInvoices() {
   return {
     salesInvoices,
     loading: isFetching,
-    error: isError ? error.message : null,
+    error: isError ? (error.message ? error.message : error) : null,
     query,
     searchBy,
     pt,

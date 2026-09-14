@@ -31,7 +31,7 @@ export default function usePTDatabaseConfigs(initialQuery = '', page = 1) {
   return {
     datas: configs,
     loading: isFetching,
-    error: isError ? error.message : null,
+    error: isError ? (error.message ? error.message : error) : null,
     query,
     setQuery: (value) => {
       setSearchParams((prev) => {

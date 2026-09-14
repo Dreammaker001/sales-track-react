@@ -65,7 +65,7 @@ export default function useUsers(initialQuery = '', page = 1) {
   return {
     users,
     loading: isFetching,
-    error: isError ? error.message : null,
+    error: isError ? (error.message ? error.message : error) : null,
     query,
     setQuery,
     role,
